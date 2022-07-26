@@ -9,7 +9,7 @@ const posts = [
 ];
 
 /* 포스트 작성 */
-exports.write = (ctx) => {
+export const write = (ctx) => {
   //REST API Request Body는 ctx.request.body에서 조회할 수 있습니다.
   const { title, body } = ctx.request.body;
   postId += 1; //기존 postId 값에 1을 더합니다
@@ -19,12 +19,12 @@ exports.write = (ctx) => {
 };
 
 /* 포스트  목록 조회 */
-exports.list = (ctx) => {
+export const list = (ctx) => {
   ctx.body = posts;
 };
 
 /* 특정 포스트 조회 */
-exports.read = (ctx) => {
+export const read = (ctx) => {
   const { id } = ctx.params;
   //주어진 id 값으로 포스트를 찾습니다.
   //파라미터롤 받아온 값을 문자열 형식이므로 파라미터를 숫자로 반환하거나
@@ -43,7 +43,7 @@ exports.read = (ctx) => {
 };
 
 /* 특정 포스트 제거 */
-exports.remove = (ctx) => {
+export const remove = (ctx) => {
   const { id } = ctx.params;
   //해당 id를 가진 post가 몇 번째인지 확인
   const index = posts.findIndex((p) => p.id.toString() === id);
@@ -61,7 +61,7 @@ exports.remove = (ctx) => {
 };
 
 /* post 수정 */
-exports.replace = (ctx) => {
+export const replace = (ctx) => {
   const { id } = ctx.params;
   const index = posts.findIndex((p) => p.id.toString() === id);
   if (index === -1) {
@@ -79,7 +79,7 @@ exports.replace = (ctx) => {
 };
 
 /* 포스트 수정(특정 필드 변경) */
-exports.update = (ctx) => {
+export const update = (ctx) => {
   const { id } = ctx.params;
   const index = posts.findIndex((p) => p.id.toString() === id);
   if (index === -1) {
