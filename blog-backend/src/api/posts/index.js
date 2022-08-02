@@ -7,9 +7,9 @@ posts.get('/', postsCtrl.list);
 posts.post('/', postsCtrl.write);
 
 const post = new Router();
-post.get('/:id', postsCtrl.read);
-post.delete('/:id', postsCtrl.remove);
-post.patch('/:id', postsCtrl.update);
+post.get('/', postsCtrl.read);
+post.delete('/', postsCtrl.remove);
+post.patch('/', postsCtrl.update);
 
 posts.use('/:id', postsCtrl.checkObjectId, post.routes());
 
