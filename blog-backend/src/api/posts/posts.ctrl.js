@@ -1,97 +1,66 @@
-let postId = 1;
+import Post from '../../modules/posts';
 
-const posts = [
-  {
-    id: 1,
-    title: '제목',
-    body: '내용',
-  },
-];
-
-/* 포스트 작성 */
-export const write = (ctx) => {
-  //REST API Request Body는 ctx.request.body에서 조회할 수 있습니다.
-  const { title, body } = ctx.request.body;
-  postId += 1; //기존 postId 값에 1을 더합니다
-  const post = { id: postId, title, body };
-  posts.push(post);
-  ctx.body = post;
-};
-
-/* 포스트  목록 조회 */
-export const list = (ctx) => {
-  ctx.body = posts;
-};
-
-/* 특정 포스트 조회 */
-export const read = (ctx) => {
-  const { id } = ctx.params;
-  //주어진 id 값으로 포스트를 찾습니다.
-  //파라미터롤 받아온 값을 문자열 형식이므로 파라미터를 숫자로 반환하거나
-  // 비교할 p.id 값을 문자열로 변경해야합니다.
-  const post = posts.find((p) => p.id.toString() === id);
-
-  // 포스트가 없으면 오류를 반환합니다.
-  if (!post) {
-    ctx.status = 404;
-    ctx.body = {
-      message: '포스트가 존재하지 않습니다.',
-    };
-    return;
+export const write = async (ctx) => {
+  const { title, body, tags } = ctx.request.body;
+  const post = new Post({
+    title,
+    body,
+    tags,
+  });
+  try {
+    await post.save();
+    ctx.body = post;
+  } catch (e) {
+    ctx.trhow(500, e);
   }
-  ctx.body = post;
 };
 
-/* 특정 포스트 제거 */
-export const remove = (ctx) => {
-  const { id } = ctx.params;
-  //해당 id를 가진 post가 몇 번째인지 확인
-  const index = posts.findIndex((p) => p.id.toString() === id);
-  //post가 없으면 오류
-  if (index === -1) {
-    ctx.status = 404;
-    ctx.body = {
-      message: '포스트가 존재하지 않습니다.',
-    };
-    return;
+export const list = async (ctx) => {
+  try {
+    const posts = await Post.find().exec();
+    ctx.body = posts;
+  } catch (e) {
+    ctx.trhow(500, e);
   }
-  //index번째 item 제거
-  posts.splice(index, 1);
-  ctx.status = 204;
 };
 
-/* post 수정 */
-export const replace = (ctx) => {
+export const read = async (ctx) => {
   const { id } = ctx.params;
-  const index = posts.findIndex((p) => p.id.toString() === id);
-  if (index === -1) {
-    ctx.status = 404;
-    ctx.body = {
-      message: '포스트가 존재하지 않습니다.',
-    };
-    return;
+  try {
+    const post = await Post.findById(id).exec();
+    if (!post) {
+      ctx.status = 404;
+      return;
+    }
+    ctx.body = post;
+  } catch (e) {
+    ctx.trhow(500, e);
   }
-  posts[index] = {
-    id,
-    ...ctx.request.body,
-  };
-  ctx.body = posts[index];
 };
 
-/* 포스트 수정(특정 필드 변경) */
-export const update = (ctx) => {
+export const remove = async (ctx) => {
   const { id } = ctx.params;
-  const index = posts.findIndex((p) => p.id.toString() === id);
-  if (index === -1) {
-    ctx.status = 404;
-    ctx.body = {
-      message: '포스트가 존재하지 않습니다',
-    };
-    return;
+  try {
+    await Post.findByIdAndRemove(id).exec();
+    ctx.status = 204;
+  } catch (e) {
+    ctx.throw(500, e);
   }
-  posts[index] = {
-    ...posts[index],
-    ...ctx.request.body,
-  };
-  ctx.body = posts[index];
+};
+
+export const update = async (ctx) => {
+  const { id } = ctx.params;
+  try {
+    const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
+      new: true, // 이 값을 설정하면 업데이트 데이터가 반환됩니다.
+      //false 일 때는 업데이트 되기 전의 데이터를 반환합니다.
+    }).exec();
+    if (!post) {
+      ctx.status = 404;
+      return;
+    }
+    ctx.body = post;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 };
