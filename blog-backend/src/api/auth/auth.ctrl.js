@@ -81,4 +81,6 @@ export const check = async (ctx) => {
 };
 export const logout = async (ctx) => {
   //로그아웃
+  ctx.cookies.set('access_token');
+  ctx.status = 204;
 };
