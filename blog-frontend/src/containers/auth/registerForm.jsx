@@ -3,15 +3,19 @@ import {
   useDispatch,
   useSelector,
 } from '../../../node_modules/react-redux/es/exports';
+import { useNavigate } from '../../../node_modules/react-router-dom/index';
 import AuthForm from '../../components/auth/authForm';
 import { changeField, initializeForm, register } from '../../modules/auth';
+import { check } from '../../modules/user';
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { form, auth, authError } = useSelector(({ auth }) => ({
+  const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
     form: auth.register,
     auth: auth.auth,
     authError: auth.authError,
+    user: user.user,
   }));
   const onChange = (e) => {
     const { value, name } = e.target;
@@ -48,8 +52,17 @@ const RegisterForm = () => {
     if (auth) {
       console.log('회원가입 성공');
       console.log(auth);
+      dispatch(check());
     }
-  }, [auth, authError]);
+  }, [auth, authError, dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      console.log('check API 성공');
+      console.log(user);
+      navigate('/');
+    }
+  }, [user, navigate]);
   return (
     <AuthForm
       type="register"
