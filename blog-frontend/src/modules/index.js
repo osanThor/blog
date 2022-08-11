@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import getAllKeys from '../../node_modules/lodash/_getAllKeys';
+import { all } from 'redux-saga/effects';
 import auth, { authSaga } from './auth';
 import loading from './loading';
 
@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
 });
 
 export function* rootSaga() {
-  yield getAllKeys([authSaga()]);
+  yield all([authSaga()]);
 }
 
 export default rootReducer;
