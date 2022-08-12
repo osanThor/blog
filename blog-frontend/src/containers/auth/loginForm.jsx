@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   useDispatch,
   useSelector,
@@ -9,6 +9,7 @@ import { changeField, initializeForm, login } from '../../modules/auth';
 import { check } from '../../modules/user';
 
 const LoginForm = () => {
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
@@ -42,6 +43,7 @@ const LoginForm = () => {
     if (authError) {
       console.log('Error!');
       console.log(authError);
+      setError('로그인 실패');
       return;
     }
     if (auth) {
@@ -61,6 +63,7 @@ const LoginForm = () => {
       form={form}
       onChange={onChange}
       onSubmit={onSubmit}
+      error={error}
     />
   );
 };
