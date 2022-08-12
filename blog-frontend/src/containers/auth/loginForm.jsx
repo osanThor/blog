@@ -3,13 +3,19 @@ import {
   useDispatch,
   useSelector,
 } from '../../../node_modules/react-redux/es/exports';
+import { useNavigate } from '../../../node_modules/react-router-dom/index';
 import AuthForm from '../../components/auth/authForm';
-import { changeField, initializeForm } from '../../modules/auth';
+import { changeField, initializeForm, login } from '../../modules/auth';
+import { check } from '../../modules/user';
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { form } = useSelector(({ auth }) => ({
+  const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
     form: auth.login,
+    auth: auth.auth,
+    authError: auth.authError,
+    user: user.user,
   }));
   const onChange = (e) => {
     const { value, name } = e.target;
@@ -24,11 +30,31 @@ const LoginForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const { username, password } = form;
+    dispatch(login({ username, password }));
   };
 
   useEffect(() => {
     dispatch(initializeForm('login'));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (authError) {
+      console.log('Error!');
+      console.log(authError);
+      return;
+    }
+    if (auth) {
+      console.log('login success');
+      dispatch(check());
+    }
+  }, [auth, authError, dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [navigate, user]);
   return (
     <AuthForm
       type="login"
