@@ -61,17 +61,18 @@ const RegisterForm = () => {
       return;
     }
     if (auth) {
-      console.log('회원가입 성공');
-      console.log(auth);
       dispatch(check());
     }
   }, [auth, authError, dispatch]);
 
   useEffect(() => {
     if (user) {
-      console.log('check API 성공');
-      console.log(user);
       navigate('/');
+      try {
+        localStorage.setItem('user', JSON.stringify(user));
+      } catch (e) {
+        console.log(e);
+      }
     }
   }, [user, navigate]);
   return (
