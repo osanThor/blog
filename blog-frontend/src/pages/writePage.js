@@ -1,7 +1,13 @@
 import React from 'react';
+import Responsive from '../components/common/responsive';
+import Editor from '../components/write/editor';
 
 const WritePage = () => {
-  return <div>글쓰기 페이지</div>;
+  return (
+    <Responsive>
+      <Editor />
+    </Responsive>
+  );
 };
 
 export default WritePage;
