@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  Link,
-  useNavigate,
-} from '../../../node_modules/react-router-dom/index.js';
+import { Link } from '../../../node_modules/react-router-dom/index.js';
 import { css } from '../../../node_modules/styled-components/dist/styled-components.cjs';
 import palette from '../../lib/styles/palette';
 
