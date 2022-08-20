@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import * as Q from 'quill';
+import Quill from 'quill';
 import 'quill/dist/quill.bubble.css';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Responsive from '../common/responsive';
-const Quill = Q.default || Q;
+// const Quill = Q.default || Q;
 
 const EditorBlock = styled(Responsive)`
   padding-top: 5rem;
@@ -39,7 +39,10 @@ const Editor = ({ title, body, onChangeField }) => {
   useEffect(() => {
     quillInstance.current = new Quill(quillElement.current, {
       theme: 'bubble',
+      placeholder: '내용을 작성하세요...',
       modules: {
+        // 더 많은 옵션
+        // https://quilljs.com/docs/modules/toolbar/ 참고
         toolbar: [
           [{ header: '1' }, { header: '2' }],
           ['bold', 'italic', 'underline', 'strike'],
@@ -47,9 +50,7 @@ const Editor = ({ title, body, onChangeField }) => {
           ['blockquote', 'code-block', 'link', 'image'],
         ],
       },
-      placeholder: '내용을 작성하세요...',
     });
-
     const quill = quillInstance.current;
     quill.on('text-change', (delta, oldDelta, source) => {
       if (source === 'user') {

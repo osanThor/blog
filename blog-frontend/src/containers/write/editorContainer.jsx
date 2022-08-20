@@ -17,7 +17,6 @@ const EditorContainer = () => {
     (payload) => dispatch(changeField(payload)),
     [dispatch],
   );
-  const num = 12;
   useEffect(() => {
     return () => {
       dispatch(initialize());
