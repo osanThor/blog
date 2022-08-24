@@ -5,7 +5,7 @@ import {
 } from '../../../node_modules/react-redux/es/exports';
 import { useParams } from '../../../node_modules/react-router-dom/index';
 import PostViewer from '../../components/post/postViewer';
-import { readPost, unloadPost } from '../../modules/posts';
+import { readPost, unloadPost } from '../../modules/post';
 
 const PostViewerContainer = () => {
   const params = useParams();
