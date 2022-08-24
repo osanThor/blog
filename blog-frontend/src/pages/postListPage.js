@@ -1,5 +1,6 @@
 import React from 'react';
 import HeaderContainer from '../containers/common/headerContainer';
+import PaginationContainer from '../containers/posts/paginationContainer';
 import PostListContainer from '../containers/posts/postListContainer';
 
 const PostListPage = () => {
@@ -7,6 +8,7 @@ const PostListPage = () => {
     <>
       <HeaderContainer />
       <PostListContainer />
+      <PaginationContainer />
     </>
   );
 };
