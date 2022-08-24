@@ -62,7 +62,6 @@ const PostList = ({ posts, loading, error, showWriteButton }) => {
   if (error) {
     return <PostListBlock>에러가 발생했습니다</PostListBlock>;
   }
-  console.log(loading);
   return (
     <PostListBlock>
       <WritePostButtonWrapper>
