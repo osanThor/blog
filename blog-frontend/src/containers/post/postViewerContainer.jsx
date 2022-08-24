@@ -3,11 +3,13 @@ import {
   useDispatch,
   useSelector,
 } from '../../../node_modules/react-redux/es/exports';
+import { useParams } from '../../../node_modules/react-router-dom/index';
 import PostViewer from '../../components/post/postViewer';
 import { readPost, unloadPost } from '../../modules/posts';
 
-const PostViewerContainer = ({ match }) => {
-  const { postId } = '630102c118ff4c0126a37174';
+const PostViewerContainer = () => {
+  const params = useParams();
+  const postId = params.postId;
   const dispatch = useDispatch();
   const { post, error, loading } = useSelector(({ post, loading }) => ({
     post: post.post,
