@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/loginPage';
 import PostListPage from './pages/postListPage';
@@ -8,6 +9,9 @@ import WritePage from './pages/writePage';
 function App() {
   return (
     <>
+      <Helmet>
+        <title>REACTERS</title>
+      </Helmet>
       <Routes>
         <Route element={<PostListPage />} path="/" exact />
         <Route element={<PostListPage />} path="/@:username" exact />
