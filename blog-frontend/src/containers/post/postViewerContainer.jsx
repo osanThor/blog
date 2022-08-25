@@ -9,6 +9,7 @@ import {
 } from '../../../node_modules/react-router-dom/index';
 import PostActionButtons from '../../components/post/postActionButtons';
 import PostViewer from '../../components/post/postViewer';
+import { removePost } from '../../lib/api/posts';
 import { readPost, unloadPost } from '../../modules/post';
 import { setOriginalPost } from '../../modules/write';
 
@@ -37,6 +38,15 @@ const PostViewerContainer = () => {
     navigate('/write');
   };
 
+  const onRemove = async () => {
+    try {
+      await removePost(postId);
+      navigate('/');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const ownPost = (user && user._id) === (post && post.user._id);
 
   return (
@@ -44,7 +54,9 @@ const PostViewerContainer = () => {
       post={post}
       loading={loading}
       error={error}
-      actionButtons={ownPost && <PostActionButtons onEdit={onEdit} />}
+      actionButtons={
+        ownPost && <PostActionButtons onEdit={onEdit} onRemove={onRemove} />
+      }
     />
   );
 };
