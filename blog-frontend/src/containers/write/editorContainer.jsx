@@ -17,14 +17,11 @@ const EditorContainer = () => {
     (payload) => dispatch(changeField(payload)),
     [dispatch],
   );
-  console.log(dispatch);
 
   // // 언마운트될 때 초기화
   useEffect(() => {
-    console.log('마운트');
     return () => {
       dispatch(initialize());
-      console.log('언마운트');
     };
   }, [dispatch]);
   return <Editor onChangeField={onChangeField} title={title} body={body} />;

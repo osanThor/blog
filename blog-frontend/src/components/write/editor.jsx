@@ -41,8 +41,6 @@ const Editor = ({ title, body, onChangeField }) => {
       theme: 'bubble',
       placeholder: '내용을 작성하세요...',
       modules: {
-        // 더 많은 옵션
-        // https://quilljs.com/docs/modules/toolbar/ 참고
         toolbar: [
           [{ header: '1' }, { header: '2' }],
           ['bold', 'italic', 'underline', 'strike'],
@@ -59,6 +57,13 @@ const Editor = ({ title, body, onChangeField }) => {
       }
     });
   }, [onChangeField]);
+
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (mounted.current) return;
+    mounted.current = true;
+    quillInstance.current.root.innerHTML = body;
+  }, [body]);
 
   const onChangeTitle = (e) => {
     onChangeField({ key: 'title', value: e.target.value });
