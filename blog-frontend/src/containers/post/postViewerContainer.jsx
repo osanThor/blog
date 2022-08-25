@@ -4,6 +4,7 @@ import {
   useSelector,
 } from '../../../node_modules/react-redux/es/exports';
 import { useParams } from '../../../node_modules/react-router-dom/index';
+import PostActionButtons from '../../components/post/postActionButtons';
 import PostViewer from '../../components/post/postViewer';
 import { readPost, unloadPost } from '../../modules/post';
 
@@ -22,7 +23,14 @@ const PostViewerContainer = () => {
       dispatch(unloadPost());
     };
   }, [dispatch, postId]);
-  return <PostViewer post={post} loading={loading} error={error} />;
+  return (
+    <PostViewer
+      post={post}
+      loading={loading}
+      error={error}
+      actionButtons={<PostActionButtons />}
+    />
+  );
 };
 
 export default PostViewerContainer;
