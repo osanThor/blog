@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from 'react';
+import Editor from '../../components/write/editor';
 import {
   useDispatch,
   useSelector,
 } from '../../../node_modules/react-redux/es/exports';
-import Editor from '../../components/write/editor';
 import { changeField, initialize } from '../../modules/write';
 
 const EditorContainer = () => {
@@ -17,9 +17,14 @@ const EditorContainer = () => {
     (payload) => dispatch(changeField(payload)),
     [dispatch],
   );
+  console.log(dispatch);
+
+  // // 언마운트될 때 초기화
   useEffect(() => {
+    console.log('마운트');
     return () => {
       dispatch(initialize());
+      console.log('언마운트');
     };
   }, [dispatch]);
   return <Editor onChangeField={onChangeField} title={title} body={body} />;

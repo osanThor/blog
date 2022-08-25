@@ -3,32 +3,48 @@ import {
   useDispatch,
   useSelector,
 } from '../../../node_modules/react-redux/es/exports';
-import { useParams } from '../../../node_modules/react-router-dom/index';
+import {
+  useNavigate,
+  useParams,
+} from '../../../node_modules/react-router-dom/index';
 import PostActionButtons from '../../components/post/postActionButtons';
 import PostViewer from '../../components/post/postViewer';
 import { readPost, unloadPost } from '../../modules/post';
+import { setOriginalPost } from '../../modules/write';
 
 const PostViewerContainer = () => {
   const params = useParams();
   const postId = params.postId;
   const dispatch = useDispatch();
-  const { post, error, loading } = useSelector(({ post, loading }) => ({
-    post: post.post,
-    error: post.error,
-    loading: loading['post/READ_POST'],
-  }));
+  const navigate = useNavigate();
+  const { post, error, loading, user } = useSelector(
+    ({ post, loading, user }) => ({
+      post: post.post,
+      error: post.error,
+      loading: loading['post/READ_POST'],
+      user: user.user,
+    }),
+  );
   useEffect(() => {
     dispatch(readPost(postId));
     return () => {
       dispatch(unloadPost());
     };
   }, [dispatch, postId]);
+
+  const onEdit = () => {
+    dispatch(setOriginalPost(post));
+    navigate('/write');
+  };
+
+  const ownPost = (user && user._id) === (post && post.user._id);
+
   return (
     <PostViewer
       post={post}
       loading={loading}
       error={error}
-      actionButtons={<PostActionButtons />}
+      actionButtons={ownPost && <PostActionButtons onEdit={onEdit} />}
     />
   );
 };
