@@ -18,6 +18,9 @@
 .env.test.local
 .env.production.local
 
+#API Key
+.env
+
 # production
 # /build
 
