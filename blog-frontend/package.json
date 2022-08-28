@@ -33,7 +33,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://osanthor.github.io/blog/",
+  "homepage": ".",
   "eslintConfig": {
     "extends": [
       "react-app",
