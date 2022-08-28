@@ -1,0 +1,8 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://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@github.com/osanThor/blog.git",
+  "author": "junyoung <jadw9715@gmail.com>",
+  "license": "MIT"
+}
