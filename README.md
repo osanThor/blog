@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Front End Developer Given's PORTFOLIO
 
-## Getting Started
+## 🛠️ 기술 스택
 
-First, run the development server:
+ <img src="https://img.shields.io/badge/Next-000000?style=flat&logo=Next.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/SWR-000000?style=flat&logo=SWR&logoColor=white"/> 
+    <img src="https://img.shields.io/badge/Recoil-3578E5?style=flat&logo=recoil&logoColor=white"/>  
+ <img src="https://img.shields.io/badge/Tailwindcss-06B6D4?style=flat&logo=Tailwindcss&logoColor=white"/> 
+     <img src="https://img.shields.io/badge/Shadcnui-000000?style=flat&logo=Shadcnui&logoColor=white"/>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ UI/UX 기능
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [ ] 반응형 디자인
+- [ ] theme 변경
+- [ ] interaction 컴포넌트
+- [ ] 슬라이드 기능
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔥 필수 기능
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [ ] `mdx` 파일 컨텐츠 렌더링
+- [ ] `TOC`
+- [ ] `Giscus` 댓글
 
-## Learn More
+## 🌲 사이트 구조
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📚 프로젝트 폴더구조
