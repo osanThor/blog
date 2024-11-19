@@ -1,3 +1,10 @@
+import BigTitle from "@/components/common/BigTitle";
+
 export default function ResumePage() {
-  return <div>ResumePage</div>;
+  return (
+    <div>
+      <BigTitle text="👋 Frontend Developer" />
+      ResumePage
+    </div>
+  );
 }

@@ -22,9 +22,9 @@ export default function RootLayout({
           <HeaderContainer />
           <main
             id="container"
-            className="flex min-h-screen w-full flex-col items-center relative bg-white dark:bg-neutral-800 transition-colors duration-200"
+            className="py-10 flex min-h-screen w-[calc(100%-32px)] max-w-[1082px] flex-col mx-auto relative bg-white dark:bg-neutral-800 transition-colors duration-200"
           >
-            <div className="w-full max-w-[1082px]">{children}</div>
+            {children}
           </main>
           <FooterContainer />
         </Providers>

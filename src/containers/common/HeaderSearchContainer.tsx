@@ -25,7 +25,7 @@ function HeaderSearchContainer() {
   };
 
   useEffect(() => {
-    handleMoveSearch();
+    debouncedValue && handleMoveSearch();
   }, [debouncedValue]);
 
   return (

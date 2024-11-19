@@ -18,7 +18,7 @@ function HeaderNavbar() {
               <Link
                 href={link.href}
                 className={`${
-                  isSamePath ? "bg-neutral-100 dark:bg-neutral-700" : ""
+                  isSamePath ? "font-bold" : "font-medium"
                 } hover:bg-neutral-100 dark:hover:bg-neutral-700 inline-block px-2 py-1 rounded-sm transition-all duration-200 `}
               >
                 {link.name}
