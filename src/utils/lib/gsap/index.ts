@@ -11,3 +11,17 @@ export const transformTextAnimation = (target: HTMLElement, text: string) => {
     text,
   });
 };
+
+export const transformVisible = (target: HTMLElement) => {
+  gsap
+    .timeline()
+    .set(target, {
+      opacity: 0,
+      y: 10,
+    })
+    .to(target, {
+      duration: 1,
+      y: 0,
+      opacity: 1,
+    });
+};
