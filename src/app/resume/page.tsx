@@ -4,7 +4,6 @@ export default function ResumePage() {
   return (
     <div>
       <BigTitle text="👋 Frontend Developer" />
-      ResumePage
     </div>
   );
 }

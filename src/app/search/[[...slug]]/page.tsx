@@ -11,7 +11,6 @@ export default async function SearchPage(props: Props) {
   return (
     <div>
       <BigTitle text={slug ? slug[0] : "Search"} />
-      SearchPage
     </div>
   );
 }

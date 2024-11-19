@@ -5,7 +5,7 @@ import { TextPlugin } from "gsap/TextPlugin";
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin, useGSAP);
 
-export const textAnimation = (target: HTMLElement, text: string) => {
+export const transformTextAnimation = (target: HTMLElement, text: string) => {
   gsap.to(target, {
     duration: 1,
     text,

@@ -1,6 +1,6 @@
 "use client";
 
-import { textAnimation } from "@/utils/lib/gsap";
+import { transformTextAnimation } from "@/utils/lib/gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 
@@ -11,7 +11,7 @@ export default function BigTitle({ text }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   useGSAP(
     () => {
-      ref.current && textAnimation(ref.current, text);
+      ref.current && transformTextAnimation(ref.current, text);
     },
     { scope: ref, dependencies: [text] }
   );

@@ -5,10 +5,10 @@ type Props = {
 };
 export default async function PostsByCategoryPage({ params }: Props) {
   const { slug } = await params;
+
   return (
     <div>
       <BigTitle text={slug ? slug[0] : ""} />
-      PostsByCategoryPage
     </div>
   );
 }

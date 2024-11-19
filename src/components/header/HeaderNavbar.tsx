@@ -14,7 +14,10 @@ function HeaderNavbar() {
           const targetPath = link.href.split("/").pop();
           const isSamePath = currentPath === targetPath;
           return (
-            <li key={`header-link-${link.name}`}>
+            <li
+              key={`header-link-${link.name}`}
+              className={`${link.onPC ? "hidden sm:block" : "block"} `}
+            >
               <Link
                 href={link.href}
                 className={`${

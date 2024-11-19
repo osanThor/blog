@@ -17,14 +17,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${pretendard.variable} antialiased relative`}>
+      <body className={`${pretendard.variable} antialiased relative `}>
         <Providers>
           <HeaderContainer />
           <main
             id="container"
-            className="py-10 flex min-h-screen w-[calc(100%-32px)] max-w-[1082px] flex-col mx-auto relative bg-white dark:bg-neutral-800 transition-colors duration-200"
+            className="py-10 flex min-h-screen w-full flex-col items-center relative bg-white dark:bg-neutral-800 transition-colors duration-200"
           >
-            {children}
+            <section className="w-[calc(100%-32px)] max-w-[1082px] flex flex-col">
+              {children}
+            </section>
           </main>
           <FooterContainer />
         </Providers>
