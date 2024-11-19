@@ -10,7 +10,7 @@ export default async function SearchPage(props: Props) {
 
   return (
     <div>
-      <BigTitle text={slug ? slug[0] : "Search"} />
+      <BigTitle text={slug ? decodeURI(slug[0]) : "Search"} />
     </div>
   );
 }

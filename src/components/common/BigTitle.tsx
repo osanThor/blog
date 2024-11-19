@@ -2,25 +2,32 @@
 
 import { transformTextAnimation } from "@/utils/lib/gsap";
 import { useGSAP } from "@gsap/react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 
 type Props = {
   text: string;
 };
-export default function BigTitle({ text }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
+function BigTitle({ text }: Props) {
+  const [mounted, setMounted] = useState<boolean>(false);
+  const ref = useRef<HTMLHeadingElement>(null);
   useGSAP(
     () => {
       ref.current && transformTextAnimation(ref.current, text);
     },
     { scope: ref, dependencies: [text] }
   );
+  useEffect(() => {
+    setTimeout(() => setMounted(true), 1100);
+  }, []);
+
   return (
-    <div
+    <h1
       ref={ref}
-      className="text-3xl md:text-4xl lg:text-5xl font-black uppercase mb-3"
+      className="text-3xl md:text-4xl lg:text-5xl font-black uppercase mb-3 text-wrap truncate"
     >
-      Loading...
-    </div>
+      {mounted ? text : "Loading..."}
+    </h1>
   );
 }
+export default React.memo(BigTitle);

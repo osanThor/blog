@@ -2,31 +2,41 @@
 
 import ThemeToggle from "@/components/common/ThemeToggle";
 import useDebounce from "@/hooks/debounde";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useCallback, useEffect, useState } from "react";
 
 function HeaderSearchContainer() {
-  const [value, setValue] = useState<string>("");
+  const pathname = usePathname();
   const router = useRouter();
+  const [value, setValue] = useState("");
   const debouncedValue = useDebounce(value);
 
-  const handelChangeFields = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setValue(value);
-  };
+  const handleFocus = useCallback(() => {
+    if (!pathname.startsWith("/search")) {
+      router.push("/search");
+    }
+  }, [pathname]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleMoveSearch();
-  };
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  }, []);
 
-  const handleMoveSearch = () => {
-    router.push(`/search/${value}`);
-  };
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      if (value.trim()) router.push(`/search/${value.trim()}`);
+    },
+    [value]
+  );
 
   useEffect(() => {
-    debouncedValue && handleMoveSearch();
+    if (pathname.startsWith("/search"))
+      router.push(`/search/${debouncedValue}`);
   }, [debouncedValue]);
+
+  useEffect(() => {
+    if (!pathname.startsWith("/search")) setValue("");
+  }, [pathname]);
 
   return (
     <div className="flex items-center gap-2">
@@ -35,13 +45,14 @@ function HeaderSearchContainer() {
           className="w-[170px] bg-neutral-100 dark:bg-neutral-700 focus:bg-neutral-200 dark:focus:bg-neutral-600 px-4 h-8 rounded-[32px] placeholder:text-sm focus:outline-none transition-all duration-200"
           type="text"
           placeholder="검색어를 입력해주세요."
-          onFocus={() => router.push("/search")}
-          value={value || ""}
-          onChange={handelChangeFields}
+          onFocus={handleFocus}
+          value={value}
+          onChange={handleChange}
         />
       </form>
       <ThemeToggle />
     </div>
   );
 }
+
 export default React.memo(HeaderSearchContainer);
