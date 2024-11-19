@@ -1,13 +1,17 @@
 import BigTitle from "@/components/common/BigTitle";
 
 type Props = {
-  params: { slug?: string[] };
+  params: Promise<{ slug?: string[] }>;
 };
-export default function SearchPage({ params: { slug } }: Props) {
+export default async function SearchPage(props: Props) {
+  const params = await props.params;
+
+  const { slug } = params;
+
   return (
     <div>
       <BigTitle text={slug ? slug[0] : "Search"} />
-      SearchPage {slug}
+      SearchPage
     </div>
   );
 }
