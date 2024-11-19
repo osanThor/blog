@@ -11,7 +11,7 @@
 ## ✨ UI/UX 기능
 
 - [ ] 반응형 디자인
-- [ ] theme 변경
+- [x] theme 변경
 - [ ] interaction 컴포넌트
 - [ ] 슬라이드 기능
 - [ ] toTop button
