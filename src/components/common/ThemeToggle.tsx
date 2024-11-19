@@ -33,7 +33,7 @@ export default function ThemeToggle() {
       <span
         className={`inline-block w-full h-full relative overflow-hidden ${beforeDefault} ${afterDefault} ${
           isDark
-            ? "before:bg-white before:left-[24px] after:w-[18px] after:h-[18px] after:bg-neutral-800 after:left-4 after:-top-[7px] after:opacity-1"
+            ? "before:bg-white before:left-[24px] after:w-[18px] after:h-[18px] after:bg-neutral-800 after:left-4 after:-top-[3px] after:opacity-1"
             : "before:bg-neutral-700 before:left-0 after:w-[1px] after:h-[1px] after:bg-white after:left-[1px] after:-top-0 after:opacity-0"
         }`}
       />

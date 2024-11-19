@@ -3,16 +3,28 @@ import path from "path";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { cache } from "react";
 
-export const getPost = async () => {
+export type Frontmatter = {
+  title: string;
+  description: string;
+  date: string;
+};
+
+export const getPost = async (
+  filename: string,
+  mdxOptions?: any,
+  components?: any
+) => {
   const content = await fs.readFile(
-    path.join(process.cwd(), "src/posts/dev", "blog.mdx"),
+    path.join(process.cwd(), "src/posts/dev", `${filename}.mdx`),
     "utf-8"
   );
-  return await compileMDX<{ title: string; description: string }>({
+  return await compileMDX<Frontmatter>({
     source: content,
     options: {
       parseFrontmatter: true,
+      mdxOptions,
     },
+    components,
   });
 };
 
@@ -22,8 +34,25 @@ const baseDir = path.join(process.cwd(), "src/posts");
 export const getPostsByCategory = cache(async (folder: string) => {
   const folderPath = path.join(baseDir, folder);
   try {
-    const files = await fs.readdir(folderPath);
-    return files.filter((file) => path.extname(file) === ".mdx");
+    const files = await fs
+      .readdir(folderPath)
+      .then((files) => files.filter((file) => path.extname(file) === ".mdx"));
+    return await Promise.all(
+      files.map(async (filenames) => {
+        const formatFileName = filenames.replace(".mdx", "");
+        const { frontmatter } = await getPost(formatFileName);
+        return {
+          href: formatFileName,
+          ...frontmatter,
+        };
+      })
+    ).then((arr) =>
+      arr.sort((a, b) => {
+        const aDate = new Date(a.date);
+        const bDate = new Date(b.date);
+        return aDate > bDate ? -1 : 1;
+      })
+    );
   } catch (error) {
     console.error(`Error reading folder "${folder}":`, error);
     return [];

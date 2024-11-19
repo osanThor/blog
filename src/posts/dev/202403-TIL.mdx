@@ -1,0 +1,307 @@
+---
+title: 2024-03-12 TIL
+tags: TIL
+description: "첫 블로그 포스팅, Next 13버전 렌더링 방식 정리"
+date: 2024.03.12
+---
+
+## 1. SERVER COMPONENT에서 pathname 접근 법
+
+Next가 13버전 이상부터 server component와 client component 차이가 명확해짐
+작업하다보면 pathname이 필요할 때가 많다.
+
+```tsx
+import { usePathname } from "next/navigation";
+
+export default function Page() {
+  const pathname = usePathname();
+  return <div>RootPage</div>;
+}
+```
+
+usePathname이 있지만 이건 client component에서만 사용 가능하다.
+그래서 위 코드처럼 쓰면 안됨
+
+### 해결법: middleware
+
+middleware를 사용하면 서버컴포넌트에서 pathname을 내려 받을 수 있다.
+
+> 참고: [NEXT 공식문서](https://nextjs.org/docs/app/building-your-application/routing/middleware)
+
+app 폴더와 같은 레벨의 directory에 middleware.ts 를 만들어야함
+
+```ts
+//middleware.ts
+import { NextRequest, NextResponse } from "next/server";
+
+export function middleware(request: NextRequest) {
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", request.nextUrl.pathname);
+
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
+}
+```
+
+이렇게 해놓으면 page route요청시 header에서 pathname을 추출할 수 있다.
+
+코드를 까보면
+
+```ts
+const requestHeaders = new Headers(request.headers);
+requestHeaders.set("x-pathname", request.nextUrl.pathname);
+```
+
+x-pathname이라는 이름으로 pathname을 지정하고
+
+```ts
+return NextResponse.next({
+  request: {
+    headers: requestHeaders,
+  },
+});
+```
+
+응답으로 보내줄 수 있다.
+
+---
+
+> 2024.08 이전하면서 추가..
+> 응답 보내는 것만 쓰고 어떻게 받는지를 안썼다...멍청이...
+
+아래 코드는 admin CMS 레이아웃 컴포넌트에서 관리자 권한이 없는 사용자가 admin에 들어올 경우 홈화면으로 리다이렉트 시키고 로그인 안하고 진입하려는 유저는 로그인 화면으로 보내버리는 코드다.
+
+```tsx
+//app/admin/layout.tsx
+import { getServerSession } from "next-auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+
+export default async function AdminRootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const session = await getServerSession(authOptions);
+
+  if (session && session.user.role !== "ROLE_ADMIN") {
+    redirect("/");
+  } else if (!session) {
+    redirect("/auth/signIn");
+  }
+
+  const headersList = headers();
+  const headerPathname = headersList.get("x-pathname") || "";
+  if (headerPathname === "/admin") {
+    redirect("/admin/members");
+  }
+
+  return <>{children}</>;
+}
+```
+
+여기서
+
+```tsx
+const headersList = headers();
+const headerPathname = headersList.get("x-pathname") || "";
+if (headerPathname === "/admin") {
+  redirect("/admin/members");
+}
+```
+
+이 부분이 관리자가 admin 경로로 들어온 것을 확인하고 root로 접근 시 member 관리 페이지로 리다이렉트 시키는 부분이다.
+
+---
+
+## 2.페이지네이션 코드 refacoty
+
+기존 만들어봤던 페이지네이션 코드
+
+```tsx
+import React, { useEffect, useState } from "react";
+import ArrowLeftIcon from "@/components/common/ui/icons/ArrowLeftIcon";
+import ArrowRightIcon from "@/components/common/ui/icons/ArrowRightIcon";
+
+type Props = {
+  total: number;
+  page: number;
+  onChange: (page: number) => void;
+};
+
+export default function Pagination({ total = 0, page = 1, onChange }: Props) {
+  const limit = 5;
+  const numPages = Math.ceil(total / 10);
+
+  const [currentPageArray, setCurrentPageArray] = useState<number[]>([]);
+  const [totalPageArray, setTotalPageArray] = useState<number[][]>([]);
+  useEffect(() => {
+    if (page % limit === 1) {
+      setCurrentPageArray(totalPageArray[Math.floor(page / limit)]);
+    } else if (page % limit === 0) {
+      setCurrentPageArray(totalPageArray[Math.floor(page / limit) - 1]);
+    }
+  }, [page, totalPageArray]);
+  useEffect(() => {
+    const slicedPageArray = sliceArrayByLimit(numPages, limit);
+    setTotalPageArray(slicedPageArray);
+    setCurrentPageArray(slicedPageArray[0]);
+  }, [numPages]);
+
+  const sliceArrayByLimit = (numPages: number, limit: number) => {
+    const totalPageArray = Array(numPages)
+      .fill(0)
+      .map((_, i) => i);
+    return Array(Math.ceil(numPages / limit))
+      .fill(0)
+      .map(() => totalPageArray.splice(0, limit));
+  };
+
+  useEffect(() => {
+    if (page % limit === 1) {
+      setCurrentPageArray(totalPageArray[Math.floor(page / limit)]);
+    } else if (page % limit === 0) {
+      setCurrentPageArray(totalPageArray[Math.floor(page / limit) - 1]);
+    } else {
+      setCurrentPageArray(totalPageArray[Math.floor(page / limit)]);
+    }
+  }, [page, totalPageArray]);
+
+  return (
+    <div className="w-full flex justify-center items-center">
+      <div className="pagination flex items-center gap-4">
+        <div className="flex items-center">
+          <button
+            className={
+              "flex items-center justify-center w-8 h-8 disabled:text-gray-400"
+            }
+            onClick={() => {
+              onChange(page - 1);
+            }}
+            disabled={page === 1}
+          >
+            <ArrowLeftIcon />
+          </button>
+        </div>
+        <div className="flex items-center">
+          {currentPageArray?.map((i) => (
+            <button
+              key={i + 1}
+              className={`flex items-center justify-center min-w-[32px] h-8 ${
+                page === i + 1
+                  ? "text-black dark:text-white font-semibold"
+                  : "text-gray-500"
+              }`}
+              onClick={() => onChange(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+        <div className="flex items-center">
+          <button
+            className={
+              "flex items-center justify-center w-8 h-8 disabled:text-gray-400"
+            }
+            onClick={() => onChange(page + 1)}
+            disabled={page === numPages || numPages === 0}
+          >
+            <ArrowRightIcon />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+> 진짜 코드 왜이렇게 짜냐...
+> 너무 보기 힘들다고 생각해서 조금 조금씩 리펙토링 일단 중복으로 쓰이는 코드를 줄여봤다.
+> 나는 useEffect를 너무 많이 쓴다... 줄여보자
+
+```tsx
+import React, { useEffect, useState } from "react";
+import ArrowLeftIcon from "./icons/ArrowLeftIcon";
+import ArrowRightIcon from "./icons/ArrowRightIcon";
+
+type Props = {
+  total: number;
+  page: number;
+  onChange: (page: number) => void;
+};
+
+const ITEMS_PER_PAGE = 10;
+const PAGINATION_LIMIT = 5;
+
+export default function Pagination({ total, page, onChange }: Props) {
+  const numPages = Math.ceil(total / ITEMS_PER_PAGE);
+  const [currentPageArray, setCurrentPageArray] = useState<number[]>([]);
+  const [totalPageArray, setTotalPageArray] = useState<number[][]>([]);
+
+  const sliceArrayByLimit = (numPages: number, limit: number): number[][] => {
+    let pages = Array.from({ length: numPages }, (_, i) => i + 1);
+    let result = [];
+    for (let i = 0; i < pages.length; i += limit) {
+      result.push(pages.slice(i, i + limit));
+    }
+    return result;
+  };
+
+  useEffect(() => {
+    const slicedPageArray = sliceArrayByLimit(numPages, PAGINATION_LIMIT);
+    setTotalPageArray(slicedPageArray);
+    const pageIndex = Math.floor((page - 1) / PAGINATION_LIMIT);
+    setCurrentPageArray(slicedPageArray[pageIndex] || []);
+  }, [numPages, page]);
+
+  const renderButton = (
+    pageNumber: number,
+    content: React.ReactNode,
+    disabled: boolean
+  ) => (
+    <button
+      className={`flex items-center justify-center w-8 h-8 ${
+        disabled ? "text-gray-400" : ""
+      }`}
+      onClick={() => onChange(pageNumber)}
+      disabled={disabled}
+    >
+      {content}
+    </button>
+  );
+
+  return (
+    <div className="w-full flex justify-center items-center">
+      <div className="pagination flex items-center gap-4">
+        {renderButton(page - 1, <ArrowLeftIcon />, page === 1)}
+        <div className="flex items-center">
+          {currentPageArray.map((i) => (
+            <button
+              key={i}
+              className={`flex items-center justify-center min-w-[32px] h-8 ${
+                page === i
+                  ? "text-black dark:text-white font-semibold"
+                  : "text-gray-500"
+              }`}
+              onClick={() => onChange(i)}
+            >
+              {i}
+            </button>
+          ))}
+        </div>
+        {renderButton(
+          page + 1,
+          <ArrowRightIcon />,
+          page === numPages || numPages === 0
+        )}
+      </div>
+    </div>
+  );
+}
+```
+
+줄이고 작동도 되긴하는데 이게 최선인걸까 항상 고민 된다.

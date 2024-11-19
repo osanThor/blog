@@ -1,0 +1,52 @@
+---
+title: Next13+ Routes
+tags: route
+description: "첫 블로그 포스팅, Next 13버전 렌더링 방식 정리"
+date: 2023.05.05
+---
+
+> When you don't know the exact segment names ahead of time and want to create routes from dynamic data, you can use Dynamic Segments that are filled in at request time or prerendered at build time.
+
+- 정확한 세그먼트 이름을 미리 알지 못하고 동적 데이터에서 경로를 생성하려는 경우 요청 시 입력하거나 빌드 시 미리 렌더링한 동적 세그먼트를 사용할 수 있습니다.
+
+**Next@13+**에서 제일 재밌는 건 라우팅 방식인 것 같다.
+React는 **react-router-dom**이라는 라이브러리를 설치해 path를 지정해주는 게 신기했고, v5로 배웠는데 v6가 금방 또 나와버려서 당황했던 기억이...
+Next 역시 **pages 폴더**를 기준으로 라우팅이 된다는 것이 재밌었는데, 금방 v12에서 v13으로 버전이 업그레이드 되며 많이 바뀌었다.
+
+> 급변하는 프론트 세계라는 것을 1년차 만에 몸으로 경험했다.
+
+일단 공식문서에 매우 잘나와있다. [공식문서](https://nextjs.org/docs/app/building-your-application/routing)
+
+간단히 요약하면 Next는 폴더명으로 pathname이 결정되고 자식 컴포넌트로 페이지를 구성하면 되는 것 같다.
+
+폴더를 구성하는 컴포넌트는
+
+- layout: 세그먼트 및 해당 자식에 대한 공유 UI
+- page: 경로의 고유한 UI
+- loading: 세그먼트 및 해당 자식에 대한 UI 로딩
+- not-found: 세그먼트 및 해당 자식을 찾을 수 없을 때 UI
+- error: 세그먼트 및 해당 자식에 대한 오류 UI
+- global-error: 글로벌 오류 UI
+- route: 서버 측 API 엔드포인트
+- template: 전문화된 재렌더링 레이아웃 UI
+- default: 병렬 경로 에 대한 폴백 UI
+
+확장자는 .js,.jsx, .tsx 파일만 가능
+
+네비게이션도 변경되었는데
+**Link** 컴포넌트는 client, server 둘 다 쓸 수 있다.
+**client** 컴포넌트에서는 useRouter를 사용할 수 있는데 import 되는 경로를 잘봐야한다. "next/route" 면 안됨
+**server** 에서는 redirect로 간단하게 이동할 수 있다.
+
+간단한 프로젝트가 아니면 무조건적으로 다이나믹 라우트를 사용해야하는데
+폴더명에 대괄호([])를 추가하여 사용한다.
+
+> [공식문서](https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes)
+
+대괄호안에는 id나 slug 등 유연성있는 명칭을 사용하고 spread 연산사를 사용하지 않으면 string 타입으로 params 객체에 담겨 props로 내려오게 된다.
+
+스프레드 연산자를 사용하게 되면 `Array<string>` 타입으로 `params`에 담겨 props에 내려오게 되는데 폴더명에 한번더 대괄호를 씌우면 값이 없더라도 not-found 페이지가 나오지 않는다.
+
+props로 내려오는 값들은 page와 layout 서버 컴포넌트에서 확인할 수 있고
+client 컴포넌트에서는 usePathname이나 useSearchParams로 확인할 수 있다.
+searchparms은 서버 컴포넌트에서도 props에 searchParams 객체에 string타입으로 내려온다.
