@@ -18,7 +18,7 @@ export default async function PostsByCategoryPage({ params }: Props) {
   const category = slug[0];
   const list = await getPostsByCategory(category);
   return (
-    <div>
+    <>
       <BigTitle text={category} />
       <p className="mb-7 text-sm md:text-base lg:text-lg text-neutral-600 dark:text-neutral-300">
         {messages[category as "dev" | "life"]}
@@ -64,6 +64,6 @@ export default async function PostsByCategoryPage({ params }: Props) {
           게시물이 없습니다.
         </div>
       )}
-    </div>
+    </>
   );
 }

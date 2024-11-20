@@ -7,7 +7,7 @@ date: 2024.03.12
 cover: "/posts/dev/202403-TIL/cover.avif"
 ---
 
-## 1. SERVER COMPONENT에서 pathname 접근 법
+<Heading type="h2">1. SERVER COMPONENT에서 pathname 접근 법</Heading>
 
 Next가 13버전 이상부터 server component와 client component 차이가 명확해짐
 작업하다보면 pathname이 필요할 때가 많다.
@@ -24,7 +24,7 @@ export default function Page() {
 usePathname이 있지만 이건 client component에서만 사용 가능하다.
 그래서 위 코드처럼 쓰면 안됨
 
-### 해결법: middleware
+<Heading type="h3">해결법: middleware</Heading>
 
 middleware를 사용하면 서버컴포넌트에서 pathname을 내려 받을 수 있다.
 
@@ -120,7 +120,7 @@ if (headerPathname === "/admin") {
 
 ---
 
-## 2.페이지네이션 코드 refacoty
+<Heading type="h2">2.페이지네이션 코드 refacoty</Heading>
 
 기존 만들어봤던 페이지네이션 코드
 
