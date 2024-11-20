@@ -4,7 +4,7 @@ import { getPostsByCategory } from "@/services/posts.service";
 import Link from "next/link";
 
 type Props = {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 };
 
 const messages = {

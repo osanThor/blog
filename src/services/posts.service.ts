@@ -1,6 +1,8 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { compileMDX } from "next-mdx-remote/rsc";
+import { CompileOptions } from "@mdx-js/mdx";
+import { MDXProvider } from "@mdx-js/react";
 import { cache } from "react";
 
 export type Frontmatter = {
@@ -15,8 +17,10 @@ const baseDir = path.join(process.cwd(), "src/posts");
 
 export const getPost = async (
   filename: string[],
-  mdxOptions?: any,
-  components?: any
+  mdxOptions?: Omit<CompileOptions, "outputFormat" | "providerImportSource"> & {
+    useDynamicImport?: boolean | undefined;
+  },
+  components?: React.ComponentProps<typeof MDXProvider>["components"]
 ) => {
   const content = await fs.readFile(path.join(baseDir, ...filename), "utf-8");
   return await compileMDX<Frontmatter>({

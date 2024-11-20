@@ -7,14 +7,13 @@ import { useRef } from "react";
 
 type Props = {
   text: string;
-  count?: number;
 };
-function BigTitle({ text, count }: Props) {
+function BigTitle({ text }: Props) {
   const [mounted, setMounted] = useState<boolean>(false);
   const ref = useRef<HTMLHeadingElement>(null);
   useGSAP(
     () => {
-      ref.current && transformTextAnimation(ref.current, text);
+      if (ref.current) transformTextAnimation(ref.current, text);
     },
     { scope: ref, dependencies: [text] }
   );
@@ -30,9 +29,6 @@ function BigTitle({ text, count }: Props) {
       >
         {mounted ? text : "Loading..."}
       </h1>
-      {!!count && (
-        <span className="text-lg font-bold">{mounted && `(${count})`}</span>
-      )}
     </div>
   );
 }

@@ -6,11 +6,11 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { gruvboxDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 type Props = {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 };
 
 export async function generateMetadata({ params }: Props) {
-  const { slug } = await params;
+  const slug = (await params).slug;
   const category = slug[0];
   const filename = slug[1];
   const {
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function PostDetailPage({ params }: Props) {
-  const { slug } = await params;
+  const slug = (await params).slug;
   const category = slug[0];
   const filename = slug[1];
   const data = await getPost(

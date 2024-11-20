@@ -7,9 +7,13 @@ import { useRef } from "react";
 
 export default function TopContentsContainer() {
   const HeaderRef = useRef<HTMLHeadingElement>(null);
-  useGSAP(() => {
-    HeaderRef.current && transformVisible(HeaderRef.current);
-  }, []);
+  useGSAP(
+    () => {
+      if (HeaderRef.current) transformVisible(HeaderRef.current);
+    },
+    { scope: HeaderRef, dependencies: [] }
+  );
+
   return (
     <div className="w-full flex flex-col items-center gap-10">
       <h1 ref={HeaderRef}>
