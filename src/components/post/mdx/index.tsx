@@ -2,9 +2,10 @@ import { PropsWithChildren } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { gruvboxDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import Heading from "./Heading";
+import Blockquote from "./Blockquote";
 
 const components = {
-  p: (props: PropsWithChildren) => <p className="mt-4 leading-6" {...props} />,
+  p: (props: PropsWithChildren) => <p className="mt-4 leading-8" {...props} />,
   ul: (props: PropsWithChildren) => (
     <ul className="mt-4 leading-6 list-disc pl-6" {...props} />
   ),
@@ -50,6 +51,7 @@ const components = {
     );
   },
   Heading,
+  Blockquote,
 };
 
 export default components;

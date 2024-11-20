@@ -9,7 +9,11 @@ cover: "/posts/dev/202305-nextbuild-error/cover.avif"
 
 <Heading type="h2">Blog 프로젝트 진행하면서 겪은 에러</Heading>
 
-> 블로그 포스팅을 웹에서 계속 작성하고 싶어서 admin 계정을 만들고 포스팅 기능도 만들었는데, 포스팅 할 때마다 빌드해주는 게 싫어서 SSR(Server-side rendering)으로 만들어 보다가 여러 에러를 겪었다.
+<Blockquote>
+  블로그 포스팅을 웹에서 계속 작성하고 싶어서 admin 계정을 만들고 포스팅 기능도
+  만들었는데, 포스팅 할 때마다 빌드해주는 게 싫어서 SSR(Server-side
+  rendering)으로 만들어 보다가 여러 에러를 겪었다.
+</Blockquote>
 
 ![error console](/posts/dev/202305-nextbuild-error/1.png)
 firebase admin SDK를 사용해서 api 라우팅을 했는데 빌드할 때 이런 에러가 계속 떴다.
@@ -49,7 +53,11 @@ Minified React error #425
 
 해결 방법은 클라이언트 컴포넌트의 useEffect 훅을 사용해 강제 렌더링 시키거나 time 태그에 suppressHydrationWarning 를 true로 설정해주는 방법인데 react 공식문서에서도 성능상 비추천한다고 한다.
 
-> [참고](https://velog.io/@real-bird/Next.js-SSR-Error-React18-error-423-418-425) , https://github.com/vercel/next.js/issues/37489
+<Blockquote type="info">
+  **참고자료** <br />
+  1. [Next SSR Error](https://velog.io/@real-bird/Next.js-SSR-Error-React18-error-423-418-425)
+  2. [Vercel Issues](https://github.com/vercel/next.js/issues/37489)
+</Blockquote>
 
 나는 useQuery를 사용해서 클라이언트 컴포넌트에서 데이터패칭을 하는 방법을 사용하니 해당 에러가 사라졌다.
 

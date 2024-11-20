@@ -10,7 +10,7 @@ cover: "/posts/dev/202404-safe-area-css/cover.avif"
 모바일 화면에서 화면 하단에 고정된 메뉴바를 필요로 하는 웹사이트를 만들던 중 아이폰 크롬 환경에서 하단 nav bar가 붕 떠있는 것 같은 문제가 있었다.
 postion:fixed;에 bottom:0;으로 고정했는데도 생기는 문제였다.
 
-> bottom:0;인데 왜 밑에 있지를 못하니....왜 떠있어....
+<Blockquote>bottom:0; 인데 왜 밑에 있지를 못하니....왜 떠있어....</Blockquote>
 
 그 못생긴 공간을 너무 채우고 싶었고,
 ios bottom nav position, iphone bottom nav,,,, 등 구글링 해보았지만 원하는 답을 얻을 순 없었다.
@@ -22,7 +22,7 @@ pala 라는 거래소 사이트는 화면 밑에 붙어있었지만 iphoneX부�
 
 naverTV와 Youtube 모바일에 bottom menu가 스크롤 여부 상관없이 최하단에 위치하며 컨트롤영역과도 중첩되지 않게 공간을 만드는 것을 확인할 수 있었다.
 
-> 어떻게 하는거야...! 너무 하고 싶어!!
+<Blockquote type="error">어떻게 하는거야...! 너무 하고 싶어!!</Blockquote>
 
 가설을 세워볼 때 두 사이트 모두 os를 확인하고, 브라우저 환경을 확인하고, 스크롤 여부를 확인하는 이상한 로직으로 bottom menu를 만들지는 않았을 것이고 이는 스타일(CSS)의 영역이라고 판단하여 개발자도구를 열어 CSS를 뒤져보았다.
 그리고 발견하였다.
@@ -37,9 +37,9 @@ naverTV와 Youtube 모바일에 bottom menu가 스크롤 여부 상관없이 최
 
 뒤 변수들은 각 높이 값들을 넣은 것인데 앞에 env(safe-area-inset-bottom)은 알 수 없었다.
 
-> safe-area가 뭐지?
+<Blockquote>safe-area가 뭐지?</Blockquote>
 
-safe area란
+<Heading type="h3">safe area란</Heading>
 
 TV에 처음 적용된 것으로 여러 해상도 비율을 가진 컨텐츠들을 모든 디바이스에서 노출할 수 있도록 만들어진 영역이다.
 아이폰X 이후 홈버튼이 사라지고 노치로 변경되면서 화면 비율에 변경에 따라 컨텐츠들이 제대로 노출되지 않는 문제들을 해결하기 위해 위 개념이 도입된 모양이다.

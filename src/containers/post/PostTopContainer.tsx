@@ -10,7 +10,7 @@ type Props = {
 export default function PostTopContainer({ data }: Props) {
   return (
     <div className="w-full py-2 md:py-4 mb-7">
-      <div className="mb-10 overflow-hidden rounded-xl max-h-[700px] flex items-center justify-center">
+      <div className="mb-10 overflow-hidden rounded-xl max-h-[500px] flex items-center justify-center">
         <Image
           className="object-cover w-full"
           src={data.cover}

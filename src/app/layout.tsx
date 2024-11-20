@@ -24,9 +24,9 @@ export default function RootLayout({
             id="container"
             className="py-10 flex min-h-screen w-full flex-col items-center relative bg-white dark:bg-neutral-800 transition-colors duration-200"
           >
-            <section className="w-[calc(100%-32px)] max-w-[1082px] flex flex-col">
+            <div className="w-[calc(100%-32px)] max-w-[1082px] flex flex-col">
               {children}
-            </section>
+            </div>
           </main>
           <FooterContainer />
         </Providers>

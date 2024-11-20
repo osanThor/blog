@@ -7,7 +7,11 @@ date: 2023.05.05
 cover: "/posts/dev/202305-next13-routes/cover.avif"
 ---
 
-> When you don't know the exact segment names ahead of time and want to create routes from dynamic data, you can use Dynamic Segments that are filled in at request time or prerendered at build time.
+<Blockquote type="warn">
+  {`When you don't know the exact segment names ahead of time and want to create
+  routes from dynamic data, you can use Dynamic Segments that are filled in at
+  request time or prerendered at build time.`}
+</Blockquote>
 
 - 정확한 세그먼트 이름을 미리 알지 못하고 동적 데이터에서 경로를 생성하려는 경우 요청 시 입력하거나 빌드 시 미리 렌더링한 동적 세그먼트를 사용할 수 있습니다.
 
@@ -15,7 +19,9 @@ cover: "/posts/dev/202305-next13-routes/cover.avif"
 React는 **react-router-dom**이라는 라이브러리를 설치해 path를 지정해주는 게 신기했고, v5로 배웠는데 v6가 금방 또 나와버려서 당황했던 기억이...
 Next 역시 **pages 폴더**를 기준으로 라우팅이 된다는 것이 재밌었는데, 금방 v12에서 v13으로 버전이 업그레이드 되며 많이 바뀌었다.
 
-> 급변하는 프론트 세계라는 것을 1년차 만에 몸으로 경험했다.
+<Blockquote type="error">
+  {`급변하는 프론트 세계라는 것을 1년차 만에 몸으로 경험했다.`}
+</Blockquote>
 
 일단 공식문서에 매우 잘나와있다. [공식문서](https://nextjs.org/docs/app/building-your-application/routing)
 
@@ -43,7 +49,9 @@ Next 역시 **pages 폴더**를 기준으로 라우팅이 된다는 것이 재�
 간단한 프로젝트가 아니면 무조건적으로 다이나믹 라우트를 사용해야하는데
 폴더명에 대괄호([])를 추가하여 사용한다.
 
-> [공식문서](https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes)
+<Blockquote type="info">
+  [공식문서](https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes)
+</Blockquote>
 
 대괄호안에는 id나 slug 등 유연성있는 명칭을 사용하고 spread 연산사를 사용하지 않으면 string 타입으로 params 객체에 담겨 props로 내려오게 된다.
 
