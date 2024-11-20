@@ -22,7 +22,7 @@ export default function ThemeToggle() {
   const beforeDefault =
     "before:w-[16px] before:h-[16px] before:block before:rounded-full before:transition-all before:duration-200 before:absolute before:top-[1px] before:left-0";
   const afterDefault =
-    "after:block after:rounded-full after:transition-all after:duration-300 after:absolute after:top-0 after:left-0";
+    "after:block after:rounded-full after:transition-all after:duration-300 after:absolute";
   return (
     <button
       className={`w-[48px] h-[24px] relative flex rounded-[32px] p-[2px] ease-linear transition-all duration-200 border border-neutral-300 dark:border-neutral-500 ${

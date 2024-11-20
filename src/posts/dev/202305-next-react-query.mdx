@@ -1,0 +1,93 @@
+---
+title: Next13에서 react-query 사용
+tags:
+  - Next
+  - React-Query
+description: "첫 블로그 포스팅, Next 13버전 렌더링 방식 정리"
+date: 2023.05.17
+---
+
+> Find the docs at https://tanstack.com/query/latest
+
+현재 진행중인 플젝에 페이지네이션 기능을 react-query로 구현하기로 마음먹었다. 왜냐하면 react-query가 가독성이나 유지보수에 있어서도 useEffect보다 훨씬 나았기 때문이다.
+
+react-query를 사용할려면 QueryClientProvider로 감싸야하는데 서버 컴포넌트에서 context, provider 등을 import 하면 Hydration 에러가 발생한다.
+
+client 측에서 제공하는 API 이기 때문에 "use client"를 써줘야한다.
+![](https://velog.velcdn.com/images/given/post/c971e9e2-2264-4e59-b1aa-ae403854f9e9/image.png)
+
+그래서 app 디랙토리에 따로 뺴주었다. MUI 셋업도 비슷한 이유에서 빼놨다.
+
+> [2024] --> 나중에 클라이언트 providers 들은 따로 폴더로 빼서 관리했다.
+
+```tsx
+// app/ReactQuerySetup.tsx
+
+"use client";
+
+import { useRef } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+interface Props {
+  children: React.ReactNode;
+}
+
+export default function ReactQuerySetup({ children }: Props) {
+  const queryClientRef = useRef<QueryClient>();
+  if (!queryClientRef.current) {
+    queryClientRef.current = new QueryClient();
+  }
+  return (
+    <QueryClientProvider client={queryClientRef.current}>
+      {children}
+    </QueryClientProvider>
+  );
+}
+```
+
+client 컴포넌트에서 client 인스턴스를 만들어줬다.
+아니면 이렇게 해도 된다
+
+```tsx
+"use client";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactNode } from "react";
+
+type Props = {
+  children: ReactNode;
+};
+
+const queryClient = new QueryClient();
+
+export default function ReactQuerySetup({ children }: Props) {
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+}
+```
+
+```tsx
+// app/layout.tsx
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <ReactQuerySetup>
+      <html lang="en">
+        <body className={pretendard.className}>
+          <MuiSetup>
+            <Header />
+            {children}
+            <Footer />
+          </MuiSetup>
+        </body>
+      </html>
+    </ReactQuerySetup>
+  );
+}
+```
+
+html 전체를 감싸도 잘되더라

@@ -25,18 +25,23 @@ export default async function PostsByCategoryPage({ params }: Props) {
       <SmallTitle text={"All Posts"} count={list.length} />
       {!!list.length ? (
         <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {list.map((item) => (
-            <li key={item.title} className="group">
-              <Link
-                href={`/post/${item.href}`}
-                className="flex flex-col transition-all group-hover:shadow-md"
-              >
-                <h2 className="text-xl font-bold mb-2">{item.title}</h2>
-                <p className="truncate">{item.description}</p>
-                {item.date}
-              </Link>
-            </li>
-          ))}
+          {list.map((item) => {
+            console.log(item);
+            return (
+              <li key={item.title} className="group">
+                <Link
+                  href={`/post/${item.href}`}
+                  className="flex flex-col transition-all group-hover:shadow-md"
+                >
+                  <h2 className="text-xl font-bold mb-2 text-pretty">
+                    {item.title}
+                  </h2>
+                  <p className="truncate">{item.description}</p>
+                  {item.date}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       ) : (
         <div className="w-full flex items-center justify-center h-[300px] text-lg font-medium text-neutral-600 dark:text-neutral-300">
