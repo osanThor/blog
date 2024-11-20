@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${pretendard.variable} antialiased relative `}>
+      <body className={`${pretendard.variable} antialiased relative`}>
         <Providers>
           <HeaderContainer />
           <main

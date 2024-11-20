@@ -39,6 +39,8 @@ export default async function PostsByCategoryPage({ params }: Props) {
                       src={item.cover}
                       alt={`cover-of-${item.title}`}
                       fill
+                      sizes={"1"}
+                      priority
                     />
                   </div>
                 )}

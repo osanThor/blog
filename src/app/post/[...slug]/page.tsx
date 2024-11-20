@@ -24,7 +24,7 @@ export default async function PostDetailPage({ params }: Props) {
   const category = slug[0];
   const filename = slug[1];
   const data = await getPost(
-    [category, `${filename}.mdx`],
+    [category, filename ? `${filename}.mdx` : ""],
     {
       remarkPlugins: [remarkGfm],
       format: "mdx",
