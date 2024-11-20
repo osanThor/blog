@@ -27,7 +27,10 @@ export default async function PostsByCategoryPage({ params }: Props) {
       {!!list.length ? (
         <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {list.map((item) => (
-            <li key={item.title} className="group flex flex-col">
+            <li
+              key={item.title}
+              className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px]"
+            >
               <Link
                 href={`/post/${category}/${item.href}`}
                 className="flex flex-col transition-all flex-grow"
