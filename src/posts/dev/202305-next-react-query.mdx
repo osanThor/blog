@@ -5,6 +5,7 @@ tags:
   - React-Query
 description: "클라이언트 컴포넌트에서 provider 만들기"
 date: 2023.05.17
+cover: "/posts/dev/202305-next-react-query/cover.avif"
 ---
 
 > Find the docs at https://tanstack.com/query/latest
@@ -14,7 +15,7 @@ date: 2023.05.17
 react-query를 사용할려면 QueryClientProvider로 감싸야하는데 서버 컴포넌트에서 context, provider 등을 import 하면 Hydration 에러가 발생한다.
 
 client 측에서 제공하는 API 이기 때문에 "use client"를 써줘야한다.
-![](https://velog.velcdn.com/images/given/post/c971e9e2-2264-4e59-b1aa-ae403854f9e9/image.png)
+![폴더 구조]('/posts/dev/202305-next-react-query/1.png')
 
 그래서 app 디랙토리에 따로 뺴주었다. MUI 셋업도 비슷한 이유에서 빼놨다.
 

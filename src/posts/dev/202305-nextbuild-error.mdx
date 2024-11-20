@@ -1,16 +1,17 @@
 ---
-title: Next13 build 배포
+title: Next13 build 배포 에러 수정
 tags:
   - Next
 description: "에러 수정"
 date: 2023.05.26
+cover: "/posts/dev/202305-nextbuild-error/cover.avif"
 ---
 
 ## Blog 프로젝트 진행하면서 겪은 에러
 
 > 블로그 포스팅을 웹에서 계속 작성하고 싶어서 admin 계정을 만들고 포스팅 기능도 만들었는데, 포스팅 할 때마다 빌드해주는 게 싫어서 SSR(Server-side rendering)으로 만들어 보다가 여러 에러를 겪었다.
 
-![](https://velog.velcdn.com/images/given/post/92aedaef-e5db-4d6c-9bc4-b267bfd6c74c/image.png)
+![error console](/posts/dev/202305-nextbuild-error/1.png)
 firebase admin SDK를 사용해서 api 라우팅을 했는데 빌드할 때 이런 에러가 계속 떴다.
 
 알아보니 비동기 Fetch API가 아닌 다른 API를 사용할 경우에는 캐싱설정을 따로 해줘야 한다고 나와있었다.
@@ -25,7 +26,7 @@ export const dynamic = "force-dynamic";
 
 이렇게 넣으니 빌드 시 위 에러는 사라졌다
 나는 api 파일에 넣었다.
-![](https://velog.velcdn.com/images/given/post/c29c0f60-2d92-4b42-88b6-775ee1277f8e/image.png)
+![또다른 에러 콘솔](/posts/dev/202305-nextbuild-error/2.png)
 api가 바뀌니 기존의 ISR 방식의 데이터 fetch는 오류를 발생 시켰다.
 
 ```ts
@@ -36,7 +37,7 @@ api가 바뀌니 기존의 ISR 방식의 데이터 fetch는 오류를 발생 시
 ```
 
 마지막으로
-![](https://velog.velcdn.com/images/given/post/323db6cf-537e-40ce-a605-32bbe93abdde/image.png)
+![last error console](/posts/dev/202305-nextbuild-error/3.png)
 브라우저 콘솔에는
 
 ```ts
