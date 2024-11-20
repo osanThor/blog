@@ -10,7 +10,7 @@ export type Frontmatter = {
   description: string;
   tags: string[];
   date: string;
-  cover?: string;
+  cover: string;
 };
 export type PostItem = Frontmatter & { href: string };
 // 파일을 검색할 기본 경로 설정

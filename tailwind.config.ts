@@ -15,6 +15,7 @@ export default {
       },
       fontFamily: {
         pretendard: ["var(--font-pretendard)"],
+        imperialScript: ["var(--font-imperialScript)"],
       },
     },
   },
