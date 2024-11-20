@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${pretendard.variable} ${imperialScript.variable} antialiased relative `}
+        className={`${pretendard.variable} ${imperialScript.variable} antialiased relative`}
       >
         <Providers>
           <HeaderContainer />

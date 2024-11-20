@@ -20,15 +20,17 @@ export default function PostTopContainer({ data }: Props) {
           priority
         />
       </div>
-      <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-2">
+      <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4">
         {data.title}
       </h1>
-      <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-300 mb-4">
+      <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-300 mb-2">
         {data.description}
       </p>
-      <div className="flex items-center gap-2 mb-2 imperialScript">
-        writed by Given
-        <span className="font-medium imperialScript">{data.date}</span>
+      <div className="text-sm flex items-center gap-1 mb-2 text-neutral-600 dark:text-neutral-300">
+        <span>
+          writed by <b>Given</b>
+        </span>
+        <span className="font-medium">{data.date}</span>
       </div>
       <ul className="flex items-center gap-2 mb-2">
         {data.tags.map((tag) => (
