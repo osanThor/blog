@@ -19,7 +19,7 @@ export default async function PostsByCategoryPage({ params }: Props) {
   return (
     <div>
       <BigTitle text={category} />
-      <p className="mb-7 text-lg text-neutral-600 dark:text-neutral-300">
+      <p className="mb-7 text-sm md:text-base lg:text-lg text-neutral-600 dark:text-neutral-300">
         {messages[category as "dev" | "life"]}
       </p>
       <SmallTitle text={"All Posts"} count={list.length} />
@@ -31,7 +31,7 @@ export default async function PostsByCategoryPage({ params }: Props) {
                 href={`/post/${category}/${item.href}`}
                 className="flex flex-col transition-all group-hover:shadow-md"
               >
-                <h2 className="text-xl font-bold mb-2 text-pretty">
+                <h2 className="text-xl font-bold mb-2 text-pretty ">
                   {item.title}
                 </h2>
                 <p className="truncate">{item.description}</p>
