@@ -11,18 +11,20 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const filename = slug[0];
+  const category = slug[0];
+  const filename = slug[1];
   const {
     frontmatter: { title, description },
-  } = await getPost(filename);
+  } = await getPost([category, `${filename}.mdx`]);
   return getMetadata({ title, description });
 }
 
 export default async function PostDetailPage({ params }: Props) {
   const { slug } = await params;
-  const filename = slug[0];
+  const category = slug[0];
+  const filename = slug[1];
   const data = await getPost(
-    filename,
+    [category, `${filename}.mdx`],
     {
       remarkPlugins: [remarkGfm],
       format: "mdx",

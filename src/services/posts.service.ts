@@ -10,16 +10,15 @@ export type Frontmatter = {
   date: string;
 };
 export type PostItem = Frontmatter & { href: string };
+// 파일을 검색할 기본 경로 설정
+const baseDir = path.join(process.cwd(), "src/posts");
 
 export const getPost = async (
-  filename: string,
+  filename: string[],
   mdxOptions?: any,
   components?: any
 ) => {
-  const content = await fs.readFile(
-    path.join(process.cwd(), "src/posts/dev", `${filename}.mdx`),
-    "utf-8"
-  );
+  const content = await fs.readFile(path.join(baseDir, ...filename), "utf-8");
   return await compileMDX<Frontmatter>({
     source: content,
     options: {
@@ -30,9 +29,6 @@ export const getPost = async (
   });
 };
 
-// 파일을 검색할 기본 경로 설정
-const baseDir = path.join(process.cwd(), "src/posts");
-
 export const getPostsByCategory = cache(
   async (folder: string): Promise<PostItem[]> => {
     const folderPath = path.join(baseDir, folder);
@@ -41,9 +37,9 @@ export const getPostsByCategory = cache(
         .readdir(folderPath)
         .then((files) => files.filter((file) => path.extname(file) === ".mdx"));
       return await Promise.all(
-        files.map(async (filenames) => {
-          const formatFileName = filenames.replace(".mdx", "");
-          const { frontmatter } = await getPost(formatFileName);
+        files.map(async (filename) => {
+          const formatFileName = filename.replace(".mdx", "");
+          const { frontmatter } = await getPost([folder, filename]);
           return {
             href: formatFileName,
             ...frontmatter,
