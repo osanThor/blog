@@ -24,7 +24,7 @@ export default function PostTopContainer({ data }: Props) {
         {data.tags.map((tag) => (
           <li key={`post-tag-${tag}`}>
             <Link
-              href={"/"}
+              href={`/tag/${tag.replaceAll(" ", "-")}`}
               className="flex text-sm py-1 px-2 rounded bg-yellow-500 hover:bg-yellow-600 dark:bg-yellow-600 dark:hover:bg-yellow-500 text-white transition-all"
             >
               {tag}

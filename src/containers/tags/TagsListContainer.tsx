@@ -18,8 +18,8 @@ export default function TagsListContainer({ currentTag, tags }: Props) {
   const handleClickToggle = () => setOpen(!open);
 
   useEffect(() => {
-    if (open) setList(tags.slice(0, 5));
-    else setList(tags);
+    if (open) setList(tags);
+    else setList(tags.slice(0, 5));
   }, [open]);
 
   return (

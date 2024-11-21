@@ -105,7 +105,7 @@ export const getAllSeriesByCategory = async (
 
 export const getSeries = async (name: string) => {
   return await getAllPosts().then((data) =>
-    data.filter((item) => item.series?.includes(name))
+    data.filter((item) => item.series && item.series === name)
   );
 };
 
@@ -123,4 +123,10 @@ export const getAllTags = async (): Promise<TagItem[]> => {
   return Array.from(tagMap.entries())
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count);
+};
+
+export const getPostsByTag = async (name: string) => {
+  return await getAllPosts().then((data) =>
+    data.filter((item) => item.tags.includes(name))
+  );
 };
