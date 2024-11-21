@@ -15,7 +15,7 @@ export default function TopContentsContainer() {
   );
 
   return (
-    <div className="w-full flex flex-col items-center gap-10">
+    <section className="w-full flex flex-col items-center gap-10">
       <h1 ref={HeaderRef}>
         <Image
           className="dark:invert object-cover max-w-[calc(100%-32px)]"
@@ -34,6 +34,6 @@ export default function TopContentsContainer() {
         <li>tag5</li>
         <li>tag6</li>
       </ul>
-    </div>
+    </section>
   );
 }

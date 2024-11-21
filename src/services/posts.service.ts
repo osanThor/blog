@@ -15,6 +15,7 @@ export type Frontmatter = {
   category: string;
 };
 export type PostItem = Frontmatter & { href: string };
+
 // 파일을 검색할 기본 경로 설정
 const baseDir = path.join(process.cwd(), "src/posts");
 
