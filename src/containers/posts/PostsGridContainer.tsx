@@ -1,7 +1,7 @@
 "use client";
 import SmallTitle from "@/components/common/SmallTitle";
 import { PostItem } from "@/services/posts.service";
-import { transformVisible, transformVisibleChildren } from "@/utils/lib/gsap";
+import { transformVisible } from "@/utils/lib/gsap";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,8 +18,8 @@ export default function PostsGridContainer({ category, list }: Props) {
   useGSAP(
     () => {
       if (ref.current) transformVisible(ref.current, 0.4);
-      console.log(listRef.current);
-      if (listRef.current) transformVisibleChildren(listRef.current);
+      if (listRef.current)
+        transformVisible(Array.from(listRef.current.children), 1);
     },
     { scope: ref }
   );
