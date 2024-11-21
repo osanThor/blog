@@ -19,14 +19,14 @@ export default function PostsGridContainer({ category, list }: Props) {
     () => {
       if (ref.current) transformVisible(ref.current, 0.4);
       if (listRef.current)
-        transformVisible(Array.from(listRef.current.children), 1);
+        transformVisible(Array.from(listRef.current.children), null);
     },
     { scope: ref }
   );
   return (
     <>
       <section ref={ref}>
-        <SmallTitle text={"All Posts"} count={list.length} />
+        <SmallTitle text={"게시글"} count={list.length} />
         {!!list.length ? (
           <ul
             ref={listRef}
@@ -35,7 +35,7 @@ export default function PostsGridContainer({ category, list }: Props) {
             {list.map((item) => (
               <li
                 key={item.title}
-                className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px]"
+                className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px] opacity-0"
               >
                 <Link
                   href={`/post/${category}/${item.href}`}

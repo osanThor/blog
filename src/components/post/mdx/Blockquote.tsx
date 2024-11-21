@@ -10,10 +10,11 @@ type Props = {
 
 export default function Blockquote({ type, children }: Props) {
   const blockquoteClass = {
-    info: "bg-blue-100 text-indigo-800 [&_a]:!text-indigo-800",
-    warn: "bg-yellow-100 text-yellow-800 [&_a]:!text-yellow-800",
-    error: "bg-red-100 text-red-800 [&_a]:!text-red-800",
-    default: "bg-neutral-200 text-neutral-800 [&_a]:!text-neutral-800",
+    info: "bg-blue-100 text-indigo-800 [&_a]:!text-indigo-800 [&_a]:!font-bold",
+    warn: "bg-yellow-100 text-yellow-800 [&_a]:!text-yellow-800 [&_a]:!font-bold",
+    error: "bg-red-100 text-red-800 [&_a]:!text-red-800 [&_a]:!font-bold",
+    default:
+      "bg-neutral-200 text-neutral-800 [&_a]:!text-neutral-800 [&_a]:!font-bold",
   }[type || "default"];
 
   const BlockquoteIcon = {

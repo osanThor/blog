@@ -14,8 +14,9 @@ export const transformTextAnimation = (target: HTMLElement, text: string) => {
 
 export const transformVisible = (
   target: HTMLElement | Element[],
-  duration: number = 1
+  time?: number | null
 ) => {
+  const duration = time || 1;
   gsap
     .timeline()
     .set(target, {

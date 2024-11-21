@@ -11,6 +11,7 @@ export type Frontmatter = {
   tags: string[];
   date: string;
   cover: string;
+  series?: string[];
 };
 export type PostItem = Frontmatter & { href: string };
 // 파일을 검색할 기본 경로 설정
@@ -63,6 +64,26 @@ export const getPostsByCategory = cache(
     }
   }
 );
+
+export type SeriesItem = {
+  seriesName: string;
+  count: number;
+};
+
+export const getAllSeries = async (folder: string): Promise<SeriesItem[]> => {
+  const seriesMap = new Map<string, number>();
+  const list = await getPostsByCategory(folder).then((list) =>
+    list.filter((item) => !!item.series)
+  );
+  list.forEach((item) => {
+    item.series!.forEach((seriesName) => {
+      seriesMap.set(seriesName, (seriesMap.get(seriesName) || 0) + 1);
+    });
+  });
+  return Array.from(seriesMap.entries())
+    .map(([seriesName, count]) => ({ seriesName, count }))
+    .sort((a, b) => b.count - a.count);
+};
 
 export const getAllPosts = async () => {};
 

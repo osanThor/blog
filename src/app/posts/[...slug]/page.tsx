@@ -1,7 +1,8 @@
 import BigTitle from "@/components/common/BigTitle";
 import SmallTitle from "@/components/common/SmallTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
-import { getPostsByCategory } from "@/services/posts.service";
+import PostsSeriesListContainer from "@/containers/posts/PostsSeriesListContainer";
+import { getAllSeries, getPostsByCategory } from "@/services/posts.service";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,6 +18,7 @@ const messages = {
 export default async function PostsByCategoryPage({ params }: Props) {
   const { slug } = await params;
   const category = slug[0];
+  const series = await getAllSeries(category);
   const list = await getPostsByCategory(category);
   return (
     <>
@@ -24,6 +26,9 @@ export default async function PostsByCategoryPage({ params }: Props) {
       <p className="mb-7 text-sm md:text-base lg:text-lg text-neutral-600 dark:text-neutral-300">
         {messages[category as "dev" | "life"]}
       </p>
+      {!!series.length && (
+        <PostsSeriesListContainer category={category} list={series} />
+      )}
       <PostsGridContainer category={category} list={list} />
     </>
   );
