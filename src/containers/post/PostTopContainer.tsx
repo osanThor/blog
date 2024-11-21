@@ -20,6 +20,18 @@ export default function PostTopContainer({ data }: Props) {
           priority
         />
       </div>
+      <ul className="flex items-center gap-2 mb-4">
+        {data.tags.map((tag) => (
+          <li key={`post-tag-${tag}`}>
+            <Link
+              href={"/"}
+              className="flex text-sm py-1 px-2 rounded bg-yellow-500 hover:bg-yellow-600 dark:bg-yellow-600 dark:hover:bg-yellow-500 text-white transition-all"
+            >
+              {tag}
+            </Link>
+          </li>
+        ))}
+      </ul>
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4">
         {data.title}
       </h1>
@@ -32,18 +44,6 @@ export default function PostTopContainer({ data }: Props) {
         </span>
         <span className="font-medium">{data.date}</span>
       </div>
-      <ul className="flex items-center gap-2 mb-2">
-        {data.tags.map((tag) => (
-          <li key={`post-tag-${tag}`}>
-            <Link
-              href={"/"}
-              className="flex text-sm py-1 px-2 rounded bg-yellow-500 hover:bg-yellow-600 dark:bg-yellow-600 dark:hover:bg-yellow-500 text-white transition-all"
-            >
-              {tag}
-            </Link>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

@@ -17,7 +17,7 @@ export default function Heading({ type, children, ...rest }: Props) {
 
   return (
     <HeadingTag
-      id={content || undefined}
+      id={content?.replaceAll(" ", "-") || undefined}
       className={`${headingClass} group`}
       {...rest}
     >
@@ -30,7 +30,7 @@ export default function Heading({ type, children, ...rest }: Props) {
 function HeadingLink({ to }: { to: string }) {
   return (
     <Link
-      href={`#${to}`}
+      href={`#${to.replaceAll(" ", "-")}`}
       className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-200 text-yellow-600 hover:text-yellow-500"
     >
       #

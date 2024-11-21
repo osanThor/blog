@@ -10,7 +10,9 @@ cover: "/posts/dev/202305-next-react-query/cover.avif"
 
 <Heading type="h2">App dir에서 Tanstack query 사용하기</Heading>
 
-{<Blockquote type="info">Find the docs at https://tanstack.com/query/latest</Blockquote>}
+<Blockquote type="info">
+  Find the docs at https://tanstack.com/query/latest
+</Blockquote>
 
 현재 진행중인 플젝에 페이지네이션 기능을 react-query로 구현하기로 마음먹었다. 왜냐하면 react-query가 가독성이나 유지보수에 있어서도 useEffect보다 훨씬 나았기 때문이다.
 
@@ -22,7 +24,9 @@ client 측에서 제공하는 API 이기 때문에 "use client"를 써줘야한�
 
 그래서 app 디랙토리에 따로 뺴주었다. MUI 셋업도 비슷한 이유에서 빼놨다.
 
-{<Blockquote type="warn">**[2024]** - 나중에 클라이언트 providers 들은 따로 폴더로 빼서 관리했다.</Blockquote>}
+<Blockquote type="warn">
+  **[2024]** - 나중에 클라이언트 providers 들은 따로 폴더로 빼서 관리했다.
+</Blockquote>
 
 ```tsx
 // app/ReactQuerySetup.tsx
