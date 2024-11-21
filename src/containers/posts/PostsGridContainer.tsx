@@ -29,7 +29,7 @@ export default function PostsGridContainer({ list }: Props) {
         {!!list.length ? (
           <ul
             ref={listRef}
-            className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 "
+            className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 "
           >
             {list.map((item) => (
               <li

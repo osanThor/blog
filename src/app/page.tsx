@@ -1,4 +1,5 @@
 import Signboard from "@/components/common/Signboard";
+import AsideContainer from "@/containers/home/AsideContainer";
 import MainContentsContainer from "@/containers/home/MainContentsContainer";
 import TagsListContainer from "@/containers/tags/TagsListContainer";
 import { getAllTags } from "@/services/posts.service";
@@ -13,9 +14,7 @@ export default async function Home() {
       </section>
       <div className="w-full flex flex-col md:flex-row gap-8 my-10">
         <MainContentsContainer />
-        <div className="flex-[1] flex flex-col gap-10">
-          <aside>About Me</aside>
-        </div>
+        <AsideContainer />
       </div>
     </>
   );

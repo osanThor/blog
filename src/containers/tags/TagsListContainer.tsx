@@ -10,16 +10,18 @@ type Props = {
   tags: TagItem[];
 };
 
+const INITIAL_LENGTH = 7;
+
 export default function TagsListContainer({ currentTag, tags }: Props) {
-  const [list, setList] = useState<TagItem[]>(tags.slice(0, 5));
+  const [list, setList] = useState<TagItem[]>(tags.slice(0, INITIAL_LENGTH));
   const { open, setOpen } = useTagsStore();
-  const isCanOpen = tags.length > 5;
+  const isCanOpen = tags.length > INITIAL_LENGTH;
 
   const handleClickToggle = () => setOpen(!open);
 
   useEffect(() => {
     if (open) setList(tags);
-    else setList(tags.slice(0, 5));
+    else setList(tags.slice(0, INITIAL_LENGTH));
   }, [open]);
 
   return (

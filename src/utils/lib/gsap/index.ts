@@ -17,7 +17,8 @@ export type Direction = "up" | "left";
 export const transformVisible = (
   target: HTMLElement | Element[],
   time?: number | null,
-  direction: Direction = "up"
+  direction: Direction = "up",
+  stagger: number = 0.1
 ) => {
   const duration = time || 1;
   // 위치 설정
@@ -34,7 +35,7 @@ export const transformVisible = (
       duration,
       y: 0,
       opacity: 1,
-      stagger: 0.1,
+      stagger,
       ...finalPosition,
     });
 };
