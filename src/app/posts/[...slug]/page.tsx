@@ -1,10 +1,7 @@
 import BigTitle from "@/components/common/BigTitle";
-import SmallTitle from "@/components/common/SmallTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 import PostsSeriesListContainer from "@/containers/posts/PostsSeriesListContainer";
 import { getAllSeries, getPostsByCategory } from "@/services/posts.service";
-import Image from "next/image";
-import Link from "next/link";
 
 type Props = {
   params: Promise<{ slug: string[] }>;
@@ -26,10 +23,8 @@ export default async function PostsByCategoryPage({ params }: Props) {
       <p className="mb-7 text-sm md:text-base lg:text-lg text-neutral-600 dark:text-neutral-300">
         {messages[category as "dev" | "life"]}
       </p>
-      {!!series.length && (
-        <PostsSeriesListContainer category={category} list={series} />
-      )}
-      <PostsGridContainer category={category} list={list} />
+      {!!series.length && <PostsSeriesListContainer list={series} />}
+      <PostsGridContainer list={list} />
     </>
   );
 }

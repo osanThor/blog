@@ -8,11 +8,10 @@ import Link from "next/link";
 import { useRef } from "react";
 
 type Props = {
-  category: string;
   list: PostItem[];
 };
 
-export default function PostsGridContainer({ category, list }: Props) {
+export default function PostsGridContainer({ list }: Props) {
   const ref = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   useGSAP(
@@ -26,7 +25,7 @@ export default function PostsGridContainer({ category, list }: Props) {
   return (
     <>
       <section ref={ref}>
-        <SmallTitle text={"게시글"} count={list.length} />
+        <SmallTitle text={"Posts"} count={list.length} />
         {!!list.length ? (
           <ul
             ref={listRef}
@@ -38,7 +37,7 @@ export default function PostsGridContainer({ category, list }: Props) {
                 className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px] opacity-0"
               >
                 <Link
-                  href={`/post/${category}/${item.href}`}
+                  href={`/post/${item.category}/${item.href}`}
                   className="flex flex-col transition-all flex-grow"
                 >
                   {!!item.cover && (

@@ -12,6 +12,7 @@ export type Frontmatter = {
   date: string;
   cover: string;
   series?: string[];
+  category: string;
 };
 export type PostItem = Frontmatter & { href: string };
 // 파일을 검색할 기본 경로 설정
@@ -65,6 +66,21 @@ export const getPostsByCategory = cache(
   }
 );
 
+export const getAllPosts = cache(async (): Promise<PostItem[]> => {
+  const devPosts = await getPostsByCategory("dev");
+  const lifePosts = await getPostsByCategory("life");
+
+  return JSON.parse(
+    JSON.stringify(
+      [...devPosts, ...lifePosts].sort((a, b) => {
+        const aDate = new Date(a.date);
+        const bDate = new Date(b.date);
+        return aDate > bDate ? -1 : 1;
+      })
+    )
+  );
+});
+
 export type SeriesItem = {
   seriesName: string;
   count: number;
@@ -85,8 +101,8 @@ export const getAllSeries = async (folder: string): Promise<SeriesItem[]> => {
     .sort((a, b) => b.count - a.count);
 };
 
-export const getAllPosts = async () => {};
-
-// // dev와 life 폴더의 mdx 파일 목록 가져오기
-// const devFiles = getMdxFiles("dev");
-// const lifeFiles = getMdxFiles("life");
+export const getSeries = async (name: string) => {
+  return await getAllPosts().then((data) =>
+    data.filter((item) => item.series?.includes(name))
+  );
+};

@@ -7,40 +7,37 @@ import Link from "next/link";
 import { useRef } from "react";
 
 type Props = {
+  category: string;
   list: SeriesItem[];
 };
 
-export default function PostsSeriesListContainer({ list }: Props) {
+export default function PostsTagListContainer({ category, list }: Props) {
   const ref = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   useGSAP(
     () => {
       if (ref.current) transformVisible(ref.current, 0.4);
       if (listRef.current)
-        transformVisible(Array.from(listRef.current.children), null, "left");
+        transformVisible(Array.from(listRef.current.children), null);
     },
     { scope: ref }
   );
   return (
     <>
       <section ref={ref} className="mb-10">
-        <SmallTitle text={"Series"} count={list.length} />
+        <SmallTitle text={"시리즈"} count={list.length} />
         {!!list.length ? (
-          <ul ref={listRef} className="flex gap-8 flex-wrap">
+          <ul ref={listRef} className="flex gap-4 ">
             {list.map((item) => (
               <li
                 key={`${item.seriesName}`}
-                className="group flex flex-col opacity-0"
+                className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px] opacity-0"
               >
-                <Link
-                  href={`/series/${item.seriesName.replaceAll(" ", "-")}`}
-                  className="flex flex-col transition-all flex-grow relative text-lg font-bold group-hover:underline"
-                >
-                  {item.seriesName}
-                  <sup className="absolute top-0 -right-5 text-xs">
-                    ({item.count})
-                  </sup>
-                </Link>
+                {item.seriesName}
+                {/* <Link
+                  href={`/post/${category}/${item.href}`}
+                  className="flex flex-col transition-all flex-grow"
+                ></Link> */}
               </li>
             ))}
           </ul>
