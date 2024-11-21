@@ -11,7 +11,7 @@ export type Frontmatter = {
   tags: string[];
   date: string;
   cover: string;
-  series?: string[];
+  series?: string;
   category: string;
 };
 export type PostItem = Frontmatter & { href: string };
@@ -83,22 +83,23 @@ export const getAllPosts = cache(async (): Promise<PostItem[]> => {
 });
 
 export type SeriesItem = {
-  seriesName: string;
+  name: string;
   count: number;
 };
 
-export const getAllSeries = async (folder: string): Promise<SeriesItem[]> => {
+export const getAllSeriesByCategory = async (
+  folder: string
+): Promise<SeriesItem[]> => {
   const seriesMap = new Map<string, number>();
   const list = await getPostsByCategory(folder).then((list) =>
     list.filter((item) => !!item.series)
   );
   list.forEach((item) => {
-    item.series!.forEach((seriesName) => {
-      seriesMap.set(seriesName, (seriesMap.get(seriesName) || 0) + 1);
-    });
+    if (item.series)
+      seriesMap.set(item.series, (seriesMap.get(item.series) || 0) + 1);
   });
   return Array.from(seriesMap.entries())
-    .map(([seriesName, count]) => ({ seriesName, count }))
+    .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count);
 };
 
@@ -106,4 +107,20 @@ export const getSeries = async (name: string) => {
   return await getAllPosts().then((data) =>
     data.filter((item) => item.series?.includes(name))
   );
+};
+
+export type TagItem = { name: string; count: number };
+
+export const getAllTags = async (): Promise<TagItem[]> => {
+  const tagMap = new Map<string, number>();
+  const list = await getAllPosts();
+
+  list.forEach((item) => {
+    item.tags.forEach((tag) => {
+      tagMap.set(tag, (tagMap.get(tag) || 0) + 1);
+    });
+  });
+  return Array.from(tagMap.entries())
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count);
 };

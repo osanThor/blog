@@ -1,5 +1,4 @@
 import localFont from "next/font/local";
-import { Imperial_Script } from "next/font/google";
 
 export const pretendard = localFont({
   src: [
@@ -41,10 +40,4 @@ export const pretendard = localFont({
     },
   ],
   variable: "--font-pretendard",
-});
-
-export const imperialScript = Imperial_Script({
-  weight: "400",
-  style: "normal",
-  variable: "--font-imperialScript",
 });

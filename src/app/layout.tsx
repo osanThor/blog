@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "./providers";
-import { imperialScript, pretendard } from "./fonts";
+import { pretendard } from "./fonts";
 import HeaderContainer from "@/containers/common/HeaderContainer";
 import FooterContainer from "@/containers/common/FooterContainer";
 import { getMetadata } from "@/utils/getMetadata";
@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${pretendard.variable} ${imperialScript.variable} antialiased relative`}
+        className={`${pretendard.variable} antialiased relative`}
         suppressHydrationWarning
       >
         <Providers>

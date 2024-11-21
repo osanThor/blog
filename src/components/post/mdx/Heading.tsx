@@ -1,3 +1,4 @@
+import LinkIcon from "@/components/common/icons/LinkIcon";
 import Link from "next/link";
 import { PropsWithChildren } from "react";
 
@@ -31,9 +32,9 @@ function HeadingLink({ to }: { to: string }) {
   return (
     <Link
       href={`#${to.replaceAll(" ", "-")}`}
-      className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-200 text-yellow-600 hover:text-yellow-500"
+      className="ml-2 inline-block opacity-0 group-hover:opacity-100 transition-all duration-200 text-yellow-600 hover:text-yellow-500"
     >
-      #
+      <LinkIcon />
     </Link>
   );
 }

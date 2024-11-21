@@ -8,13 +8,13 @@ type Props = {
 
 export default async function SeriesPage({ params }: Props) {
   const { slug } = await params;
-  const series = decodeURIComponent(slug[0]).replaceAll("-", " ");
+  const series = decodeURI(slug[0]).replaceAll("-", " ");
 
   const list = await getSeries(series);
 
   return (
     <>
-      <BigTitle text={decodeURIComponent(series).replaceAll("-", " ")} />
+      <BigTitle text={decodeURI(series).replaceAll("-", " ")} />
       <div className="mb-10" />
       <PostsGridContainer list={list} />
     </>

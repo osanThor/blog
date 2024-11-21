@@ -29,14 +29,14 @@ export default function PostsSeriesListContainer({ list }: Props) {
           <ul ref={listRef} className="flex gap-8 flex-wrap">
             {list.map((item) => (
               <li
-                key={`${item.seriesName}`}
+                key={`${item.name}`}
                 className="group flex flex-col opacity-0"
               >
                 <Link
-                  href={`/series/${item.seriesName.replaceAll(" ", "-")}`}
+                  href={`/series/${item.name.replaceAll(" ", "-")}`}
                   className="flex flex-col transition-all flex-grow relative text-lg font-bold group-hover:underline"
                 >
-                  {item.seriesName}
+                  {item.name}
                   <sup className="absolute top-0 -right-5 text-xs">
                     ({item.count})
                   </sup>

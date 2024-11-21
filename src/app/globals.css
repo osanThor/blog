@@ -15,6 +15,3 @@ body {
   height: auto;
   scroll-padding-top: 80px;
 }
-.imperialScript {
-  font-family: var(--font-imperialScript);
-}
