@@ -40,7 +40,7 @@ export default function PostTopContainer({ data }: Props) {
       </p>
       <div className="text-sm flex items-center gap-1 mb-2 text-neutral-600 dark:text-neutral-300">
         <span>
-          writed by <b>Given</b>
+          Written by <b>Given</b> at
         </span>
         <span className="font-medium">{data.date}</span>
       </div>

@@ -12,7 +12,7 @@ export const transformTextAnimation = (target: HTMLElement, text: string) => {
   });
 };
 
-export const transformVisible = (target: HTMLElement) => {
+export const transformVisible = (target: HTMLElement, duration: number = 1) => {
   gsap
     .timeline()
     .set(target, {
@@ -20,8 +20,21 @@ export const transformVisible = (target: HTMLElement) => {
       y: 10,
     })
     .to(target, {
-      duration: 1,
+      duration,
       y: 0,
       opacity: 1,
+    });
+};
+export const transformVisibleChildren = (target: HTMLElement) => {
+  gsap
+    .timeline()
+    .set(Array.from(target.children), {
+      opacity: 0,
+      y: 10,
+    })
+    .to(Array.from(target.children), {
+      y: 0,
+      opacity: 1,
+      stagger: 0.15,
     });
 };
