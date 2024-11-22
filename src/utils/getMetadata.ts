@@ -48,44 +48,44 @@ export const getMetadata = (metadataProps?: generateMetadataProps) => {
     icons: {
       icon: { rel: "icon", url: "/favicon.ico", sizes: "48x48" },
       apple: [
-        { rel: "", url: `/assets/images/meta/apple-icon.png` },
+        { rel: "", url: `/meta/apple-icon.png` },
         {
-          url: `/assets/images/meta/apple-icon-57x57.png`,
+          url: `/meta/apple-icon-57x57.png`,
           sizes: "57x57",
           type: "image/png",
         },
         {
-          url: `/assets/images/meta/apple-icon-60x60.png`,
+          url: `/meta/apple-icon-60x60.png`,
           sizes: "60x60",
           type: "image/png",
         },
         {
-          url: `/assets/images/meta/apple-icon-76x76.png`,
+          url: `/meta/apple-icon-76x76.png`,
           sizes: "76x76",
           type: "image/png",
         },
         {
-          url: `/assets/images/meta/apple-icon-114x114.png`,
+          url: `/meta/apple-icon-114x114.png`,
           sizes: "114x114",
           type: "image/png",
         },
         {
-          url: `/assets/images/meta/apple-icon-120x120.png`,
+          url: `/meta/apple-icon-120x120.png`,
           sizes: "120x120",
           type: "image/png",
         },
         {
-          url: `/assets/images/meta/apple-icon-144x144.png`,
+          url: `/meta/apple-icon-144x144.png`,
           sizes: "144x144",
           type: "image/png",
         },
         {
-          url: `/assets/images/meta/apple-icon-152x152.png`,
+          url: `/meta/apple-icon-152x152.png`,
           sizes: "152x152",
           type: "image/png",
         },
         {
-          url: `/assets/images/meta/apple-icon-180x180.png`,
+          url: `/meta/apple-icon-180x180.png`,
           sizes: "180x180",
           type: "image/png",
         },
@@ -93,7 +93,7 @@ export const getMetadata = (metadataProps?: generateMetadataProps) => {
       other: [
         {
           rel: "apple-touch-icon-precomposed",
-          url: `/assets/images/meta/apple-icon-precomposed.png`,
+          url: `/meta/apple-icon-precomposed.png`,
           type: "image/png",
         },
       ],

@@ -103,7 +103,8 @@ export const getAllSeriesByCategory = async (
     .sort((a, b) => b.count - a.count);
 };
 
-export const getSeries = async (name: string) => {
+export const getSeries = async (name?: string) => {
+  if (!name) return [];
   return await getAllPosts().then((data) =>
     data.filter((item) => item.series && item.series === name)
   );

@@ -1,6 +1,7 @@
 import components from "@/components/post/mdx";
-import PostTopContainer from "@/containers/post/PostTopContainer";
-import { getPost } from "@/services/posts.service";
+import PostContentsContainer from "@/containers/post/PostContentsContainer";
+import PostSeriesContainer from "@/containers/post/PostSeriesContainer";
+import { getPost, getSeries } from "@/services/posts.service";
 import { getMetadata } from "@/utils/getMetadata";
 import remarkGfm from "remark-gfm";
 
@@ -22,7 +23,7 @@ export default async function PostDetailPage({ params }: Props) {
   const slug = (await params).slug;
   const category = slug[0];
   const filename = slug[1];
-  const data = await getPost(
+  const postPromise = getPost(
     [category, filename ? `${filename}.mdx` : ""],
     {
       remarkPlugins: [remarkGfm],
@@ -30,10 +31,17 @@ export default async function PostDetailPage({ params }: Props) {
     },
     components
   );
+  const seriesPromise = postPromise.then((data) =>
+    getSeries(data.frontmatter.series)
+  );
+  const [data, serieses] = await Promise.all([postPromise, seriesPromise]);
+
   return (
     <>
-      <PostTopContainer data={data.frontmatter} />
-      <div className="text-pretty">{data.content}</div>
+      <PostContentsContainer data={data} />
+      {!!serieses.length && (
+        <PostSeriesContainer title={data.frontmatter.series!} list={serieses} />
+      )}
     </>
   );
 }

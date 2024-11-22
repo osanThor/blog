@@ -9,7 +9,7 @@ type Props = {
 function SmallTitle({ text, count }: Props) {
   return (
     <div className="flex gap-2 items-center mb-7">
-      <h2 className="text-2xl md:text-3xl font-black capitalize text-wrap truncate">
+      <h2 className="text-xl md:text-2xl font-black capitalize text-wrap truncate">
         {text}
       </h2>
       {!!count && (

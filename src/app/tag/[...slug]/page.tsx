@@ -11,7 +11,10 @@ export default async function PostsByTagsPage({ params }: Props) {
   const { slug } = await params;
   const tag = slug[0];
   const convertedTag = decodeURI(tag).replaceAll("-", " ");
-  const [tags, list] = await Promise.all([getAllTags(), getPostsByTag(tag)]);
+  const [tags, list] = await Promise.all([
+    getAllTags(),
+    getPostsByTag(convertedTag),
+  ]);
   return (
     <>
       <div className="w-full flex items-center justify-center pt-6 h-[84px] mb-10">

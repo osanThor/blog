@@ -1,27 +1,41 @@
 "use client";
 
 import { Frontmatter } from "@/services/posts.service";
+import { transformVisible } from "@/utils/lib/gsap";
+import { useGSAP } from "@gsap/react";
+import { CompileMDXResult } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
 
 type Props = {
-  data: Frontmatter;
+  data: CompileMDXResult<Frontmatter>;
 };
-export default function PostTopContainer({ data }: Props) {
+export default function PostContentsContainer({
+  data: { frontmatter, content },
+}: Props) {
+  const ref = useRef<HTMLElement>(null);
+  useGSAP(
+    () => {
+      if (ref.current)
+        transformVisible(Array.from(ref.current.children), 0.8, "left", 0.15);
+    },
+    { scope: ref }
+  );
   return (
-    <div className="w-full pb-2 md:pb-4 mb-7">
+    <article ref={ref} className="w-full mb-7 ">
       <div className="mb-10 overflow-hidden rounded-xl max-h-[500px] flex items-center justify-center">
         <Image
           className="object-cover w-full"
-          src={data.cover}
-          alt={`${data.title}-cover`}
+          src={frontmatter.cover}
+          alt={`${frontmatter.title}-cover`}
           width={800}
           height={38}
           priority
         />
       </div>
       <ul className="flex items-center gap-2 mb-4">
-        {data.tags.map((tag) => (
+        {frontmatter.tags.map((tag) => (
           <li key={`post-tag-${tag}`}>
             <Link
               href={`/tag/${tag.replaceAll(" ", "-")}`}
@@ -33,17 +47,18 @@ export default function PostTopContainer({ data }: Props) {
         ))}
       </ul>
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4">
-        {data.title}
+        {frontmatter.title}
       </h1>
       <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-300 mb-2">
-        {data.description}
+        {frontmatter.description}
       </p>
-      <div className="text-sm flex items-center gap-1 mb-2 text-neutral-600 dark:text-neutral-300">
+      <div className="text-sm flex items-center gap-1 pb-2 md:pb-4  mb-9 text-neutral-600 dark:text-neutral-300">
         <span>
           Written by <b>Given</b> at
         </span>
-        <span className="font-medium">{data.date}</span>
+        <span className="font-medium">{frontmatter.date}</span>
       </div>
-    </div>
+      <div className="text-pretty">{content}</div>
+    </article>
   );
 }
