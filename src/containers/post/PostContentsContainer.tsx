@@ -24,13 +24,16 @@ export default function PostContentsContainer({
   );
   return (
     <article ref={ref} className="w-full md:w-[70%]  max-w-full flex-1 mb-7 ">
-      <div className="mb-10 overflow-hidden rounded-xl max-h-[500px] flex items-center justify-center">
+      <div
+        id="postCoverImg"
+        className="mb-10 overflow-hidden rounded-xl max-h-[500px] flex items-center justify-center"
+      >
         <Image
           className="object-cover w-full"
           src={frontmatter.cover}
           alt={`${frontmatter.title}-cover`}
           width={800}
-          height={38}
+          height={300}
           priority
         />
       </div>

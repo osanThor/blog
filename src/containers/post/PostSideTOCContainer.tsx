@@ -13,7 +13,7 @@ type Item = {
 };
 
 export default function PostSideTOCContainer() {
-  const headElRef = useRef<number[]>([]);
+  const headElRef = useRef<HTMLElement[]>([]);
   const [headItem, setHeadItem] = useState<Item[]>([]);
   const [currentIdx, setCurrentIdx] = useState<number | null>(null);
 
@@ -23,7 +23,7 @@ export default function PostSideTOCContainer() {
     const headings = Array.from(
       container.querySelectorAll<HTMLElement>("h2, h3, h4")
     );
-    headElRef.current = headings.map((el) => el.offsetTop);
+    headElRef.current = headings;
     return headings.map((heading) => ({
       tag: heading.tagName as HeadingType,
       id: heading.id || "",
@@ -38,11 +38,14 @@ export default function PostSideTOCContainer() {
       const scrollY = window.scrollY;
 
       for (let i = 0; i < headElRef.current.length; i++) {
-        const target = headElRef.current[i];
-        const nextTarget = headElRef.current[i + 1] || null;
-
+        const target =
+          headElRef.current[i].getBoundingClientRect().top + scrollY;
+        const nextTarget = headElRef.current[i + 1]
+          ? headElRef.current[i + 1].getBoundingClientRect().top + scrollY
+          : null;
+        console.log(i, target, nextTarget, scrollY);
         const isInRange =
-          scrollY >= target - 40 && (!nextTarget || scrollY < nextTarget - 40);
+          scrollY >= target - 90 && (!nextTarget || scrollY < nextTarget - 90);
 
         if (isInRange) {
           setCurrentIdx(i);
@@ -59,6 +62,7 @@ export default function PostSideTOCContainer() {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+
   useGSAP(
     () => {
       if (containerRef.current) transformVisible(containerRef.current);
