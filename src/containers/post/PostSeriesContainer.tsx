@@ -32,7 +32,7 @@ export default function PostSeriesContainer({ series, title, list }: Props) {
             >
               <Link
                 href={`/post/${item.category}/${item.href}`}
-                className="flex transition-all gap-7 items-start"
+                className="flex transition-all gap-7"
               >
                 <div className="overflow-hidden w-full max-w-[10vw] min-w-[20%] max-h-[140px] rounded-lg mb-2 relative flex items-center justify-center">
                   <Image
@@ -45,7 +45,7 @@ export default function PostSeriesContainer({ series, title, list }: Props) {
                     priority
                   />
                 </div>
-                <div className="w-full flex flex-col">
+                <div className="w-full flex flex-col flex-grow">
                   <span className="text-xs md:text-sm font-medium text-yellow-600">
                     {item.tags.join(" & ")}
                   </span>
@@ -56,9 +56,6 @@ export default function PostSeriesContainer({ series, title, list }: Props) {
                   >
                     {item.title}
                   </h2>
-                  <p className="flex flex-grow mb-4 min-h-10">
-                    {item.description}
-                  </p>
                   <div className="w-full flex items-center gap-2 justify-between">
                     <span className="text-xs md:text-sm font-medium text-neutral-500 ">
                       {item.date}

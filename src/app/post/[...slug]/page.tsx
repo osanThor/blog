@@ -1,6 +1,7 @@
 import components from "@/components/post/mdx";
 import PostContentsContainer from "@/containers/post/PostContentsContainer";
 import PostSeriesContainer from "@/containers/post/PostSeriesContainer";
+import PostSideTOCContainer from "@/containers/post/PostSideTOCContainer";
 import { getPost, getSeries } from "@/services/posts.service";
 import { getMetadata } from "@/utils/getMetadata";
 import remarkGfm from "remark-gfm";
@@ -38,7 +39,10 @@ export default async function PostDetailPage({ params }: Props) {
 
   return (
     <>
-      <PostContentsContainer data={data} />
+      <div className="w-full flex gap-8">
+        <PostContentsContainer data={data} />
+        <PostSideTOCContainer />
+      </div>
       {!!serieses.length && (
         <PostSeriesContainer
           series={data.frontmatter.series!}

@@ -32,7 +32,7 @@ function HeadingLink({ to }: { to: string }) {
   return (
     <Link
       href={`#${to.replaceAll(" ", "-")}`}
-      className="ml-2 inline-block opacity-0 group-hover:opacity-100 transition-all duration-200 text-yellow-600 hover:text-yellow-500"
+      className="ml-2 inline-block opacity-0 group-hover:opacity-100 transition-all duration-200 text-yellow-600 hover:text-yellow-500 relative translate-y-1"
     >
       <LinkIcon />
     </Link>

@@ -2,10 +2,11 @@
 
 import HeaderNavbar from "@/components/header/HeaderNavbar";
 import HeaderSearchContainer from "@/containers/common/HeaderSearchContainer";
-import { useEffect, useState } from "react";
+import { useWidowStore } from "@/utils/lib/zustand/window";
+import { useEffect } from "react";
 
 export default function HeaderContainer() {
-  const [scrollY, setScrollY] = useState<number>(0);
+  const { scrollY, setScrollY } = useWidowStore();
 
   useEffect(() => {
     const handleScroll = () => {

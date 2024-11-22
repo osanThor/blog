@@ -58,7 +58,9 @@ export default function PostContentsContainer({
         </span>
         <span className="font-medium">{frontmatter.date}</span>
       </div>
-      <div className="text-pretty">{content}</div>
+      <div id="viewer" className="text-pretty">
+        {content}
+      </div>
     </article>
   );
 }

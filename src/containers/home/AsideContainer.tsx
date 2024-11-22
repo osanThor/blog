@@ -17,14 +17,14 @@ export default function AsideContainer() {
     { scope: ref }
   );
   return (
-    <div className="w-full md:w-2/6 md:min-w-[33.333%] flex flex-col gap-10">
+    <div className="w-full md:max-w-[320px] md:w-2/6 flex flex-col gap-10">
       <aside
         ref={ref}
         className="w-full sticky top-[90px] left-0 flex flex-col"
       >
         <SmallTitle text="About Me" />
         <div className="w-full flex flex-col items-center mb-10 opacity-0">
-          <div className="max-w-[calc(100%-120px)] rounded-full overflow-hidden">
+          <div className="max-w-[calc(100%-60px)] lg:max-w-[calc(100%-120px)] rounded-full overflow-hidden">
             <Image
               className="object-cover max-w-full"
               src="/me.png"
@@ -35,7 +35,7 @@ export default function AsideContainer() {
             />
           </div>
         </div>
-        <p className="text-center">
+        <p className="text-center break-keep">
           프론트엔드 개발자 이준영입니다.
           <br />
           개발자로서 항상 도전과 성장의 기회를 찾고 있습니다.
