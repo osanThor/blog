@@ -5,6 +5,7 @@ import {
   getAllSeriesByCategory,
   getPostsByCategory,
 } from "@/services/posts.service";
+import { getMetadata } from "@/utils/getMetadata";
 
 type Props = {
   params: Promise<{ slug: string[] }>;
@@ -14,6 +15,11 @@ const messages = {
   dev: "새로 알게 된 지식, 트러블 슈팅 등 개발 일지를 기록한 공간입니다.",
   life: "소소한 일상 모음입니다.",
 };
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params;
+  const category = slug[0];
+  return getMetadata({ title: `${category.toUpperCase()} 기록` });
+}
 
 export default async function PostsByCategoryPage({ params }: Props) {
   const { slug } = await params;
