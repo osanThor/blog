@@ -43,7 +43,6 @@ export default function PostSideTOCContainer() {
         const nextTarget = headElRef.current[i + 1]
           ? headElRef.current[i + 1].getBoundingClientRect().top + scrollY
           : null;
-        console.log(i, target, nextTarget, scrollY);
         const isInRange =
           scrollY >= target - 90 && (!nextTarget || scrollY < nextTarget - 90);
 
