@@ -40,7 +40,11 @@ export default async function PostDetailPage({ params }: Props) {
     <>
       <PostContentsContainer data={data} />
       {!!serieses.length && (
-        <PostSeriesContainer title={data.frontmatter.series!} list={serieses} />
+        <PostSeriesContainer
+          series={data.frontmatter.series!}
+          title={data.frontmatter.title}
+          list={serieses}
+        />
       )}
     </>
   );
