@@ -1,3 +1,4 @@
+import Giscus from "@/components/post/Giscus";
 import components from "@/components/post/mdx";
 import PostContentsContainer from "@/containers/post/PostContentsContainer";
 import PostSeriesContainer from "@/containers/post/PostSeriesContainer";
@@ -43,6 +44,7 @@ export default async function PostDetailPage({ params }: Props) {
         <PostContentsContainer data={data} />
         <PostSideTOCContainer />
       </div>
+      <Giscus />
       {!!serieses.length && (
         <PostSeriesContainer
           series={data.frontmatter.series!}

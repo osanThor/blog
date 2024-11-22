@@ -11,8 +11,9 @@ export type Frontmatter = {
   tags: string[];
   date: string;
   cover: string;
-  series?: string;
   category: string;
+  series?: string;
+  featured?: boolean;
 };
 export type PostItem = Frontmatter & { href: string };
 
@@ -129,5 +130,11 @@ export const getAllTags = async (): Promise<TagItem[]> => {
 export const getPostsByTag = async (name: string) => {
   return await getAllPosts().then((data) =>
     data.filter((item) => item.tags.includes(name))
+  );
+};
+
+export const getFeaturedPost = async () => {
+  return await getAllPosts().then((data) =>
+    data.filter((item) => item.featured === true).slice(0, 4)
   );
 };
