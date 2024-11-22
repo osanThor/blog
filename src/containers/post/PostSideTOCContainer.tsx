@@ -1,5 +1,7 @@
 "use client";
 
+import { transformVisible } from "@/utils/lib/gsap";
+import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -10,12 +12,8 @@ type Item = {
   text: string;
 };
 
-type ElItem = {
-  top: number;
-  height: number;
-};
 export default function PostSideTOCContainer() {
-  const headElRef = useRef<ElItem[]>([]);
+  const headElRef = useRef<number[]>([]);
   const [headItem, setHeadItem] = useState<Item[]>([]);
   const [currentIdx, setCurrentIdx] = useState<number | null>(null);
 
@@ -25,9 +23,7 @@ export default function PostSideTOCContainer() {
     const headings = Array.from(
       container.querySelectorAll<HTMLElement>("h2, h3, h4")
     );
-    headElRef.current = headings.map((el) => {
-      return { top: el.offsetTop, height: el.offsetHeight };
-    });
+    headElRef.current = headings.map((el) => el.offsetTop);
     return headings.map((heading) => ({
       tag: heading.tagName as HeadingType,
       id: heading.id || "",
@@ -46,8 +42,7 @@ export default function PostSideTOCContainer() {
         const nextTarget = headElRef.current[i + 1] || null;
 
         const isInRange =
-          scrollY >= target.top - 40 &&
-          (!nextTarget || scrollY < nextTarget.top - 40);
+          scrollY >= target - 40 && (!nextTarget || scrollY < nextTarget - 40);
 
         if (isInRange) {
           setCurrentIdx(i);
@@ -62,12 +57,29 @@ export default function PostSideTOCContainer() {
     };
   }, []);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  useGSAP(
+    () => {
+      if (containerRef.current) transformVisible(containerRef.current);
+      if (listRef.current)
+        transformVisible(Array.from(listRef.current.children), 1, "left");
+    },
+    { scope: containerRef, dependencies: [headItem] }
+  );
+
   return (
-    <div className="min-w-[25%] hidden md:flex flex-col">
+    <div
+      ref={containerRef}
+      className="min-w-[25%] w-[25%] hidden md:flex flex-col opacity-0"
+    >
       <aside className="w-full h-full max-h-[70vh] sticky top-[90px] left-0">
         <h3 className="text-lg font-semibold mb-2">In This Page</h3>
         <div className="flex flex-col max-h-[calc(70vh-36px)] overflow-y-auto">
-          <ul className="border-l border-neutral-200 dark:border-neutral-500 px-2">
+          <ul
+            ref={listRef}
+            className="border-l border-neutral-200 dark:border-neutral-500 px-2"
+          >
             {!!headItem.length ? (
               headItem.map((item, idx) => {
                 const headingClass = {
@@ -79,7 +91,7 @@ export default function PostSideTOCContainer() {
                 return (
                   <li
                     key={`toc-item-${item.id}`}
-                    className={`${headingClass} my-2`}
+                    className={`${headingClass} my-2 opacity-0`}
                   >
                     <Link
                       href={`#${item.id}`}
@@ -93,7 +105,7 @@ export default function PostSideTOCContainer() {
                 );
               })
             ) : (
-              <li className="my-2">선택자가 없습니다</li>
+              <li className="my-2 opacity-0">선택자가 없습니다</li>
             )}
           </ul>
         </div>

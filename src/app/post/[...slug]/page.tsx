@@ -39,7 +39,7 @@ export default async function PostDetailPage({ params }: Props) {
 
   return (
     <>
-      <div className="w-full flex gap-8">
+      <div className="w-full flex gap-[5%]">
         <PostContentsContainer data={data} />
         <PostSideTOCContainer />
       </div>

@@ -23,7 +23,7 @@ export default function PostContentsContainer({
     { scope: ref }
   );
   return (
-    <article ref={ref} className="w-full mb-7 ">
+    <article ref={ref} className="w-full md:w-[70%]  max-w-full flex-1 mb-7 ">
       <div className="mb-10 overflow-hidden rounded-xl max-h-[500px] flex items-center justify-center">
         <Image
           className="object-cover w-full"
