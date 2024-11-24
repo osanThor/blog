@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props) {
   const category = slug[0];
   const filename = slug[1];
   const {
-    frontmatter: { title, description, cover },
+    frontmatter: { title, description },
   } = await getPost([category, `${filename}.mdx`]);
 
   const url = process.env.NEXT_PUBLIC_BASE_URL;

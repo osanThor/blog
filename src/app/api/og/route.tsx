@@ -23,7 +23,7 @@ export async function GET(request: Request) {
         </div>
       )
     );
-  } catch (err: any) {
-    return new Response("Fail to generate OG Image", { status: 500 });
+  } catch (err: unknown) {
+    return new Response(`Fail to generate OG Image: ${err}`, { status: 500 });
   }
 }
