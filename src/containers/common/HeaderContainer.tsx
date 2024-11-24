@@ -1,12 +1,16 @@
 "use client";
 
+import MobileNavbar from "@/components/common/MobileNavbar";
+import CloseIcon from "@/components/common/icons/CloseIcon";
+import MenuIcon from "@/components/common/icons/MenuIcon";
 import HeaderNavbar from "@/components/header/HeaderNavbar";
 import HeaderSearchContainer from "@/containers/common/HeaderSearchContainer";
 import { useWidowStore } from "@/utils/lib/zustand/window";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function HeaderContainer() {
   const { scrollY, setScrollY } = useWidowStore();
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,8 +32,17 @@ export default function HeaderContainer() {
     >
       <div className="w-full max-w-[1082px] flex items-center justify-between">
         <HeaderNavbar />
-        <HeaderSearchContainer />
+        <div className="flex items-center justify-between gap-4">
+          <HeaderSearchContainer />
+          <button
+            className="text-2xl flex sm:hidden"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <CloseIcon /> : <MenuIcon />}
+          </button>
+        </div>
       </div>
+      <MobileNavbar open={open} setOpen={setOpen} />
     </header>
   );
 }

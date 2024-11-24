@@ -36,7 +36,7 @@ export default function SlideCard({ list }: Props) {
         <SwiperSlide key={`slide-card-${item.title}`}>
           <Link
             href={`/post/${item.category}/${item.href}`}
-            className="flex transition-all gap-7 items-start rounded-xl h-screen max-h-[480px] group relative overflow-hidden"
+            className="flex transition-all gap-7 items-start rounded-xl h-screen max-h-[300px] md:max-h-[400px] lg:max-h-[480px] group relative overflow-hidden"
           >
             <div className="overflow-hidden w-full h-full rounded-xl mb-2 relative flex items-center justify-center">
               <Image

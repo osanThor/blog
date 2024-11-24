@@ -39,7 +39,7 @@ function HeaderSearchContainer() {
   }, [pathname]);
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="items-center gap-2 flex">
       <form onSubmit={handleSubmit}>
         <input
           className="w-[170px] bg-neutral-100 dark:bg-neutral-700 focus:bg-neutral-200 dark:focus:bg-neutral-600 px-4 h-8 rounded-[32px] placeholder:text-sm placeholder:text-neutral-500 focus:outline-none"
@@ -50,7 +50,9 @@ function HeaderSearchContainer() {
           onChange={handleChange}
         />
       </form>
-      <ThemeToggle />
+      <div className="hidden md:flex">
+        <ThemeToggle />
+      </div>
     </div>
   );
 }
