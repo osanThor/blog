@@ -17,5 +17,5 @@ export const META = {
   url: process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",
   naverVerification: process.env.NAVER_SITE_VERIFICATION || "",
   googleVerification: process.env.GOOGLE_SITE_VERIFICATION || "",
-  ogImage: `/assets/images/meta/op_image.png`,
+  ogImage: `/meta/opengraph-image.png`,
 } as const;

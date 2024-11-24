@@ -16,9 +16,18 @@ export async function generateMetadata({ params }: Props) {
   const category = slug[0];
   const filename = slug[1];
   const {
-    frontmatter: { title, description },
+    frontmatter: { title, description, cover },
   } = await getPost([category, `${filename}.mdx`]);
-  return getMetadata({ title, description });
+
+  const url = process.env.NEXT_PUBLIC_BASE_URL;
+
+  const ogUrl = new URL(`${url}/api/og`);
+  ogUrl.searchParams.set("title", title);
+  return getMetadata({
+    title,
+    description,
+    ogImage: ogUrl.toString(),
+  });
 }
 
 export default async function PostDetailPage({ params }: Props) {
