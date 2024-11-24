@@ -10,23 +10,21 @@
 
 ## ✨ UI/UX 기능
 
-- [ ] 반응형 디자인
-- [ ] theme 변경
-- [ ] interaction 컴포넌트
-- [ ] 슬라이드 기능
+- [x] 반응형 디자인
+- [x] theme 변경
+- [x] interaction 컴포넌트
+- [x] 슬라이드 기능
 - [ ] toTop button
 
 ## 🔥 필수 기능
 
-- [ ] `mdx` 파일 컨텐츠 렌더링
-- [ ] 시리즈, 태그 기능
-- [ ] 검색 기능
-- [ ] `TOC`
-- [ ] `Giscus` 댓글
-- [ ] SEO 최적화
-- [ ] open graph
+- [x] `mdx` 파일 컨텐츠 렌더링
+- [x] 시리즈, 태그 기능
+- [x] 검색 기능
+- [x] `TOC`
+- [x] `Giscus` 댓글
+- [x] SEO 최적화
+- [x] open graph
 - [ ] rss
-
-## 🌲 사이트 구조
 
 ## 📚 프로젝트 폴더구조

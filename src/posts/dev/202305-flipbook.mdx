@@ -1,0 +1,152 @@
+---
+title: mouse, touch 이벤트로 FlipBook 이벤트
+tags:
+  - React
+description: "react-pageFlip eventHandler"
+date: 2023.05.16
+cover: "/posts/dev/202305-flipbook/cover.avif"
+series: 트러블 슈팅
+category: dev
+---
+
+<Heading type="h2">React로 Flip 효과 책 만들기</Heading>
+
+책이 넘어가는 듯한 효과를 위해 Flip 애니메이션이나 react-flip이나 Turn.js 등 사용해 봤지만 react-pageFlip 라이브러리가 가장 책 같이 넘어감.
+
+![flig book animation](/posts/dev/202305-flipbook/1.gif)
+
+> npm: https://www.npmjs.com/package/react-pageflip
+> github: https://github.com/Nodlik/StPageFlip
+> doc: https://nodlik.github.io/StPageFlip/docs/index.html#point
+
+> 다른 라이브러리로는 react-flip-page https://www.npmjs.com/package/react-flip-page
+
+책넘기는 애니메이션이 잘만들어져 있고 실제 마우스나 모바일 디바이스에선 터치로 flip 가능하다.
+그러나 구현 중 클릭하면 페이지가 넘어가는 게 짜증나서 disableFlipByClick를 true로 줬다
+글자를 클릭하면 이벤트도 줘야해서 disabled 처리를 하는 게 좋았다.
+페이지 귀퉁이에 있는 글자에 마우스 커서를 올리려고 하면 페이지 귀퉁이가 말려올라와서 showPageCorners도 false를 해줬다
+문제 될것이 없어보였다
+
+그러나..
+
+귀퉁이에 있는 글자를 클릭하면 이벤트도 발생하지만 다음 페이지로 넘어가 버리는 오류가 있었다.
+라이브러리 자체 API를 사용하면 클라이언트가 원하는 텍스트를 클릭하면 소리가 나오게 하는 기능 등 구현 사항과 상충되는 항목들이 있어, 인스턴스만 따로 상태 관리하여 web API를 사용해 클릭이나 터치, 넘김을 인식하여 필요한 API를 호출하도록 구현 필요.
+
+> 클릭이벤트를 분명 disabled 처리 했을텐데??
+
+공식문서를 다시 잘보니 이런 게 있었다.
+
+![해결법 발견](/posts/dev/202305-flipbook/2.png)
+
+코너를 클릭하면 또 넘어가게 해놨나 보다
+빌어먹을
+
+글자 클릭 시 일어나는 버블링을 막어보려고 했지만 잘 안됐다. pageFlip 라이브러리의 랜더 방식에 차이가 있는 모양이었다.
+
+별 수 없이 useMouseEvents:마우스나 터치 이벤트 사용여부 option 이다. false 처리 해줬다
+
+이제 책넘기는 애니메이션만 제공하는 라이브러리, 손가락이나 마우스로 책 넘기듯이 Flip 이벤트를 주는 것은 불가능한 상태가 됐다.
+
+> 그러나, javascript는 못할게 없다.
+
+html은 mouseDown, mouseUp, touchStart, touchEnd method가 있으니 이걸로 포인트 좌표값 계산해서 책넘기는 효과를 줄 것이다.
+
+그 전에 먼저 FlipPage 인스턴스에 접근해서 페이지 넘기는 함수를 만든다.
+
+```ts
+const handleGoPrev = () => {
+  if (isMobile) {
+    bookIns.turnToPrevPage();
+  } else {
+    bookIns.flipPrev();
+  }
+};
+
+const handleGoNext = () => {
+  bookIns.flipNext();
+};
+```
+
+몰랐는데 disableFlipByClick 를 true로 하면 모바일에서 flipPrev가 안먹는다. 앞으로 안가는 기이형상. 그런데 또 turnToPrevPage()는 된다. 둘의 차이는 애니메이션이 있냐, 없냐의 차이다. 라이브러리를 좀 잘못 만든 것 같다. 지금이라도 라이브러리 바꿔볼까 싶지만 끝까지 가보겠다.
+
+```ts
+//** mouse event
+const [mdX, setMdX] = useState<number>(0);
+const [mdY, setMdY] = useState<number>(0);
+const [muX, setMuX] = useState<number>(0);
+const [muY, setMuY] = useState<number>(0);
+
+//** touch event
+const [tcX, setTcX] = useState<number>(0);
+const [tcY, setTcY] = useState<number>(0);
+```
+
+좌표값을 저장할 상태를 만들어준다.
+mouseDown,mouseUp 이벤트는 모바일에선 안먹으니 Touch 값을 저장할 상태도 만든다.
+
+```ts
+const handleMouseDownStart = (e: React.MouseEvent<HTMLElement>) => {
+  setMdX(e.clientX);
+  setMdY(e.clientY);
+};
+const handleMouseDownEnd = (e: React.MouseEvent<HTMLElement>) => {
+  setMuX(e.clientX);
+  setMuY(e.clientY);
+};
+useEffect(() => {
+  const dragSpaceX = Math.abs(mdX - muX);
+  const dragSpaceY = Math.abs(mdY - muY);
+  const vector = dragSpaceX / dragSpaceY;
+
+  if (mdX !== 0 && dragSpaceX > 100 && vector > 2) {
+    if (muX < mdX) {
+      handleGoNext();
+    } else if (muX > mdX) {
+      handleGoPrev();
+    }
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [muX]);
+
+const handleTouchStart = (e: React.TouchEvent) => {
+  console.log(e.changedTouches[0].pageX);
+  setTcX(e.changedTouches[0].pageX);
+  setTcY(e.changedTouches[0].pageY);
+};
+const handleTouchEnd = (e: React.TouchEvent) => {
+  const distanceX = tcX - e.changedTouches[0].pageX;
+  const distanceY = tcY - e.changedTouches[0].pageY;
+  const vector = Math.abs(distanceX / distanceY);
+
+  if (distanceX > 30 && vector > 2) {
+    handleGoNext();
+  } else if (distanceX < -30 && vector > 2) {
+    handleGoPrev();
+  }
+};
+```
+
+이제 이 함수들을 HTML 안에 넣어주면 된다.
+
+```tsx
+return (
+  <HTMLFlipBook
+    {...options}
+    className={`h-3/4 stf__parent ${zoom && "opacity-0"}`}
+    ref={bookRef}
+  >
+    {pages.map((el, idx) => (
+      <div
+        key={idx}
+        className="bg-white lg:overflow-hidden"
+        dangerouslySetInnerHTML={{ __html: el.innerHTML }}
+        onClick={onClick}
+        onMouseDown={mdStart}
+        onMouseUp={mdEnd}
+        onTouchStart={tcStart}
+        onTouchEnd={tcEnd}
+      />
+    ))}
+  </HTMLFlipBook>
+);
+```

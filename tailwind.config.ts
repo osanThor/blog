@@ -13,8 +13,12 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        pretendard: ["var(--font-pretendard)"],
+        imperialScript: ["var(--font-imperialScript)"],
+      },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-content-visibility")],
   darkMode: "class",
 } satisfies Config;

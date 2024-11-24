@@ -1,0 +1,67 @@
+---
+title: Next13 build 배포 에러 수정
+tags:
+  - Next
+description: "에러 수정"
+date: 2023.05.26
+cover: "/posts/dev/202305-nextbuild-error/cover.png"
+series: 트러블 슈팅
+category: dev
+featured: true
+---
+
+<Heading type="h2">Blog 프로젝트 진행하면서 겪은 에러</Heading>
+
+<Blockquote>
+  블로그 포스팅을 웹에서 계속 작성하고 싶어서 admin 계정을 만들고 포스팅 기능도
+  만들었는데, 포스팅 할 때마다 빌드해주는 게 싫어서 SSR(Server-side
+  rendering)으로 만들어 보다가 여러 에러를 겪었다.
+</Blockquote>
+
+![error console](/posts/dev/202305-nextbuild-error/1.png)
+firebase admin SDK를 사용해서 api 라우팅을 했는데 빌드할 때 이런 에러가 계속 떴다.
+
+알아보니 비동기 Fetch API가 아닌 다른 API를 사용할 경우에는 캐싱설정을 따로 해줘야 한다고 나와있었다.
+
+- force-dynmaic : all cache disabled on fetch() requests
+
+app 디랙토리 안에 api/route.ts 파일이나 page.ts에
+
+```ts
+export const dynamic = "force-dynamic";
+```
+
+이렇게 넣으니 빌드 시 위 에러는 사라졌다
+나는 api 파일에 넣었다.
+![또다른 에러 콘솔](/posts/dev/202305-nextbuild-error/2.png)
+api가 바뀌니 기존의 ISR 방식의 데이터 fetch는 오류를 발생 시켰다.
+
+```ts
+//SSR 방식 데이터 패칭
+{
+  cache: "no-store",
+}
+```
+
+마지막으로
+![last error console](/posts/dev/202305-nextbuild-error/3.png)
+브라우저 콘솔에는
+
+```ts
+// Error
+Minified React error #425
+```
+
+이부분은 서버 컴포넌트와 클라이언트 컴포넌트가 서로 다른 렌더링을 할 때 발생한다고 한다.
+
+해결 방법은 클라이언트 컴포넌트의 useEffect 훅을 사용해 강제 렌더링 시키거나 time 태그에 suppressHydrationWarning 를 true로 설정해주는 방법인데 react 공식문서에서도 성능상 비추천한다고 한다.
+
+<Blockquote type="info">
+  **참고자료** <br />
+  1. [Next SSR Error](https://velog.io/@real-bird/Next.js-SSR-Error-React18-error-423-418-425)
+  2. [Vercel Issues](https://github.com/vercel/next.js/issues/37489)
+</Blockquote>
+
+나는 useQuery를 사용해서 클라이언트 컴포넌트에서 데이터패칭을 하는 방법을 사용하니 해당 에러가 사라졌다.
+
+그런데 SSR로 구현하니 페이지 이동 속도가 너무 느려졌다. 다음은 성능개선 아니면 페이지네이션에 대해 작성할 것이다
