@@ -23,7 +23,11 @@ const components = {
       ></a>
     );
   },
+  br: () => <br className="leading-4 h-4" />,
   hr: () => <hr className="my-4" />,
+  table: (props: PropsWithChildren) => (
+    <table className="w-full my-4" {...props} />
+  ),
   code: ({
     className,
     inline,

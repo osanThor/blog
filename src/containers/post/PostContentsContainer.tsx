@@ -18,7 +18,7 @@ export default function PostContentsContainer({
   useGSAP(
     () => {
       if (ref.current)
-        transformVisible(Array.from(ref.current.children), 0.8, "left", 0.15);
+        transformVisible(Array.from(ref.current.children), 0.5, "left", 0.15);
     },
     { scope: ref }
   );

@@ -1,4 +1,4 @@
-import FireIcon from "@/components/common/icons/FireIcon";
+import ErrorIcon from "@/components/common/icons/ErrorIcon";
 import InfoIcon from "@/components/common/icons/InfoIcon";
 import QuestionIcon from "@/components/common/icons/QuestionIcon";
 import WarnIcon from "@/components/common/icons/WarnIcon";
@@ -20,7 +20,7 @@ export default function Blockquote({ type, children }: Props) {
   const BlockquoteIcon = {
     info: InfoIcon,
     warn: WarnIcon,
-    error: FireIcon,
+    error: ErrorIcon,
     default: QuestionIcon,
   }[type || "default"];
 
@@ -31,7 +31,7 @@ export default function Blockquote({ type, children }: Props) {
       <span className="text-2xl mr-4">
         <BlockquoteIcon />
       </span>
-      <div className="[&_p]:m-0 ">{children}</div>
+      <div className="[&_*]:m-0 ">{children}</div>
     </blockquote>
   );
 }

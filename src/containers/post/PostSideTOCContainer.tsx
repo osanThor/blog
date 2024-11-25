@@ -66,7 +66,7 @@ export default function PostSideTOCContainer() {
     () => {
       if (containerRef.current) transformVisible(containerRef.current);
       if (listRef.current)
-        transformVisible(Array.from(listRef.current.children), 1, "left");
+        transformVisible(Array.from(listRef.current.children), 0.5, "left");
     },
     { scope: containerRef, dependencies: [headItem] }
   );

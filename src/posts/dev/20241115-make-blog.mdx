@@ -1,0 +1,131 @@
+---
+title: 블로그 개발 일지 No.1
+tags:
+  - Next
+  - TS
+description: "나만의 블로그를 기획하고 개발해보자"
+date: 2024.11.15
+cover: "/posts/dev/20241115-make-blog/cover.jpg"
+series: "블로그 개발일지"
+category: dev
+---
+
+<Blockquote type="warn">
+  이런 **회고록**이나 **개발일지**는 문어체가 아닌 격식체로 작성하려고 합니다.
+  <br /> 안지키고 있으면 댓글로 혼내주세요..
+</Blockquote>
+
+<Heading type="h2">블로그 개발일지 No.1 - 2024-11-15</Heading>
+
+<Heading type="h3">블로그 개발 이유</Heading>
+
+세상엔 정말 많은 블로그 플랫폼이 있습니다. 그럼에도 제가 자체적으로 블로그를 개발하려는 이유는 아래와 같습니다.
+
+<Heading type="h4">1. 직접 나만의 블로그를 만들고 싶어요</Heading>
+
+개발자들에게 기록은 필수적인 작업이라고 생각합니다. 그리고 많은 개발자들은 기록용 블로그 플랫폼을 사용하고 있습니다.
+하지만 그런 플랫폼들은 너무 정적이거나 커스텀하기 쉽지 않고 어디까지나 제한이 있습니다. 그래서 나만의 블로그를 만들어 보고 싶었습니다.
+
+<Heading type="h4">2. 동기 부여를 받아버렸어요</Heading>
+
+개발 중 구글서치를 하다보면 사이트에서 느껴지는.. UI/UX적으로 뭔가 남다른 포스팅 사이트들이 있습니다. 그런 사이트 중 백이면 80은 자체 개발 블로그였습니다.
+나머지 20은 티스토리.
+동기부여 받은 사이트들은 이 블로그를 개발하는데 많은 영향을 주었습니다.
+
+<Blockquote type="info">
+  **동기부여 받은 블로그들**
+  <ul>
+    <li>- [Naver D2](https://d2.naver.com/home)</li>
+    <li>- [토스 기술 블로그](https://toss.tech/)</li>
+    <li>- [카카오 기술 블로그](https://tech.kakao.com/blog)</li>
+    <li>- [숨고 기술 블로그](https://blog.soomgo.com/)</li>
+    <li>- [화해 기술 블로그](https://blog.hwahae.co.kr/)</li>
+    <li>- [정현수님 기술 블로그](https://junghyeonsu.com/)</li>
+    <li>- [기억은 기록을 이기지 못한다](https://enjoydev.life/)</li>
+    <li>- [캡틴 판교님 블로그](https://joshua1988.github.io/)</li>
+  </ul>
+</Blockquote>
+
+<Heading type="h4">3. 실력을 업그레이드 하고 싶어요</Heading>
+
+    사실 이전에도 블로그를 만들어 본적이 있습니다. 그러나 당시에는 CMS단에서
+    동적으로 데이터를 관리하고 노출하는 SSR 방식으로 개발하여 DB와 클라우드에
+    제한이 있었습니다. (금전적인...)
+
+그래서 디자인도 성능도 업그레이드 하고 싶습니다.
+
+<Blockquote type="info">
+  **Information** - [이전 블로그가 궁금하시면
+  여기](https://given-log.vercel.app/)
+</Blockquote>
+
+<Heading type="h3">블로그 개발 기술스택</Heading>
+
+<Heading type="h4">1. Next.JS</Heading>
+
+![Next.js](/posts/dev/20241115-make-blog/1.png)
+
+`Next.js`는 `React` 기반의 오픈 소스 프레임워크로, 서버 사이드 렌더링(`SSR`)과 정적 사이트 생성(`SSG`)을 기본적으로 지원하며, 서버와 클라이언트 사이의 다양한 렌더링 옵션을 제공합니다. `Next.js`는 `React`의 기능을 확장하여 개발자가 더 쉽게 성능이 뛰어난 웹 애플리케이션을 만들 수 있도록 도와줍니다.
+
+**사용 이유**
+
+1. `SPA`는 `SEO`에 취약하지만 `Next.JS`를 사용하면 간단하게 보완할 수 있습니다.
+2. `Next.JS`는 `SSR`(Server Side Rendering)뿐만 아니라 블로그 같은 정적 컨텐츠에 알맞은 `SSG`(Static Site Generation)를 지원합니다.
+3. 자동 이미지 최적화!
+
+<Blockquote>
+  React 19버젼부터 서버 컴포넌트가 적극적으로 적용된다고 알고있지만 Next 역시
+  14버젼에서 15로 업그레드가 되었습니다. 해당 프로젝트는 Next.JS 15.0.3 버젼을
+  사용합니다 (2024-11-15 기준)
+</Blockquote>
+
+<Blockquote>
+  `SSG`(Static Site Generation) 랜더링 방식은 빌드 시 정적 `html`을 만들기
+  때문에 서버 요청시 `html`을 생성하는 `SSR`(Server Side Rendering)보다 블로그
+  포스팅 같은 정적 컨텐츠를 다룰 때 효과적입니다.
+</Blockquote>
+
+<Heading type="h4">2. 타입스크립트</Heading>
+
+![typescript](/posts/dev/20241115-make-blog/2.png)
+
+`TypeScript`는 `JavaScrip`t의 상위 **집합(superset)**으로, `JavaScript`에 정적 타입(static typing)과 객체 지향 프로그래밍 기능을 추가한 오픈 소스 프로그래밍 언어입니다. **Microsoft**가 개발했으며, `JavaScript`로 컴파일 되는 과정을 거쳐 브라우저와 `Node.js`에서 실행됩니다.
+
+**사용 이유**
+
+1. `Typescript`는 강력한 정적 타입을 지원하여 개발 시 생길 수 있는 오류를 최소화하고 개발 안정성을 높일 수 있습니다.
+2. 타입 명시를 잘 활용한다면 유지보수 시 생길 수 있는 오류가 줄어 유지보수성에 좋습니다.
+3. `Typescript`로 만들어진 `VS code`와 호환이 좋아 리터럴 타입, 객체 프로퍼티를 제시해 주는 등 생산성이 높아집니다.
+
+<Heading type="h3">구현할 기능</Heading>
+
+```md
+## ✨ UI/UX 기능
+
+- [ ] 반응형 디자인
+- [ ] theme 변경
+- [ ] interaction 컴포넌트
+- [ ] 슬라이드 기능
+- [ ] toTop button
+
+## 🔥 필수 기능
+
+- [ ] `mdx` 파일 컨텐츠 렌더링
+- [ ] 시리즈, 태그 기능
+- [ ] 검색 기능
+- [ ] `TOC`
+- [ ] 댓글 기능
+- [ ] SEO 최적화
+- [ ] open graph
+- [ ] rss
+```
+
+<Blockquote>개발 하면서 추가 될 수 있습니다.</Blockquote>
+
+<Heading type="h3">마무리</Heading>
+
+![기획 스케치](/posts/dev/20241115-make-blog/3.jpg)
+
+간단한 기획 스케치...ㅎㅎ. 디자인은 저랑 안 맞는 것 같습니다.
+
+다음엔 개발하는 과정을 기록하겠습니다.
