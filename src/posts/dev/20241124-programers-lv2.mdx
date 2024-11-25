@@ -1,0 +1,287 @@
+---
+title: 프로그래머스 Lv.2 풀이 (Feat. Javascript)
+tags:
+  - JS
+  - 알고리즘
+  - 프로그래머스
+description: "프로그래머스 Lv.2 정답률 6~70대 문제 Javascript 풀이"
+date: 2024.11.24
+cover: "/posts/dev/20241124-programers-lv2/cover.png"
+category: dev
+featured: true
+---
+
+<Heading type="h2">프로그래머스 Lv.2 풀이</Heading>
+<Heading type="h2">1. 멀리 뛰기</Heading>
+<Heading type="h3">문제설명</Heading>
+<Blockquote>
+  효진이는 멀리 뛰기를 연습하고 있습니다. 효진이는 한번에 1칸, 또는 2칸을 뛸 수
+  있습니다. 칸이 총 4개 있을 때, 효진이는 (1칸, 1칸, 1칸, 1칸) (1칸, 2칸, 1칸)
+  (1칸, 1칸, 2칸) (2칸, 1칸, 1칸) (2칸, 2칸) 의 5가지 방법으로 맨 끝 칸에 도달할
+  수 있습니다. 멀리뛰기에 사용될 칸의 수 n이 주어질 때, 효진이가 끝에 도달하는
+  방법이 몇 가지인지 알아내, 여기에 1234567를 나눈 나머지를 리턴하는 함수,
+  solution을 완성하세요. 예를 들어 4가 입력된다면, 5를 return하면 됩니다.
+  **제한 사항**
+  n은 1 이상, 2000 이하인 정수입니다.
+
+**입출력 예**
+| n | result |
+| :-: | :----: |
+| 4 | 5 |
+| 3 | 3 |
+
+**입출력 예 설명**
+입출력 예 #1
+위에서 설명한 내용과 같습니다.
+
+**입출력 예 #2**
+(2칸, 1칸)
+(1칸, 2칸)
+(1칸, 1칸, 1칸)
+총 3가지 방법으로 멀리 뛸 수 있습니다.
+
+</Blockquote>
+
+<Heading type="h3">문제 풀이</Heading>
+
+[왜 1234567를 나눠야하는가?에 대한 글](https://school.programmers.co.kr/questions/11991?question=11991)
+
+<Heading type="h4">1. 문제 풀이1</Heading>
+
+n은 1 이상 2000이하인 정수이고
+효진이는 한칸(1)과 두칸(2)씩만 이동이 가능하니 n의 경우의 수를 알고 싶다면 n-1과 n-2의 경우의 수를 합한 것과 같다. 그러므로 이 문제는 피보나치의 수열과 같은 알고리즘 풀이 방식을 적용할 수 있다.
+
+<Heading type="h4">2. 문제 풀이2</Heading>
+
+n이 1 또는 2인 경우 각각 1,2를 반환한다.
+위 링크 설명과 같이 1234567은 문제를 꼰 것이 아니라 큰정수를 나타내기위한 정수임으로 1,2 정도는 그냥 반환.
+
+```js
+if (n === 1 || n === 2) return n;
+```
+
+n -1의 경우의 수와 n -2 의 경우의 수를 합치는 수를 1234567로 나누어 반환한다.
+
+<Heading type="h4">전체코드</Heading>
+
+```js
+function solution(n) {
+  if (n === 1 || n === 2) return n;
+  return (solution(n - 1) + solution(n - 2)) % 1234567;
+}
+```
+
+<Blockquote type="error">⚠️ 오류</Blockquote>
+
+![](https://velog.velcdn.com/images/given/post/a2552946-da58-4b8c-9a00-0c5702d05427/image.png)
+시간 초과
+재귀함수를 사용했더니 callStack이 너무 많이 쌓인 듯
+
+<Heading type="h3">다른 풀이</Heading>
+
+재귀 함수가 아닌 for문으로 순회하여 문제를 풀이 - DP(Dynamin Programing)
+
+<Heading type="h4">1. n의 length를 가진 arr를 만들어 준다.</Heading>
+
+```js
+const arr = Array(n + 1).fill(0);
+```
+
+<Heading type="h4">2. 1과 2의 값은 넣어줌</Heading>
+
+이유는 위에 **문제 풀이2**와 같음
+
+```js
+arr[1] = 1;
+arr[2] = 2;
+```
+
+<Heading type="h4">
+  3. for문으로 선회하며 각 index에 -1 경우의 수와 -2 경우의 수를 더함
+</Heading>
+
+```js
+for (let i = 3; i <= n; i++) {
+  arr[i] = (arr[i - 1] + arr[i - 2]) % 1234567;
+}
+```
+
+그럼 `arr`의 `n`번째 값을 반환하면 된다.
+
+<Heading type="h4">전체 코드</Heading>
+
+```js
+function solution(n) {
+  if (n === 1 || n === 2) return n;
+  const arr = Array(n + 1).fill(0);
+  arr[1] = 1;
+  arr[2] = 2;
+  for (let i = 3; i <= n; i++) {
+    arr[i] = (arr[i - 1] + arr[i - 2]) % 1234567;
+  }
+  return arr[n];
+}
+```
+
+<Heading type="h2">2. 예상 대진표</Heading>
+
+<Heading type="h3">문제 설명</Heading>
+
+<Blockquote>
+△△ 게임대회가 개최되었습니다. 이 대회는 N명이 참가하고, 토너먼트 형식으로 진행됩니다. N명의 참가자는 각각 1부터 N번을 차례대로 배정받습니다. 그리고, 1번↔2번, 3번↔4번, ... , N-1번↔N번의 참가자끼리 게임을 진행합니다. 각 게임에서 이긴 사람은 다음 라운드에 진출할 수 있습니다. 이때, 다음 라운드에 진출할 참가자의 번호는 다시 1번부터 N/2번을 차례대로 배정받습니다. 만약 1번↔2번 끼리 겨루는 게임에서 2번이 승리했다면 다음 라운드에서 1번을 부여받고, 3번↔4번에서 겨루는 게임에서 3번이 승리했다면 다음 라운드에서 2번을 부여받게 됩니다. 게임은 최종 한 명이 남을 때까지 진행됩니다.
+이때, 처음 라운드에서 A번을 가진 참가자는 경쟁자로 생각하는 B번 참가자와 몇 번째 라운드에서 만나는지 궁금해졌습니다. 게임 참가자 수 N, 참가자 번호 A, 경쟁자 번호 B가 함수 solution의 매개변수로 주어질 때, 처음 라운드에서 A번을 가진 참가자는 경쟁자로 생각하는 B번 참가자와 몇 번째 라운드에서 만나는지 return 하는 solution 함수를 완성해 주세요. 단, A번 참가자와 B번 참가자는 서로 붙게 되기 전까지 항상 이긴다고 가정합니다.
+
+**제한사항**
+
+N : 21 이상 220 이하인 자연수 (2의 지수 승으로 주어지므로 부전승은 발생하지 않습니다.)
+A, B : N 이하인 자연수 (단, A ≠ B 입니다.)
+
+**입출력 예**
+
+|  N  |  A  |  B  | answer |
+| :-: | :-: | :-: | :----: |
+|  8  |  4  |  7  |   3    |
+
+**입출력 예 #1**
+
+첫 번째 라운드에서 4번 참가자는 3번 참가자와 붙게 되고, 7번 참가자는 8번 참가자와 붙게 됩니다. 항상 이긴다고 가정했으므로 4번 참가자는 다음 라운드에서 2번이 되고, 7번 참가자는 4번이 됩니다. 두 번째 라운드에서 2번은 1번과 붙게 되고, 4번은 3번과 붙게 됩니다. 항상 이긴다고 가정했으므로 2번은 다음 라운드에서 1번이 되고, 4번은 2번이 됩니다. 세 번째 라운드에서 1번과 2번으로 두 참가자가 붙게 되므로 3을 return 하면 됩니다.
+
+</Blockquote>
+
+<Heading type="h3">문제 풀이</Heading>
+
+![](https://velog.velcdn.com/images/given/post/e9084242-7eeb-4a46-934b-ff9c380a7a90/image.png)
+
+입출력 예시를 보면 a,b가 만나는 라운드는 3라운드, 만날때까지 각각 모두 이긴다는 전제하에 있다.
+그럼 서로의 라운드가 같아질때까지 순회문을 작성해주면 될듯?
+
+<Heading type="h4">전체 코드</Heading>
+
+```js
+function solution(n, a, b) {
+  let answer = 0;
+
+  for (let round = 1; a !== b; round++) {
+    // a랑 b가 같은 라운드에서 만날때까지 돌림
+    a = Math.ceil(a / 2); // 각 라운드에서 두명씩 붙기 때문에 라운드마다 2로나눈 정수로 교체
+    b = Math.ceil(b / 2);
+    answer = round;
+  }
+
+  return answer;
+}
+```
+
+<Heading type="h3">다른 풀이</Heading>
+
+while문 사용하면 코드가 더 깔끔해보임
+
+```js
+function solution(n, a, b) {
+  let answer = 0;
+
+  while (a !== b) {
+    a = Math.ceil(a / 2);
+    b = Math.ceil(b / 2);
+    answer++;
+  }
+
+  return answer;
+}
+```
+
+<Heading type="h2">3. 귤 고르기</Heading>
+
+<Heading type="h3">문제 설명</Heading>
+
+<Blockquote>
+경화는 과수원에서 귤을 수확했습니다. 경화는
+수확한 귤 중 'k'개를 골라 상자 하나에 담아 판매하려고 합니다. 그런데 수확한 귤의
+크기가 일정하지 않아 보기에 좋지 않다고 생각한 경화는 귤을 크기별로 분류했을 때 서로
+다른 종류의 수를 최소화하고 싶습니다.
+
+예를 들어, 경화가 수확한 귤 8개의 크기가 [1, 3, 2, 5, 4, 5, 2, 3] 이라고 합시다. 경화가 귤 6개를 판매하고 싶다면, 크기가 1, 4인 귤을 제외한 여섯 개의 귤을 상자에 담으면, 귤의 크기의 종류가 2, 3, 5로 총 3가지가 되며 이때가 서로 다른 종류가 최소일 때입니다.
+
+경화가 한 상자에 담으려는 귤의 개수 k와 귤의 크기를 담은 배열 tangerine이 매개변수로 주어집니다. 경화가 귤 k개를 고를 때 크기가 서로 다른 종류의 수의 최솟값을 return 하도록 solution 함수를 작성해주세요.
+
+**제한사항**
+
+1 ≤ k ≤ tangerine의 길이 ≤ 100,000
+1 ≤ tangerine의 원소 ≤ 10,000,000
+
+**입출력 예**
+
+|  k  |        tangerine         | result |
+| :-: | :----------------------: | :----: |
+|  6  | [1, 3, 2, 5, 4, 5, 2, 3] |   3    |
+|  4  | [1, 3, 2, 5, 4, 5, 2, 3] |   2    |
+|  2  | [1, 1, 1, 1, 2, 2, 2, 3] |   1    |
+
+**입출력 예 설명**
+
+입출력 예 #1
+본문에서 설명한 예시입니다.
+입출력 예 #2
+경화는 크기가 2인 귤 2개와 3인 귤 2개 또는 2인 귤 2개와 5인 귤 2개 또는 3인 귤 2개와 5인 귤 2개로 귤을 판매할 수 있습니다. 이때의 크기 종류는 2가지로 이 값이 최소가 됩니다.
+입출력 예 #3
+경화는 크기가 1인 귤 2개를 판매하거나 2인 귤 2개를 판매할 수 있습니다. 이때의 크기 종류는 1가지로, 이 값이 최소가 됩니다.
+
+</Blockquote>
+
+<Heading type="h3">문제 풀이</Heading>
+
+서로 다른 사이즈의 귤을 고르면 쉬울것을 좀 꼬아서 낸 문제인 듯
+서로 비슷한 사이즈의 귤을 k에 맞게 고르는 문제
+
+<Heading type="h4">필요한 계산식</Heading>
+
+1. 귤들의 사이즈 별로 개수 세기
+2. 사이즈가 큰수부터 내림차순
+3. k개를 담을 때 담아낸 사이즈 카운트
+
+<Heading type="h4">1. 귤들의 사이즈 별로 개수 세기</Heading>
+
+for 문으로 카운트 세기
+
+```js
+const counts = {};
+for (let count of tangerine) counts[count] = (counts[count] || 0) + 1;
+```
+
+<Heading type="h4">2. 사이즈가 큰수부터 내림차순</Heading>
+
+```js
+const countArr = Object.values(counts).sort((a, b) => b - a);
+```
+
+<Heading type="h4">3. k개를 담을 때 담아낸 사이즈 카운트</Heading>
+
+```js
+let totalCount = 0; // 담기는 귤 수 세기용
+for (let count of countArr) {
+  answer++;
+  totalCount += count; // 귤 담기
+  if (totalCount >= k) break; // 담은 귤 수가 k를 넘어가거나 같으면 break
+}
+```
+
+<Heading type="h4">전체코드</Heading>
+
+```js
+function solution(k, tangerine) {
+  let answer = 0;
+  const counts = {};
+  for (let count of tangerine) counts[count] = (counts[count] || 0) + 1;
+
+  const countArr = Object.values(counts).sort((a, b) => b - a);
+
+  let totalCount = 0;
+  for (let count of countArr) {
+    answer++;
+    totalCount += count;
+    if (totalCount >= k) break;
+  }
+
+  return answer;
+}
+```

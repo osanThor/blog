@@ -15,15 +15,13 @@ export default function Heading({ type, children, ...rest }: Props) {
     h3: "text-2xl font-extrabold mt-8",
     h4: "text-xl font-extrabold mt-4",
   }[type];
-
+  const id =
+    content?.replaceAll(" ", "-") +
+      String(Math.ceil(Math.random() * 100) + 1) || "";
   return (
-    <HeadingTag
-      id={content?.replaceAll(" ", "-") || undefined}
-      className={`${headingClass} group`}
-      {...rest}
-    >
+    <HeadingTag id={id} className={`${headingClass} group`} {...rest}>
       {children}
-      {content && <HeadingLink to={content} />}
+      {content && <HeadingLink to={id} />}
     </HeadingTag>
   );
 }
@@ -31,7 +29,7 @@ export default function Heading({ type, children, ...rest }: Props) {
 function HeadingLink({ to }: { to: string }) {
   return (
     <Link
-      href={`#${to.replaceAll(" ", "-")}`}
+      href={`#${to}`}
       className="ml-2 inline-block opacity-0 group-hover:opacity-100 transition-all duration-200 text-yellow-600 hover:text-yellow-500 relative translate-y-1"
     >
       <LinkIcon />

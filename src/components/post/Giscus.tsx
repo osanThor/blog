@@ -50,5 +50,5 @@ export default function Giscus() {
     );
   }, [theme]);
 
-  return <section ref={ref} className="giscus" />;
+  return <section ref={ref} className="giscus my-7" />;
 }

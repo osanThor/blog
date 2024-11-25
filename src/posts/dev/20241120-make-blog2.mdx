@@ -1,0 +1,194 @@
+---
+title: 블로그 개발 일지 No.2
+tags:
+  - Next
+  - MDX
+  - TailwindCSS
+description: "Tailwind CSS를 사용해서 다크 모드 구현하기, MDX 파일 렌더링하기"
+date: 2024.11.20
+cover: "/posts/dev/20241120-make-blog2/cover.jpg"
+series: "블로그 개발일지"
+category: dev
+---
+
+<Blockquote type="warn">
+  이런 **회고록**이나 **개발일지**는 문어체가 아닌 격식체로 작성하려고 합니다.
+  <br /> 안지키고 있으면 댓글로 혼내주세요..
+</Blockquote>
+
+<Heading type="h2">블로그 개발일지 No.2 - 2024-11-19 ~ 2024-11-20</Heading>
+
+얼추 컨셉도 나왔고 바로 개발에 들어가 보겠습니다.
+레이아웃을 잡을 때 가장 큰 것부터 작게 구현해 나가야합니다. (**Top-Down Approach**)
+
+[구현해야하는 목록](/post/dev/20241115-make-blog#구현할-기능)을 봤을 때 개발 중 수정되면 가장 영향을 줄 수 있으니 초반에 잡고 가야하는 것은 Theme 변경 기능입니다.
+
+<Heading type="h3">저는 Tailwind CSS를 사용할 것입니다.</Heading>
+
+`React`에서 작동하는 여러 CSS 스타일링이 있지만 **Tailwind CSS**를 선택한 이유는
+
+1. 사전 정의된 유틸리티 클래스를 사용해 별도의 `css` 파일 없이 관리할 수 있기 때문에 빠르게 스타일링할 수 있기 때문입니다.
+2. `Next.js`의 서버사이드 렌더링(`SSR`)과 완벽하게 호환되며, `JIT`(Just-In-Time) 컴파일을 사용하면 사용하지 않는 스타일은 자동으로 제거되어 성능이 최적화됩니다.
+3. 미리 생성된 css 를 사용하기 때문에 다른 `CSS-in-JS` 보다 훨씬 빠릅니다
+
+<Heading type="h3">Tailwind CSS 다크 모드 구현(Dark Mode)</Heading>
+
+**Tailwind CSS**는 공식문서에 다크모드에 대해 잘 작성되어있습니다.
+
+![tailwind doc dark mode](/posts/dev/20241120-make-blog2/1.png)
+
+`dark:` 선택자로 Tailwind는 간단하게 다크모드르 구현할 수 있습니다.
+우리는 `prefers-color-scheme`를 사용하여 다크모드를 수동으로 전환하도록 할 계획입니다.
+
+`prefers-color-scheme` 사용법은 아래처럼 `selector`를 지정해주면 적용됩니다.
+![tailwind doc dark mode](/posts/dev/20241120-make-blog2/2.png)
+
+`selector`에는 `darkMode: Partial<DarkModeConfig>`에 `DarkModeConfig`가 들어가게 됩니다.
+
+```ts
+// DarkMode related config
+type DarkModeConfig =
+  // 미디어 쿼리 기준
+  | "media"
+  // html에 dark 클래스 있는지 여부 기준
+  | "class"
+  // dark 클래스 대신 커스텀한 클래스
+  | ["class", string]
+  // `class`와 같지만 `:where()`를 사용하여 더 다양한 동작 수행
+  | "selector"
+  // dark 클래스 대신 커스텀한 selector
+  | ["selector", string]
+  // Use the `variant` strategy, which allows you to completely customize the selector
+  // It takes a string or an array of strings, which are passed directly to `addVariant()`
+  | ["variant", string | string[]];
+```
+
+저희는 `class`를 사용할 것 입니다. 그 외에는 필요 없어요.
+
+<Heading type="h4">문제</Heading>
+
+하지만 tailwind에 있는 다크모드대로 `theme` 값을 `localStorage`에 저장하게 되면 새로고침 시 아래와 같은 깜빡임현상이 일어나게 됩니다.
+
+![Flink](/posts/dev/20241120-make-blog2/3.gif)
+
+<Heading type="h4">문제 원인</Heading>
+
+이러한 현상이 발생하는 이유는 NextJS는 서버에서 랜더링을 마치고 클라이언트에 HTML 응답값을 내려주는데
+LocalStorage는 웹 브라우저 그러니까 클라이언트 단에서 접근해서 참조할 수 있습니다.
+하지만 theme을 다루는 React Hook들은 모두 클라이언트 메서드이기 때문에 서버에서의 theme 값과 간극이 생겨 이러한 현상이 발생되고
+이를 **깜빡임**(**Flicker**) 또는 **Flash**라고도 부릅니다.
+
+![Browser Work](/posts/dev/20241120-make-blog2/4.png)
+
+<Heading type="h4">문제 해결</Heading>
+
+어떻게 해야할까요? 서버사이드에서 theme의 값을 가지고 있는 것이 가장 좋은 방법일텐데요.
+좋은 npm package가 있습니다.
+
+`next-themes`
+
+[Next-Themes 페이지](https://github.com/pacocoursey/next-themes)
+
+![next-themes abstraction](/posts/dev/20241120-make-blog2/5.png)
+
+위 `next-themes`에서 제공하는 기능 중에 Next13 이상 버전에 appDir를 호환하고
+SSR, SSG에서 flash이 일어나지 않게 해준다고 합니다.
+좋은 게 있으면 사용해야합니다.
+
+```tsx
+// app/layout.jsx
+import { ThemeProvider } from "next-themes";
+
+export default function Layout({ children }) {
+  return (
+    <html suppressHydrationWarning>
+      <head />
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+html에 `suppressHydrationWarning`를 추가해주어야 에러가 발생하지 않고
+`ThemeProvider`는 서버 컴포넌트가 아니라 클라이언트 컴포넌트로 작성해야합니다.
+
+<Blockquote type="error">
+  위 상황의 localStorage같이 클라이언트에 도달해야 알 수 있는 데이터를 사용해야
+  할 때가 있습니다. 이런 상황처럼 서버의 결과값가 클라이언트의 결과값이 다르면
+  **hydration mismatch**에러가 발생합니다. 그럴 때 React에서 제공하는
+  **suppressHydrationWarning**를 사용하면 **hydration mismatch**에 따른 에러를
+  무시하게 해줍니다.
+</Blockquote>
+
+<Heading type="h3">MDX 렌더링 </Heading>
+
+이 블로그는 mdx를 파일을 파싱하여 랜더링하는 방식으로 구현을 할 예정입니다.
+
+mdx를 선택한 이유 역시 있습니다.
+mdx는 md(Mark Down)과 jsx가 합쳐진 확장자입니다.
+당연히 React 기반인 Next와도 호환성이 좋고 NextJS에서도 사용법을 따로 공식문서에 작성해 놓았습니다.
+[NextJS - MDX](https://nextjs.org/docs/pages/building-your-application/configuring/mdx)
+
+NextJS에서 설명하는 기본 mdx 사용법은
+`src` 폴더 안에 `mdx-components.tsx` 파일을 만들어 `@next/mdx`에 의해 라우팅 되는 것을 돕습니다.
+
+![next-themes abstraction](/posts/dev/20241120-make-blog2/6.png)
+
+그리고 위 사진 처럼 mdx 파일별로 페이지 파일을 만들어줘야합니다.
+그럼 너무 힘들어지겠죠..?
+
+저는 동적으로 라우팅을 통해 파일들을 접근하여 정적 파일을 불러와 컨텐츠를 반환하도록 만들겁니다.
+
+```ts
+const content = await fs.readFile(path.join(baseDir, ...filename), "utf-8");
+return await compileMDX<Frontmatter>({
+  source: content,
+  options: {
+    parseFrontmatter: true,
+    mdxOptions,
+  },
+  components,
+});
+```
+
+`next-mdx-remote`의 `compileMDX`를 옵션과 함께 사용하면
+파일 경로에 있는 mdx 파일의 컨텐츠를 불러와 내려줄 수 있습니다.
+
+중요한 것은 이 부분인데
+
+```ts
+parseFrontmatter: true,
+```
+
+이 값을 넣어두면 mdx 파일의 frontmatter 즉 미리 지정해 둔 파일 정보들을 가져올 수 있게 됩니다.
+
+frontmatter 설정 법은 이렇습니다.
+
+```mdx
+---
+title: 블로그 개발 일지 No.2
+tags:
+  - Next
+  - MDX
+  - TailwindCSS
+description: "Tailwind CSS를 사용해서 다크 모드 구현하기, MDX 파일 렌더링하기"
+date: 2024.11.20
+cover: "/posts/dev/20241120-make-blog2/cover.jpg"
+series: "블로그 개발일지"
+category: dev
+---
+```
+
+이렇게 작성하면 data를 객체 형식으로 불러옵니다.
+
+<Heading type="h3">마무리</Heading>
+
+언제나 그렇지만 개발하는 것보다 어려운 것은 기록하는 것 같습니다. 멋진 개발자라면
+자기만의 개발 블로그는 있어야하지 않나라는 생각으로 계속 가보겠습니다.
+
+멋진 개발자란? 끊임없이 도전하고 탐구하며 자신의 코드에 자신이 있는 개발자가 아닐까 생가해봅니다.
+아닐수도 있고요. 암튼 누가봐도 멋진 개발자가 되고 싶네요.
+
+그때까지 화이팅🔥. 감사합니다.

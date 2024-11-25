@@ -48,7 +48,7 @@ export default function SlideCard({ list }: Props) {
                 priority
               />
             </div>
-            <div className="flex flex-col absolute top-0 bottom-0 left-0 right-0 overflow-hidden bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-200 px-7 py-10">
+            <div className="flex flex-col absolute top-0 bottom-0 left-0 right-0 overflow-hidden bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-200 px-10 py-8">
               <h2 className="text-2xl font-bold text-white mb-4">
                 {item.title}
               </h2>

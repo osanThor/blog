@@ -5,8 +5,11 @@ export async function generateMetadata() {
 }
 export default function ResumePage() {
   return (
-    <div>
+    <>
       <BigTitle text="👋 FE Developer" />
-    </div>
+      <div className="my-7 h-full text-2xl flex items-center justify-center">
+        준비 중입니다. 🫡
+      </div>
+    </>
   );
 }

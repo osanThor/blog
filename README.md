@@ -22,9 +22,11 @@
 - [x] 시리즈, 태그 기능
 - [x] 검색 기능
 - [x] `TOC`
-- [x] `Giscus` 댓글
+- [x] 댓글 기능
 - [x] SEO 최적화
 - [x] open graph
-- [ ] rss
+- [x] rss
+- [ ] lazy image
+- [ ] Google Analytics 적용
 
 ## 📚 프로젝트 폴더구조

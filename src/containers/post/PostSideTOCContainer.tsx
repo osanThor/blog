@@ -66,7 +66,7 @@ export default function PostSideTOCContainer() {
     () => {
       if (containerRef.current) transformVisible(containerRef.current);
       if (listRef.current)
-        transformVisible(Array.from(listRef.current.children), 1, "left");
+        transformVisible(Array.from(listRef.current.children), 0.5, "left");
     },
     { scope: containerRef, dependencies: [headItem] }
   );
@@ -76,9 +76,9 @@ export default function PostSideTOCContainer() {
       ref={containerRef}
       className="min-w-[25%] w-[25%] hidden md:flex flex-col opacity-0"
     >
-      <aside className="w-full h-full max-h-[70vh] sticky top-[90px] left-0">
+      <aside className="w-full h-full max-h-[80vh] sticky top-[90px] left-0">
         <h3 className="text-lg font-semibold mb-2">In This Page</h3>
-        <div className="flex flex-col max-h-[calc(70vh-36px)] overflow-y-auto">
+        <div className="flex flex-col max-h-[calc(80vh-36px)] overflow-y-auto">
           <ul
             ref={listRef}
             className="border-l border-neutral-200 dark:border-neutral-500 px-2"
@@ -93,7 +93,7 @@ export default function PostSideTOCContainer() {
 
                 return (
                   <li
-                    key={`toc-item-${item.id}`}
+                    key={`toc-item-${item.id}-${idx}`}
                     className={`${headingClass} my-2 opacity-0`}
                   >
                     <Link
