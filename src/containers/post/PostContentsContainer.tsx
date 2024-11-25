@@ -26,7 +26,7 @@ export default function PostContentsContainer({
     <article ref={ref} className="w-full md:w-[70%]  max-w-full flex-1 mb-7 ">
       <div
         id="postCoverImg"
-        className="mb-10 overflow-hidden rounded-xl max-h-[500px] flex items-center justify-center"
+        className="mb-10 overflow-hidden rounded-xl max-h-[500px] flex items-center justify-center opacity-0"
       >
         <Image
           className="object-cover w-full"
@@ -37,7 +37,7 @@ export default function PostContentsContainer({
           priority
         />
       </div>
-      <ul className="flex items-center gap-2 mb-4">
+      <ul className="flex items-center gap-2 mb-4 opacity-0">
         {frontmatter.tags.map((tag) => (
           <li key={`post-tag-${tag}`}>
             <Link
@@ -49,19 +49,19 @@ export default function PostContentsContainer({
           </li>
         ))}
       </ul>
-      <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4">
+      <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4 opacity-0">
         {frontmatter.title}
       </h1>
-      <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-300 mb-2">
+      <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-300 mb-2 opacity-0">
         {frontmatter.description}
       </p>
-      <div className="text-sm flex items-center gap-1 pb-2 md:pb-4  mb-9 text-neutral-600 dark:text-neutral-300">
+      <div className="text-sm flex items-center gap-1 pb-2 md:pb-4  mb-9 text-neutral-600 dark:text-neutral-300 opacity-0">
         <span>
           Written by <b>Given</b> at
         </span>
         <span className="font-medium">{frontmatter.date}</span>
       </div>
-      <div id="viewer" className="text-pretty">
+      <div id="viewer" className="text-pretty opacity-0">
         {content}
       </div>
     </article>

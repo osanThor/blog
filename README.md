@@ -27,5 +27,6 @@
 - [x] open graph
 - [x] rss
 - [ ] lazy image
+- [ ] Google Analytics 적용
 
 ## 📚 프로젝트 폴더구조

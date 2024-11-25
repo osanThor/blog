@@ -20,5 +20,5 @@ export default {
     },
   },
   plugins: [require("tailwindcss-content-visibility")],
-  darkMode: "class",
+  darkMode: "selector",
 } satisfies Config;
