@@ -5,11 +5,10 @@ import CloseIcon from "@/components/common/icons/CloseIcon";
 import MenuIcon from "@/components/common/icons/MenuIcon";
 import HeaderNavbar from "@/components/header/HeaderNavbar";
 import HeaderSearchContainer from "@/containers/common/HeaderSearchContainer";
-import { useWidowStore } from "@/utils/lib/zustand/window";
 import { useEffect, useState } from "react";
 
 export default function HeaderContainer() {
-  const { scrollY, setScrollY } = useWidowStore();
+  const [scrollY, setScrollY] = useState<number>(0);
   const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
