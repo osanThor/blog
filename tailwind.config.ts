@@ -21,4 +21,7 @@ export default {
   },
   plugins: [require("tailwindcss-content-visibility")],
   darkMode: "selector",
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
 } satisfies Config;
