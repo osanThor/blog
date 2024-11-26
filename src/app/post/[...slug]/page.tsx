@@ -3,10 +3,19 @@ import components from "@/components/post/mdx";
 import PostContentsContainer from "@/containers/post/PostContentsContainer";
 import PostSeriesContainer from "@/containers/post/PostSeriesContainer";
 import PostSideTOCContainer from "@/containers/post/PostSideTOCContainer";
-import { getPost, getSeries } from "@/services/posts.service";
+import { getAllPosts, getPost, getSeries } from "@/services/posts.service";
 import { getMetadata } from "@/utils/getMetadata";
 import remarkGfm from "remark-gfm";
 
+export async function generateStaticParams() {
+  return await getAllPosts().then((posts) =>
+    posts.map((post) => {
+      return {
+        slug: [post.category, post.href],
+      };
+    })
+  );
+}
 type Props = {
   params: Promise<{ slug: string[] }>;
 };

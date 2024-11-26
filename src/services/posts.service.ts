@@ -88,17 +88,15 @@ export type SeriesItem = {
   count: number;
 };
 
-export const getAllSeriesByCategory = async (
-  folder: string
-): Promise<SeriesItem[]> => {
+export const getAllSeries = async (folder?: string): Promise<SeriesItem[]> => {
   const seriesMap = new Map<string, number>();
-  const list = await getPostsByCategory(folder).then((list) =>
-    list.filter((item) => !!item.series)
-  );
-  list.forEach((item) => {
-    if (item.series)
-      seriesMap.set(item.series, (seriesMap.get(item.series) || 0) + 1);
-  });
+  const list = folder ? await getPostsByCategory(folder) : await getAllPosts();
+  list
+    .filter((item) => !!item.series)
+    .forEach((item) => {
+      if (item.series)
+        seriesMap.set(item.series, (seriesMap.get(item.series) || 0) + 1);
+    });
   return Array.from(seriesMap.entries())
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count);
