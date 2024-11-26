@@ -5,6 +5,7 @@ import Heading from "./Heading";
 import Blockquote from "./Blockquote";
 
 const components = {
+  img: (props: PropsWithChildren) => <img className="my-4" {...props} />,
   p: (props: PropsWithChildren) => <p className="mt-4 leading-8" {...props} />,
   ul: (props: PropsWithChildren) => (
     <ul className="mt-4 leading-6 list-disc pl-6" {...props} />
@@ -47,7 +48,7 @@ const components = {
       </SyntaxHighlighter>
     ) : (
       <code
-        className="bg-neutral-800 text-white px-2 py-[3px] rounded text-sm"
+        className="bg-neutral-500 text-yellow-300 px-2 py-[3px] rounded text-sm"
         {...props}
       >
         {children}

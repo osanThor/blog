@@ -88,7 +88,7 @@ export default function PostSideTOCContainer() {
                 const headingClass = {
                   H2: "text-base",
                   H3: "text-sm pl-2",
-                  H4: "text-xs pl-4",
+                  H4: "text-sm pl-4",
                 }[item.tag];
 
                 return (
