@@ -4,18 +4,23 @@ import TagsListContainer from "@/containers/tags/TagsListContainer";
 import { getAllTags, getPostsByTag } from "@/services/posts.service";
 import { getMetadata } from "@/utils/getMetadata";
 
+export async function generateStaticParams() {
+  return await getAllTags().then((tags) =>
+    tags.map((tag) => ({ tag: tag.name }))
+  );
+}
+
 type Props = {
-  params: Promise<{ slug: string[] }>;
+  params: Promise<{ tag: string }>;
 };
+
 export async function generateMetadata({ params }: Props) {
-  const { slug } = await params;
-  const tag = slug[0];
+  const { tag } = await params;
   const convertedTag = decodeURI(tag).replaceAll("-", " ");
   return getMetadata({ title: `태그 ${convertedTag}` });
 }
 export default async function PostsByTagsPage({ params }: Props) {
-  const { slug } = await params;
-  const tag = slug[0];
+  const { tag } = await params;
   const convertedTag = decodeURI(tag).replaceAll("-", " ");
   const [tags, list] = await Promise.all([
     getAllTags(),

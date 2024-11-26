@@ -1,23 +1,26 @@
 import BigTitle from "@/components/common/BigTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
-import { getSeries } from "@/services/posts.service";
+import { getAllSeries, getSeries } from "@/services/posts.service";
 import { getMetadata } from "@/utils/getMetadata";
 
+export async function generateStaticParams() {
+  return await getAllSeries().then((series) =>
+    series.map((s) => ({ series: s.name }))
+  );
+}
 type Props = {
-  params: Promise<{ slug: string[] }>;
+  params: Promise<{ series: string }>;
 };
 export async function generateMetadata({ params }: Props) {
-  const { slug } = await params;
-  const series = decodeURI(slug[0]).replaceAll("-", " ");
-
-  return getMetadata({ title: `${series} 시리즈` });
+  const { series } = await params;
+  return getMetadata({
+    title: `${decodeURI(series).replaceAll("-", " ")} 시리즈`,
+  });
 }
 
 export default async function SeriesPage({ params }: Props) {
-  const { slug } = await params;
-  const series = decodeURI(slug[0]).replaceAll("-", " ");
-
-  const list = await getSeries(series);
+  const { series } = await params;
+  const list = await getSeries(decodeURI(series).replaceAll("-", " "));
 
   return (
     <>
