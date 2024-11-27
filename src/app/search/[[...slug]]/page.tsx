@@ -8,8 +8,9 @@ type Props = {
 
 export default async function SearchPage({ params }: Props) {
   const { slug } = await params;
-  const keyword = slug && slug[0] ? decodeURI(slug[0]) : "";
-  const list = await getSearchPosts(keyword);
+  const keyword = slug && slug[0] ? decodeURIComponent(slug[0]) : "";
+  const listPromise = getSearchPosts(keyword);
+  const list = await listPromise;
   return (
     <>
       <BigTitle text={slug ? keyword : "Search"} />
