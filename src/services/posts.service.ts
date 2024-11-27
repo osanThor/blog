@@ -133,8 +133,9 @@ export const getFeaturedPost = async () => {
   );
 };
 
-export const getSearchPosts = async (keyword: string) => {
-  if (!keyword) return await getAllPosts();
+export const getSearchPosts = async (typing: string) => {
+  if (!typing) return await getAllPosts();
+  const keyword = decodeURI(typing);
   return await getAllPosts().then((data) =>
     data.filter((item) =>
       item.title.toLowerCase().includes(keyword.toLowerCase())

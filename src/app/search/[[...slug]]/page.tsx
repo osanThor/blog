@@ -1,19 +1,14 @@
 import BigTitle from "@/components/common/BigTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 import { getSearchPosts } from "@/services/posts.service";
+import { PageProps } from "../../../../.next/types/app/page";
 
-type Props = {
-  params: Promise<{ slug?: string[] }>;
-};
-
-export default async function SearchPage({ params }: Props) {
+export default async function SearchPage({ params }: PageProps) {
   const { slug } = await params;
-  const keyword = slug && slug[0] ? decodeURIComponent(slug[0]) : "";
-  const listPromise = getSearchPosts(keyword);
-  const list = await listPromise;
+  const list = await getSearchPosts(slug);
   return (
     <>
-      <BigTitle text={slug ? keyword : "Search"} />
+      <BigTitle text={slug ? decodeURI(slug[0]) : "Search"} />
       <div className="mb-10" />
       <PostsGridContainer list={list} />
     </>
