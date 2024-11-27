@@ -3,7 +3,7 @@
 import ThemeToggle from "@/components/common/ThemeToggle";
 import useDebounce from "@/hooks/debounde";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function HeaderSearchContainer() {
   const pathname = usePathname();
@@ -11,23 +11,18 @@ function HeaderSearchContainer() {
   const [value, setValue] = useState("");
   const debouncedValue = useDebounce(value);
 
-  const handleFocus = useCallback(() => {
-    if (!pathname.startsWith("/search")) {
-      router.push("/search");
-    }
-  }, [pathname]);
+  const handleFocus = () => {
+    if (!pathname.startsWith("/search")) router.push("/search");
+  };
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-  }, []);
+  };
 
-  const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      if (value.trim()) router.push(`/search/${value.trim()}`);
-    },
-    [value]
-  );
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (value.trim()) router.push(`/search/${value.trim()}`);
+  };
 
   useEffect(() => {
     if (pathname.startsWith("/search"))
