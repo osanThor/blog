@@ -2,10 +2,6 @@ import BigTitle from "@/components/common/BigTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 import { getSearchPosts } from "@/services/posts.service";
 
-export const revalidate = 10;
-
-export const dynamicParams = true;
-
 type Props = {
   params: Promise<{ slug?: string[] }>;
 };
