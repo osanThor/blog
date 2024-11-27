@@ -14,7 +14,7 @@ export async function GET(request: Request) {
         <div
           tw="w-full h-full flex flex-col items-center justify-center bg-gray-100 text-black"
           style={{
-            backgroundImage: "url(http://localhost:3000/meta/thumbnail-bg.png)",
+            backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URL}/meta/thumbnail-bg.png)`,
           }}
         >
           <div tw="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center px-10">
