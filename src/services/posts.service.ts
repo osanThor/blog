@@ -55,11 +55,9 @@ export const getPostsByCategory = cache(
           };
         })
       ).then((arr) =>
-        arr.sort((a, b) => {
-          const aDate = new Date(a.date);
-          const bDate = new Date(b.date);
-          return aDate > bDate ? -1 : 1;
-        })
+        arr.sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        )
       );
     } catch (error) {
       console.error(`Error reading folder "${folder}":`, error);
@@ -69,17 +67,13 @@ export const getPostsByCategory = cache(
 );
 
 export const getAllPosts = cache(async (): Promise<PostItem[]> => {
-  const devPosts = await getPostsByCategory("dev");
-  const lifePosts = await getPostsByCategory("life");
+  const [devPosts, lifePosts] = await Promise.all([
+    getPostsByCategory("dev"),
+    getPostsByCategory("life"),
+  ]);
 
-  return JSON.parse(
-    JSON.stringify(
-      [...devPosts, ...lifePosts].sort((a, b) => {
-        const aDate = new Date(a.date);
-        const bDate = new Date(b.date);
-        return aDate > bDate ? -1 : 1;
-      })
-    )
+  return [...devPosts, ...lifePosts].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 });
 
