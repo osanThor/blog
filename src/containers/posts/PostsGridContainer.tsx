@@ -1,13 +1,13 @@
 "use client";
+import { Post } from "#site/content";
 import SmallTitle from "@/components/common/SmallTitle";
 import GridItem from "@/components/posts/GridItem";
-import { PostItem } from "@/services/posts.service";
 import { transformVisible } from "@/utils/lib/gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 
 type Props = {
-  list: PostItem[];
+  list: Post[];
 };
 
 export default function PostsGridContainer({ list }: Props) {
@@ -19,7 +19,7 @@ export default function PostsGridContainer({ list }: Props) {
       if (listRef.current)
         transformVisible(Array.from(listRef.current.children), null);
     },
-    { scope: ref }
+    { scope: ref, dependencies: [list] }
   );
   return (
     <>

@@ -1,13 +1,14 @@
 "use client";
 import SmallTitle from "@/components/common/SmallTitle";
-import { SeriesItem } from "@/services/posts.service";
 import { transformVisible } from "@/utils/lib/gsap";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import { useRef } from "react";
 
+type CountType = { name: string; count: number };
+
 type Props = {
-  list: SeriesItem[];
+  list: CountType[];
 };
 
 export default function PostsSeriesListContainer({ list }: Props) {

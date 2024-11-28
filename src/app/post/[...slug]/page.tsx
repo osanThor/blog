@@ -1,32 +1,38 @@
 import Giscus from "@/components/post/Giscus";
-import components from "@/components/post/mdx";
 import PostContentsContainer from "@/containers/post/PostContentsContainer";
 import PostSeriesContainer from "@/containers/post/PostSeriesContainer";
 import PostSideTOCContainer from "@/containers/post/PostSideTOCContainer";
-import { getAllPosts, getPost, getSeries } from "@/services/posts.service";
+import {
+  getAllPosts,
+  getPost,
+  getSeries,
+} from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
-import remarkGfm from "remark-gfm";
+import { notFound } from "next/navigation";
+import { MDXContent } from "@/components/post/mdx/mdx-content.tsx";
 
-export async function generateStaticParams() {
-  return await getAllPosts().then((posts) =>
-    posts.map((post) => {
-      return {
-        slug: [post.category, post.href],
-      };
-    })
-  );
+export function generateStaticParams() {
+  return getAllPosts().map((post) => {
+    return {
+      slug: [post.category, post.href],
+    };
+  });
 }
+
 type Props = {
   params: Promise<{ slug: string[] }>;
 };
 
 export async function generateMetadata({ params }: Props) {
   const slug = (await params).slug;
-  const category = slug[0];
   const filename = slug[1];
-  const {
-    frontmatter: { title, description },
-  } = await getPost([category, `${filename}.mdx`]);
+  const data = getPost(filename);
+
+  if (!data) {
+    notFound();
+  }
+
+  const { title, description } = data;
 
   const url = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -41,32 +47,28 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function PostDetailPage({ params }: Props) {
   const slug = (await params).slug;
-  const category = slug[0];
   const filename = slug[1];
-  const postPromise = getPost(
-    [category, filename ? `${filename}.mdx` : ""],
-    {
-      remarkPlugins: [remarkGfm],
-      format: "mdx",
-    },
-    components
-  );
-  const seriesPromise = postPromise.then((data) =>
-    getSeries(data.frontmatter.series)
-  );
-  const [data, serieses] = await Promise.all([postPromise, seriesPromise]);
+  const data = getPost(filename);
+  if (!data) notFound();
+
+  const serieses = getSeries(data.series);
 
   return (
     <>
       <div className="w-full flex gap-[5%]">
-        <PostContentsContainer data={data} />
+        <article className="w-full md:w-[70%] max-w-full flex-1 mb-7 ">
+          <PostContentsContainer data={data} />
+          <div id="viewer" className="text-pretty ">
+            <MDXContent code={data.content} />
+          </div>
+        </article>
         <PostSideTOCContainer />
       </div>
       <Giscus />
       {!!serieses.length && (
         <PostSeriesContainer
-          series={data.frontmatter.series!}
-          title={data.frontmatter.title}
+          series={data.series!}
+          title={data.title}
           list={serieses}
         />
       )}

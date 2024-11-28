@@ -1,19 +1,20 @@
 "use client";
 import TreeDotsIcon from "@/components/common/icons/TreeDotsIcon";
-import { TagItem } from "@/services/posts.service";
 import { useTagsStore } from "@/utils/lib/zustand/tags";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+type CountType = { name: string; count: number };
+
 type Props = {
   currentTag?: string;
-  tags: TagItem[];
+  tags: CountType[];
 };
 
 const INITIAL_LENGTH = 7;
 
 export default function TagsListContainer({ currentTag, tags }: Props) {
-  const [list, setList] = useState<TagItem[]>(tags.slice(0, INITIAL_LENGTH));
+  const [list, setList] = useState<CountType[]>(tags.slice(0, INITIAL_LENGTH));
   const { open, setOpen } = useTagsStore();
   const isCanOpen = tags.length > INITIAL_LENGTH;
 

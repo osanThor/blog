@@ -3,7 +3,7 @@
 import { transformVisible } from "@/utils/lib/gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
-import Img from "./Img";
+import Image from "next/image";
 
 export default function Signboard() {
   const HeaderRef = useRef<HTMLHeadingElement>(null);
@@ -16,7 +16,7 @@ export default function Signboard() {
 
   return (
     <h1 ref={HeaderRef} className="max-w-[calc(100%-32px)] h-[84px]">
-      <Img
+      <Image
         className="dark:invert object-cover"
         src="/logo.svg"
         alt="Give's log logo"

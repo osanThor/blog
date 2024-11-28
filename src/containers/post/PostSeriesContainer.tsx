@@ -1,13 +1,13 @@
 "use clinet";
 
+import { Post } from "#site/content";
 import Img from "@/components/common/Img";
-import { PostItem } from "@/services/posts.service";
 import Link from "next/link";
 
 type Props = {
   series: string;
   title: string;
-  list: PostItem[];
+  list: Post[];
 };
 export default function PostSeriesContainer({ series, title, list }: Props) {
   return (

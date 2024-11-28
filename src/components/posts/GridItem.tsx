@@ -1,14 +1,14 @@
-import { PostItem } from "@/services/posts.service";
 import Link from "next/link";
 import React from "react";
 import Img from "../common/Img";
+import { Post } from "#site/content";
 
 type Props = {
-  item: PostItem;
+  item: Post;
 };
 function GridItem({ item }: Props) {
   return (
-    <li className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px]">
+    <li className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px] opacity-0">
       <Link
         href={`/post/${item.category}/${item.href}`}
         className="flex flex-col transition-all flex-grow"

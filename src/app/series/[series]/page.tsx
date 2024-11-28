@@ -1,12 +1,10 @@
 import BigTitle from "@/components/common/BigTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
-import { getAllSeries, getSeries } from "@/services/posts.service";
+import { getAllSeries, getSeries } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
 
-export async function generateStaticParams() {
-  return await getAllSeries().then((series) =>
-    series.map((s) => ({ series: s.name }))
-  );
+export function generateStaticParams() {
+  return getAllSeries().map((s) => ({ series: s.name }));
 }
 type Props = {
   params: Promise<{ series: string }>;
@@ -20,7 +18,7 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function SeriesPage({ params }: Props) {
   const { series } = await params;
-  const list = await getSeries(decodeURI(series).replaceAll("-", " "));
+  const list = getSeries(decodeURI(series).replaceAll("-", " "));
 
   return (
     <>

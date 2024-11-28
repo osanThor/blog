@@ -1,7 +1,10 @@
 import BigTitle from "@/components/common/BigTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 import PostsSeriesListContainer from "@/containers/posts/PostsSeriesListContainer";
-import { getAllSeries, getPostsByCategory } from "@/services/posts.service";
+import {
+  getAllSeries,
+  getPostsByCategory,
+} from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
 
 export function generateStaticParams() {
@@ -24,8 +27,8 @@ export async function generateMetadata({ params }: Props) {
 export default async function PostsByCategoryPage({ params }: Props) {
   const { slug } = await params;
   const category = slug[0];
-  const series = await getAllSeries(category);
-  const list = await getPostsByCategory(category);
+  const series = getAllSeries(category);
+  const list = getPostsByCategory(category);
   return (
     <>
       <BigTitle text={category} />
