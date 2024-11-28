@@ -21,12 +21,12 @@ function HeaderSearchContainer() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (value.trim()) router.replace(`/search?query=${value.trim()}`);
+    if (value.trim()) router.push(`/search/${value.trim()}`);
   };
 
   useEffect(() => {
     if (pathname.startsWith("/search"))
-      router.replace(`/search?query=${debouncedValue}`);
+      router.push(`/search/${debouncedValue}`);
   }, [debouncedValue]);
 
   useEffect(() => {

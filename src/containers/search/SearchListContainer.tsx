@@ -6,7 +6,9 @@ type Props = {
 };
 
 export default async function SearchListContainer({ query }: Props) {
-  const list = await getSearchPosts(decodeURI(query));
+  console.time();
+  const list = await getSearchPosts(decodeURI(query) || "");
+  console.timeEnd();
   return (
     <>
       <PostsGridContainer list={list} />
