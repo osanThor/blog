@@ -42,7 +42,6 @@ export default function PostSeriesContainer({ series, title, list }: Props) {
                     width={200}
                     height={100}
                     sizes={"200"}
-                    blurDataURL={item.blurDataURL}
                   />
                 </div>
                 <div className="w-full flex flex-col flex-grow">
