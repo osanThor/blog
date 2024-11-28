@@ -1,10 +1,10 @@
 "use client";
 
+import Img from "@/components/common/Img";
 import SmallTitle from "@/components/common/SmallTitle";
 import SocialLinks from "@/components/common/SocialLinks";
 import { transformVisible } from "@/utils/lib/gsap";
 import { useGSAP } from "@gsap/react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 
@@ -26,7 +26,7 @@ export default function AsideContainer() {
         <SmallTitle text="About Me" />
         <div className="w-full flex flex-col items-center mb-10 opacity-0">
           <div className="max-w-[calc(100%-32px)] lg:max-w-[calc(100%-60px)] rounded-full overflow-hidden">
-            <Image
+            <Img
               className="object-cover max-w-full"
               src="/aside.gif"
               alt="Give's log logo"

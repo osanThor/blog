@@ -8,7 +8,7 @@ import "swiper/css/effect-creative";
 import { EffectCreative } from "swiper/modules";
 import { PostItem } from "@/services/posts.service";
 import Link from "next/link";
-import Image from "next/image";
+import Img from "./Img";
 
 type Props = {
   list: PostItem[];
@@ -39,7 +39,7 @@ export default function SlideCard({ list }: Props) {
             className="flex transition-all gap-7 items-start rounded-xl h-screen max-h-[300px] md:max-h-[400px] lg:max-h-[480px] group relative overflow-hidden"
           >
             <div className="overflow-hidden w-full h-full rounded-xl mb-2 relative flex items-center justify-center">
-              <Image
+              <Img
                 className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200"
                 src={item.cover}
                 alt={`cover-of-${item.title}`}

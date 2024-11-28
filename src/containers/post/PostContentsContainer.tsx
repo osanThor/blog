@@ -1,10 +1,10 @@
 "use client";
 
+import Img from "@/components/common/Img";
 import { Frontmatter } from "@/services/posts.service";
 import { transformVisible } from "@/utils/lib/gsap";
 import { useGSAP } from "@gsap/react";
 import { CompileMDXResult } from "next-mdx-remote/rsc";
-import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 
@@ -28,7 +28,7 @@ export default function PostContentsContainer({
         id="postCoverImg"
         className="mb-10 overflow-hidden rounded-xl max-h-[500px] flex items-center justify-center opacity-0"
       >
-        <Image
+        <Img
           className="object-cover w-full"
           src={frontmatter.cover}
           alt={`${frontmatter.title}-cover`}
