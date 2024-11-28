@@ -1,27 +1,26 @@
 import { PostItem } from "@/services/posts.service";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import Img from "../common/Img";
 
 type Props = {
   item: PostItem;
 };
 function GridItem({ item }: Props) {
   return (
-    <li className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px] opacity-0">
+    <li className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px]">
       <Link
         href={`/post/${item.category}/${item.href}`}
         className="flex flex-col transition-all flex-grow"
       >
         {!!item.cover && (
           <div className="overflow-hidden h-[100vw] max-h-[300px] sm:max-h-[230px] lg:max-h-[210px] rounded-lg mb-2 relative">
-            <Image
+            <Img
               className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200"
               src={item.cover}
               alt={`cover-of-${item.title}`}
               fill
-              sizes={"1"}
-              priority
+              sizes={"350px"}
             />
           </div>
         )}

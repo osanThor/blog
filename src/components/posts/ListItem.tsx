@@ -1,7 +1,7 @@
 import { PostItem } from "@/services/posts.service";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import Img from "../common/Img";
 
 type Props = {
   item: PostItem;
@@ -31,14 +31,13 @@ export default function ListItem({ item }: Props) {
           </div>
         </div>
         <div className="overflow-hidden w-full max-w-[12vw] min-w-[30%] max-h-[140px] rounded-lg mb-2 relative flex items-center justify-center">
-          <Image
+          <Img
             className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200"
             src={item.cover}
             alt={`cover-of-${item.title}`}
             width={200}
             height={80}
-            sizes={"1"}
-            priority
+            sizes={"220px"}
           />
         </div>
       </Link>
