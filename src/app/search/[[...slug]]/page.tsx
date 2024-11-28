@@ -1,5 +1,6 @@
 import BigTitle from "@/components/common/BigTitle";
-import SearchListContainer from "@/containers/search/SearchListContainer";
+import PostsGridContainer from "@/containers/posts/PostsGridContainer";
+import { getSearchPosts } from "@/services/posts.service";
 export const dynamicParams = true;
 export async function generateStaticParams() {
   return [{ slug: [""] }];
@@ -11,11 +12,12 @@ type Props = {
 
 export default async function SearchPage({ params }: Props) {
   const { slug } = await params;
+  const list = await getSearchPosts(slug ? decodeURI(slug[0]) : "");
   return (
     <>
       <BigTitle text={slug ? decodeURI(slug[0]) : "Search"} />
       <div className="mb-10" />
-      <SearchListContainer query={slug ? decodeURI(slug[0]) : ""} />
+      <PostsGridContainer list={list} />
     </>
   );
 }
