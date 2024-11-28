@@ -38,6 +38,7 @@ export default function ListItem({ item }: Props) {
             width={200}
             height={80}
             sizes={"220px"}
+            blurDataURL={item.blurDataURL}
           />
         </div>
       </Link>

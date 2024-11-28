@@ -4,6 +4,7 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import { CompileOptions } from "@mdx-js/mdx";
 import { MDXProvider } from "@mdx-js/react";
 import { cache } from "react";
+import getBlurImage from "@/utils/getBlurImage";
 
 export type Frontmatter = {
   title: string;
@@ -15,7 +16,7 @@ export type Frontmatter = {
   series?: string;
   featured?: boolean;
 };
-export type PostItem = Frontmatter & { href: string };
+export type PostItem = Frontmatter & { href: string; blurDataURL: string };
 export type SeriesItem = {
   name: string;
   count: number;
@@ -78,6 +79,7 @@ export const getPostsByCategory = cache(
           const { frontmatter } = await compileMDXFile(filePath);
           return {
             href: filename.replace(".mdx", ""),
+            blurDataURL: await getBlurImage(frontmatter.cover),
             ...frontmatter,
           };
         })

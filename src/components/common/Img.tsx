@@ -3,9 +3,12 @@ import Image, { ImageProps } from "next/image";
 export default function Img(props: ImageProps) {
   return (
     <Image
-      placeholder="blur"
-      blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMszNSvBwAD5gGKUzJs/wAAAABJRU5ErkJggg=="
       {...props}
+      placeholder="blur"
+      blurDataURL={
+        props.blurDataURL ||
+        "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcuaS9HgAGJwJV/XWwGgAAAABJRU5ErkJggg=="
+      }
     />
   );
 }

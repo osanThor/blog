@@ -19,7 +19,7 @@ export default function PostsGridContainer({ list }: Props) {
       if (listRef.current)
         transformVisible(Array.from(listRef.current.children), null);
     },
-    { scope: ref }
+    { scope: ref, dependencies: [list] }
   );
   return (
     <>
