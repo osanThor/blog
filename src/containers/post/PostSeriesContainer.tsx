@@ -1,7 +1,7 @@
 "use clinet";
 
+import Img from "@/components/common/Img";
 import { PostItem } from "@/services/posts.service";
-import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
@@ -35,14 +35,13 @@ export default function PostSeriesContainer({ series, title, list }: Props) {
                 className="flex transition-all gap-7"
               >
                 <div className="overflow-hidden w-full max-w-[10vw] min-w-[20%] max-h-[140px] rounded-lg mb-2 relative flex items-center justify-center">
-                  <Image
+                  <Img
                     className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200"
                     src={item.cover}
                     alt={`cover-of-${item.title}`}
-                    width={100}
-                    height={80}
-                    sizes={"1"}
-                    priority
+                    width={200}
+                    height={100}
+                    sizes={"200"}
                   />
                 </div>
                 <div className="w-full flex flex-col flex-grow">
