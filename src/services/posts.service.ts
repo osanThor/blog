@@ -55,11 +55,9 @@ export const getPostsByCategory = cache(
           };
         })
       ).then((arr) =>
-        arr.sort((a, b) => {
-          const aDate = new Date(a.date);
-          const bDate = new Date(b.date);
-          return aDate > bDate ? -1 : 1;
-        })
+        arr.sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        )
       );
     } catch (error) {
       console.error(`Error reading folder "${folder}":`, error);
@@ -133,9 +131,7 @@ export const getFeaturedPost = async () => {
   );
 };
 
-export const getSearchPosts = async (typing: string) => {
-  if (!typing) return await getAllPosts();
-  const keyword = decodeURI(typing);
+export const getSearchPosts = async (keyword: string) => {
   return await getAllPosts().then((data) =>
     data.filter((item) =>
       item.title.toLowerCase().includes(keyword.toLowerCase())
