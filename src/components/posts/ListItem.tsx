@@ -1,10 +1,10 @@
-import { PostItem } from "@/services/posts.service";
 import Link from "next/link";
 import React from "react";
 import Img from "../common/Img";
+import { Post } from "#site/content";
 
 type Props = {
-  item: PostItem;
+  item: Post;
 };
 export default function ListItem({ item }: Props) {
   return (

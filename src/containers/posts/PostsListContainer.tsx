@@ -1,13 +1,13 @@
 "use client";
+import { Post } from "#site/content";
 import SmallTitle from "@/components/common/SmallTitle";
 import ListItem from "@/components/posts/ListItem";
-import { PostItem } from "@/services/posts.service";
 import { transformVisible } from "@/utils/lib/gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 
 type Props = {
-  list: PostItem[];
+  list: Post[];
 };
 
 export default function PostsListContainer({ list }: Props) {

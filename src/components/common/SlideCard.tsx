@@ -6,12 +6,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-creative";
 import { EffectCreative } from "swiper/modules";
-import { PostItem } from "@/services/posts.service";
 import Link from "next/link";
 import Img from "./Img";
+import { Post } from "#site/content";
 
 type Props = {
-  list: PostItem[];
+  list: Post[];
 } & PropsWithChildren;
 
 export default function SlideCard({ list }: Props) {

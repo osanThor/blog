@@ -2,11 +2,11 @@ import Signboard from "@/components/common/Signboard";
 import AsideContainer from "@/containers/home/AsideContainer";
 import MainContentsContainer from "@/containers/home/MainContentsContainer";
 import TagsListContainer from "@/containers/tags/TagsListContainer";
-import { getAllTags, getFeaturedPost } from "@/services/posts.service";
+import { getAllTags, getFeaturedPost } from "@/services/posts.service.velite";
 
-export default async function Home() {
-  const tags = await getAllTags();
-  const featured = await getFeaturedPost();
+export default function Home() {
+  const tags = getAllTags();
+  const featured = getFeaturedPost();
 
   return (
     <>

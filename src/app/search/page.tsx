@@ -1,6 +1,6 @@
 import BigTitle from "@/components/common/BigTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
-import { getSearchPosts } from "@/services/posts.service";
+import { getSearchPosts } from "@/services/posts.service.velite";
 export const dynamic = "force-dynamic";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 
 export default async function SearchPage({ searchParams }: Props) {
   const { query } = await searchParams;
-  const list = await getSearchPosts(query ? decodeURI(query) : "");
+  const list = getSearchPosts(query ? decodeURI(query) : "");
   return (
     <>
       <BigTitle text={query ? decodeURI(query) : "Search"} />

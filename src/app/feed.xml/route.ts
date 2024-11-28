@@ -1,5 +1,5 @@
 import RSS from "rss";
-import { getAllPosts } from "@/services/posts.service";
+import { getAllPosts } from "@/services/posts.service.velite";
 
 const BASE_URI = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
@@ -16,7 +16,7 @@ export async function GET() {
     ttl: 60,
   });
 
-  const allPosts = await getAllPosts();
+  const allPosts = getAllPosts();
 
   if (allPosts) {
     allPosts.map((post) => {
