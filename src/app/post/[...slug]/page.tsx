@@ -8,7 +8,6 @@ import {
   getSeries,
 } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
-import { notFound } from "next/navigation";
 import { MDXContent } from "@/components/post/mdx/mdx-content.tsx";
 
 export function generateStaticParams() {
@@ -29,7 +28,9 @@ export async function generateMetadata({ params }: Props) {
   const data = getPost(filename);
 
   if (!data) {
-    notFound();
+    return {
+      notFound: true,
+    };
   }
 
   const { title, description } = data;
@@ -49,8 +50,12 @@ export default async function PostDetailPage({ params }: Props) {
   const slug = (await params).slug;
   const filename = slug[1];
   const data = getPost(filename);
-  if (!data) notFound();
 
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
   const serieses = getSeries(data.series);
 
   return (
