@@ -35,7 +35,6 @@ export const getFeaturedPost = (): Post[] =>
     .slice(0, 4);
 
 export const getSearchPosts = (keyword: string): Post[] => {
-  if (!keyword) return getAllPosts();
   return getAllPosts().filter((item) =>
     item.title.toLowerCase().includes(keyword.toLowerCase())
   );
