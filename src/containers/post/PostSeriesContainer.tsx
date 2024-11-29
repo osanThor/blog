@@ -39,9 +39,9 @@ export default function PostSeriesContainer({ series, title, list }: Props) {
                     className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200"
                     src={item.cover}
                     alt={`cover-of-${item.title}`}
-                    width={200}
-                    height={100}
-                    sizes={"200"}
+                    width={item.img.width}
+                    height={item.img.width}
+                    sizes={"200px"}
                     blurDataURL={item.blurDataURL}
                   />
                 </div>

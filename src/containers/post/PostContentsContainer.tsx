@@ -11,7 +11,7 @@ type Props = {
   data: Post;
 };
 export default function PostContentsContainer({
-  data: { cover, title, description, date, tags, blurDataURL },
+  data: { cover, title, description, date, tags, blurDataURL, img },
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   useGSAP(
@@ -31,8 +31,8 @@ export default function PostContentsContainer({
           className="object-cover w-full"
           src={cover}
           alt={`${title}-cover`}
-          width={800}
-          height={300}
+          width={img.width}
+          height={img.height}
           priority
           blurDataURL={blurDataURL}
         />
