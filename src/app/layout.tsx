@@ -5,6 +5,7 @@ import { pretendard } from "./fonts";
 import HeaderContainer from "@/containers/common/HeaderContainer";
 import FooterContainer from "@/containers/common/FooterContainer";
 import { getMetadata } from "@/utils/getMetadata";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = getMetadata();
 
@@ -32,6 +33,7 @@ export default function RootLayout({
           <FooterContainer />
         </Providers>
       </body>
+      <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS || ""} />
     </html>
   );
 }
