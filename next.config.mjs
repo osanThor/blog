@@ -1,3 +1,5 @@
+import withPlaiceholder from "@plaiceholder/next";
+
 const isDev = process.argv.indexOf("dev") !== -1;
 const isBuild = process.argv.indexOf("build") !== -1;
 if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
@@ -7,7 +9,7 @@ if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
 }
 
 /** @type {import('next').NextConfig} */
-export default {
+const config = {
   // next config here...
   images: {
     formats: ["image/avif", "image/webp"],
@@ -16,3 +18,4 @@ export default {
   },
   swcMinify: true,
 };
+export default withPlaiceholder(config);

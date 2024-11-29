@@ -1,9 +1,14 @@
+import getBase64 from "@/utils/getBase64";
 import remarkGfm from "remark-gfm";
 import { defineConfig, defineCollection, s } from "velite";
 
-const computedFields = <T extends { slug: string }>(data: T) => ({
-  ...data,
-});
+const computedFields = async <T extends { cover: string }>(data: T) => {
+  const { base64 } = await getBase64(data.cover);
+  return {
+    ...data,
+    blurDataURL: base64,
+  };
+};
 
 const posts = defineCollection({
   name: "Post",

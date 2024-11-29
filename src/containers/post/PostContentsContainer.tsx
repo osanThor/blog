@@ -11,7 +11,7 @@ type Props = {
   data: Post;
 };
 export default function PostContentsContainer({
-  data: { cover, title, description, date, tags },
+  data: { cover, title, description, date, tags, blurDataURL },
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   useGSAP(
@@ -34,6 +34,7 @@ export default function PostContentsContainer({
           width={800}
           height={300}
           priority
+          blurDataURL={blurDataURL}
         />
       </div>
       <ul className="flex items-center gap-2 mb-4 opacity-0">

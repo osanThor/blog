@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
+    "@plaiceholder/next": "^3.0.0",
     "gsap": "^3.12.5",
     "next": "15.0.3",
     "next-mdx-remote": "^5.0.0",
