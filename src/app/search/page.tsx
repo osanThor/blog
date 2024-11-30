@@ -2,10 +2,6 @@ import BigTitle from "@/components/common/BigTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 import { getSearchPosts } from "@/services/posts.service.velite";
 
-export const experimental_ppr = true;
-
-export const dynamic = "force-dynamic";
-
 type Props = {
   searchParams: Promise<{ query?: string }>;
 };
