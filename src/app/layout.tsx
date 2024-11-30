@@ -6,6 +6,7 @@ import HeaderContainer from "@/containers/common/HeaderContainer";
 import FooterContainer from "@/containers/common/FooterContainer";
 import { getMetadata } from "@/utils/getMetadata";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = getMetadata();
 
@@ -32,6 +33,7 @@ export default function RootLayout({
           </main>
           <FooterContainer />
         </Providers>
+        <SpeedInsights />
       </body>
       <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS || ""} />
     </html>
