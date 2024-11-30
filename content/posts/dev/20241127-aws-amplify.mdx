@@ -1,0 +1,62 @@
+---
+title: "NextJS 앱 Amplify에 간단 배포"
+tags:
+  - Next
+  - AWS
+  - Amplify
+description: "NextJS로 만든 SSR 앱을 AWS Amplify를 사용해서 간단하게 배포해보자"
+date: 2024.11.27
+cover: "/posts/dev/20241127-aws-amplify/cover.png"
+href: "20241127-aws-amplify"
+category: dev
+---
+
+<Heading type="h2">배포 환경을 변경해보자</Heading>
+
+<Heading type="h3">배포 환경을 변경하게 된 이유</Heading>
+
+<Heading type="h4">1. 힘들어요😭</Heading>
+
+기존에는 CI/CD의 파이프라인 모두 수동으로 이루어졌습니다. EC2 인스턴스를 생성하고 `ssh` 연결해서 설치와 배포 모두 일일이 수작업이 들어갔습니다.
+처음엔 명령어들 입력하고 직접 컨텐츠들을 다루는 것이 즐거웠지만 지속적으로 컨텐츠가 업데이트되거나 배포 환경 테스트를 할 때 일이 장난 아니었습니다...
+
+<Heading type="h4">2. 지갑이 힘들어요😭</Heading>
+
+<Blockquote type="error">
+  프리티어 기간이 끝나고 RDS와 EC2에서 요금 폭탄을 맞은 경험 다들 있으신가요...?
+</Blockquote>
+
+`Github action`과 `CodeDeploy`등을 사용해서 개선할 수도 있었겠지만 제가 서버를 잘 다루는
+것도 아니고 프리티어 기한도 끝나서 무섭습니다. 다음에 여건이 되면 인스턴스 성능을
+업그레이드 하고 컨테이너 단위로 컨텐츠들을 관리할 수 있도록 변경할 계획입니다.
+
+돌아올게...🥲
+
+<Heading type="h4">3. 배포환경</Heading>
+
+위 이유와 연결되는 내용이긴 하지만 서버를 잘모르는 저에게 프리티어의 EC2에서 기본으로 제공하는 1GB와 SWAP으로 늘린 메모리는 빌드할 때 먹통이 되는 등 많은 문제가 있었습니다.
+그래도 NODE 버젼 관리나 배포 설정 하기엔 정말 좋았는데 너무 아쉬워요...
+
+강해져서 돌아올게...🥲
+
+<Heading type="h3">NextJS를 배포하는 법</Heading>
+
+저는 보통 `NextJS`를 이용해서 웹 애플리케이션을 개발합니다. 이유는 일단 `React` 베이스에 `SSR`와 `SSG` 등 `SEO`에서 강한 것 그리고 폴더 단위의 App 라우팅 방식 개발하면서 경험이 더 좋았기 때문입니다.
+그럼 제 웹앱을 배포하기 위해 필요했던 조건에 대해 정리해보겠습니다.
+
+1. 최소한의 비용(cost)
+2. github 연동 자동 배포 기능
+3. 서버리스
+
+<Heading type="h4">1. Vercel</Heading>
+
+`NextJS`로 개발했다면 `vercel`에서 제공하는 `Paas` 다들 사용해 보셨을 겁니다.
+
+<Blockquote type="info">
+**Paas**는 **Platform as a Service**의 약자로 플랫폼을 제공한다는 뜻입니다.
+
+쉽게 풀어서 설명 드리면 개발자는 실질적인 비즈니스 로직 개발에만 집중할 수 있고 서버 관리를 대신 해준다는 겁니다.
+그에 따라 서버 설정에 제한이 있다는 단점이 있습니다.
+기존에 사용했던 EC2 같은 서비스는 **Iaas** 인프라(Infrastructure)를 제공해주는 상품입니다.
+
+</Blockquote>

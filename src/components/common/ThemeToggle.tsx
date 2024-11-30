@@ -12,6 +12,7 @@ export default function ThemeToggle() {
   if (!mounted) {
     return (
       <button
+        aria-label="themeToggleBtn"
         className={`w-[48px] h-[24px] relative flex rounded-[32px] p-[2px] ease-linear transition-all duration-200 border border-neutral-300 dark:border-neutral-500 `}
         onClick={() => setTheme(isDark ? "light" : "dark")}
       ></button>
@@ -25,6 +26,7 @@ export default function ThemeToggle() {
     "after:block after:rounded-full after:transition-all after:duration-300 after:absolute";
   return (
     <button
+      aria-label="themeToggleBtn"
       className={`w-[48px] h-[24px] relative flex rounded-[32px] p-[2px] ease-linear transition-all duration-200 border border-neutral-300 dark:border-neutral-500 ${
         isDark ? "bg-neutral-800" : "bg-white"
       }`}

@@ -3,9 +3,9 @@ import makeCountObj from "@/utils/makeCountObj";
 import { cache } from "react";
 
 export const getAllPosts = cache((): Post[] => {
-  return posts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  return posts
+    .filter((post) => post.draft)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 });
 
 export const getPost = (href: string): Post | undefined =>

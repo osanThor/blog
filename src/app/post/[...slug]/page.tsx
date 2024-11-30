@@ -8,8 +8,9 @@ import {
   getSeries,
 } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
-import { MDXContent } from "@/components/post/mdx/mdx-content.tsx";
+import { MDXContent } from "@/components/post/mdx/MDXContent";
 import { notFound } from "next/navigation";
+import { META } from "@/constants/meta";
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => {
@@ -30,9 +31,9 @@ export async function generateMetadata({ params }: Props) {
 
   if (!data) notFound();
 
-  const { title, description } = data;
+  const { title, description, category, href } = data;
 
-  const url = process.env.NEXT_PUBLIC_BASE_URL;
+  const url = META.url;
 
   const ogUrl = new URL(`${url}/api/og`);
   ogUrl.searchParams.set("title", title);
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }: Props) {
     title,
     description,
     ogImage: ogUrl.toString(),
+    asPath: `${url}/post/${category}/${href}`,
   });
 }
 

@@ -24,6 +24,7 @@ const posts = defineCollection({
       tags: s.string().array(),
       date: s.string(),
       cover: s.string(),
+      draft: s.boolean(),
       series: s.string().optional(),
       featured: s.boolean().optional(),
       content: s.mdx(),
