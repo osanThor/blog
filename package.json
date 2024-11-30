@@ -47,5 +47,6 @@
     "tailwindcss-content-visibility": "^1.0.0",
     "typescript": "^5",
     "velite": "^0.2.1"
-  }
+  },
+  "sideEffects": false
 }

@@ -1,13 +1,20 @@
-import Signboard from "@/components/common/Signboard";
-import SlideCard from "@/components/common/SlideCard";
-import AsideContainer from "@/containers/home/AsideContainer";
-import PostsListContainer from "@/containers/posts/PostsListContainer";
-import TagsListContainer from "@/containers/tags/TagsListContainer";
 import {
   getAllPosts,
   getAllTags,
   getFeaturedPost,
 } from "@/services/posts.service.velite";
+import dynamic from "next/dynamic";
+const Signboard = dynamic(() => import("@/components/common/Signboard"));
+const SlideCard = dynamic(() => import("@/components/common/SlideCard"));
+const PostsListContainer = dynamic(
+  () => import("@/containers/posts/PostsListContainer")
+);
+const TagsListContainer = dynamic(
+  () => import("@/containers/tags/TagsListContainer")
+);
+const AsideContainer = dynamic(
+  () => import("@/containers/home/AsideContainer")
+);
 
 export default function Home() {
   const posts = getAllPosts();

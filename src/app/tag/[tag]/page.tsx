@@ -1,9 +1,14 @@
-import BigTitle from "@/components/common/BigTitle";
-import PostsGridContainer from "@/containers/posts/PostsGridContainer";
-import TagsListContainer from "@/containers/tags/TagsListContainer";
 import { getAllTags, getPostsByTag } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
+import dynamic from "next/dynamic";
 
+const BigTitle = dynamic(() => import("@/components/common/BigTitle"));
+const PostsGridContainer = dynamic(
+  () => import("@/containers/posts/PostsGridContainer")
+);
+const TagsListContainer = dynamic(
+  () => import("@/containers/tags/TagsListContainer")
+);
 export function generateStaticParams() {
   return getAllTags().map((tag) => ({ tag: tag.name }));
 }

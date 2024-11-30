@@ -1,11 +1,17 @@
-import BigTitle from "@/components/common/BigTitle";
-import PostsGridContainer from "@/containers/posts/PostsGridContainer";
-import PostsSeriesListContainer from "@/containers/posts/PostsSeriesListContainer";
 import {
   getAllSeries,
   getPostsByCategory,
 } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
+import dynamic from "next/dynamic";
+
+const BigTitle = dynamic(() => import("@/components/common/BigTitle"));
+const PostsGridContainer = dynamic(
+  () => import("@/containers/posts/PostsGridContainer")
+);
+const PostsSeriesListContainer = dynamic(
+  () => import("@/containers/posts/PostsSeriesListContainer")
+);
 
 export function generateStaticParams() {
   return [{ slug: ["dev"] }, { slug: ["life"] }];

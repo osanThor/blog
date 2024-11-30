@@ -22,5 +22,18 @@ const config = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
   },
   swcMinify: true,
+  experimental: {
+    optimizePackageImports: ["swiper", "gsap"],
+  },
+  webpack: (config) => {
+    // 코드 스플리팅 설정 오버라이드
+    config.optimization.splitChunks = {
+      ...config.optimization.splitChunks,
+      chunks: "all", // 모든 청크를 분리
+      minSize: 100, // 최소 100B 이상의 청크만 분리, default: 20KB
+      minChunks: 2, // 최소 2개 이상의 파일에서 사용될 때만 청크로 분리
+    };
+    return config;
+  },
 };
 export default bundleAnalyzer(withPlaiceholder(config));
