@@ -8,7 +8,7 @@ import {
   getSeries,
 } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
-import { MDXContent } from "@/components/post/mdx/mdx-content.tsx";
+import { MDXContent } from "@/components/post/mdx/MDXContent";
 import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
