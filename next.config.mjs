@@ -1,4 +1,9 @@
 import withPlaiceholder from "@plaiceholder/next";
+import withBundleAnalyzer from "@next/bundle-analyzer";
+
+const bundleAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
 
 const isDev = process.argv.indexOf("dev") !== -1;
 const isBuild = process.argv.indexOf("build") !== -1;
@@ -18,4 +23,4 @@ const config = {
   },
   swcMinify: true,
 };
-export default withPlaiceholder(config);
+export default bundleAnalyzer(withPlaiceholder(config));

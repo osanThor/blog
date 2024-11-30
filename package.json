@@ -10,7 +10,8 @@
     "dev": "run-p dev:*",
     "build": "run-s build:*",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
