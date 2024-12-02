@@ -15,7 +15,7 @@ export const getPostsByCategory = (category: string): Post[] =>
   getAllPosts().filter((post) => post.category === category);
 
 export const getAllSeries = (category?: string) => {
-  const list = category ? getPostsByCategory(category) : posts;
+  const list = category ? getPostsByCategory(category) : getAllPosts();
   return makeCountObj(list, "series");
 };
 
@@ -24,7 +24,7 @@ export const getSeries = (name?: string): Post[] => {
   return getAllPosts().filter((item) => item.series && item.series === name);
 };
 
-export const getAllTags = () => makeCountObj(posts, "tag");
+export const getAllTags = () => makeCountObj(getAllPosts(), "tag");
 
 export const getPostsByTag = (tag: string): Post[] =>
   getAllPosts().filter((item) => item.tags.includes(tag));
