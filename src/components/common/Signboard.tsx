@@ -21,7 +21,7 @@ export default function Signboard() {
         src="/logo.svg"
         alt="Give's log logo"
         width={320}
-        height={82}
+        height={92}
         priority
       />
     </h1>

@@ -31,7 +31,7 @@ export default function PostContentsContainer({
           className="object-cover w-full"
           src={cover}
           alt={`${title}-cover`}
-          width={750}
+          width={img.width}
           height={img.height}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority
