@@ -33,7 +33,6 @@ export default function AsideContainer() {
               width={260}
               height={82}
               priority
-              unoptimized
             />
           </div>
         </div>
