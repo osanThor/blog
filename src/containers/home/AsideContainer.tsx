@@ -11,9 +11,14 @@ import { useRef } from "react";
 export default function AsideContainer() {
   const ref = useRef<HTMLElement>(null);
   useGSAP(
-    () => {
+    async () => {
       if (ref.current)
-        transformVisible(Array.from(ref.current.children), null, "left", 0.2);
+        await transformVisible(
+          Array.from(ref.current.children),
+          null,
+          "left",
+          0.2
+        );
     },
     { scope: ref }
   );

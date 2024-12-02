@@ -1,13 +1,11 @@
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { TextPlugin } from "gsap/TextPlugin";
+export const transformTextAnimation = async (
+  target: HTMLElement,
+  text: string
+) => {
+  const gsap = (await import("gsap")).default;
+  const textPlugin = (await import("gsap/TextPlugin")).TextPlugin;
+  gsap.registerPlugin(textPlugin);
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, TextPlugin, useGSAP);
-}
-
-export const transformTextAnimation = (target: HTMLElement, text: string) => {
   gsap.to(target, {
     duration: 1,
     text,
@@ -16,12 +14,14 @@ export const transformTextAnimation = (target: HTMLElement, text: string) => {
 
 export type Direction = "up" | "left";
 
-export const transformVisible = (
+export const transformVisible = async (
   target: HTMLElement | Element[],
   time?: number | null,
   direction: Direction = "up",
   stagger: number = 0.1
 ) => {
+  const gsap = (await import("gsap")).default;
+
   const duration = time || 0.35;
   // 위치 설정
   const initialPosition = direction === "left" ? { x: 10 } : { y: 10 };
