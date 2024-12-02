@@ -44,6 +44,7 @@ export default function TagsListContainer({ currentTag, tags }: Props) {
         {isCanOpen && (
           <li>
             <button
+              aria-label="toggleTagBtn"
               onClick={handleClickToggle}
               className="p-1 rounded hover:bg-neutral-200 dark:hover:bg-neutral-600 w-6 h-6 min-w-6 min-h-6 flex items-center justify-center transition-all duration-200"
             >

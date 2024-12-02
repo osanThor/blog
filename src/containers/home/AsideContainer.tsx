@@ -29,8 +29,8 @@ export default function AsideContainer() {
             <Img
               className="object-cover max-w-full"
               src="/aside.gif"
-              alt="Give's log logo"
-              width={320}
+              alt="it's me"
+              width={260}
               height={82}
               priority
               unoptimized
