@@ -63,10 +63,14 @@ export default function PostSideTOCContainer() {
   const listRef = useRef<HTMLUListElement>(null);
 
   useGSAP(
-    () => {
-      if (containerRef.current) transformVisible(containerRef.current);
+    async () => {
+      if (containerRef.current) await transformVisible(containerRef.current);
       if (listRef.current)
-        transformVisible(Array.from(listRef.current.children), 0.5, "left");
+        await transformVisible(
+          Array.from(listRef.current.children),
+          0.5,
+          "left"
+        );
     },
     { scope: containerRef, dependencies: [headItem] }
   );

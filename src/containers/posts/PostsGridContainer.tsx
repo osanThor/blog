@@ -14,10 +14,10 @@ export default function PostsGridContainer({ list }: Props) {
   const ref = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   useGSAP(
-    () => {
-      if (ref.current) transformVisible(ref.current, 0.4);
+    async () => {
+      if (ref.current) await transformVisible(ref.current, 0.4);
       if (listRef.current)
-        transformVisible(Array.from(listRef.current.children), null);
+        await transformVisible(Array.from(listRef.current.children), null);
     },
     { scope: ref, dependencies: [list] }
   );

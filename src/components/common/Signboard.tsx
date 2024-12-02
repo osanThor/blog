@@ -8,8 +8,8 @@ import Image from "next/image";
 export default function Signboard() {
   const HeaderRef = useRef<HTMLHeadingElement>(null);
   useGSAP(
-    () => {
-      if (HeaderRef.current) transformVisible(HeaderRef.current);
+    async () => {
+      if (HeaderRef.current) await transformVisible(HeaderRef.current);
     },
     { scope: HeaderRef, dependencies: [] }
   );

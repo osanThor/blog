@@ -12,8 +12,8 @@ function BigTitle({ text }: Props) {
   const [mounted, setMounted] = useState<boolean>(false);
   const ref = useRef<HTMLHeadingElement>(null);
   useGSAP(
-    () => {
-      if (ref.current) transformTextAnimation(ref.current, text);
+    async () => {
+      if (ref.current) await transformTextAnimation(ref.current, text);
     },
     { scope: ref, dependencies: [text] }
   );

@@ -2,10 +2,10 @@
 
 import { Post } from "#site/content";
 import Img from "@/components/common/Img";
-import { transformVisible } from "@/utils/lib/gsap";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import { useRef } from "react";
+import { transformVisible } from "@/utils/lib/gsap";
 
 type Props = {
   data: Post;
@@ -15,9 +15,14 @@ export default function PostContentsContainer({
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   useGSAP(
-    () => {
+    async () => {
       if (ref.current)
-        transformVisible(Array.from(ref.current.children), 0.5, "left", 0.15);
+        await transformVisible(
+          Array.from(ref.current.children),
+          0.5,
+          "left",
+          0.15
+        );
     },
     { scope: ref }
   );
@@ -25,7 +30,7 @@ export default function PostContentsContainer({
     <div ref={ref} className="w-full">
       <div
         id="postCoverImg"
-        className="mb-10 overflow-hidden rounded-xl max-h-[500px] flex items-center justify-center opacity-0"
+        className="mb-10 overflow-hidden rounded-xl max-h-[500px] flex items-center justify-center"
       >
         <Img
           className="object-cover w-full"
