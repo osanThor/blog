@@ -35,7 +35,7 @@ export default function ListItem({ item }: Props) {
             className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200"
             src={item.cover}
             alt={`cover-of-${item.title}`}
-            width={item.img.width}
+            width={220}
             height={item.img.height}
             sizes={"220px"}
             blurDataURL={item.blurDataURL}

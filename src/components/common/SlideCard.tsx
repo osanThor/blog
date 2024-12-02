@@ -2,7 +2,6 @@
 import { PropsWithChildren } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-creative";
 import { EffectCreative } from "swiper/modules";
@@ -32,7 +31,7 @@ export default function SlideCard({ list }: Props) {
       loop={true}
       className="mySwiper"
     >
-      {list.map((item) => (
+      {list.map((item, idx) => (
         <SwiperSlide key={`slide-card-${item.title}`}>
           <Link
             href={`/post/${item.category}/${item.href}`}
@@ -45,7 +44,7 @@ export default function SlideCard({ list }: Props) {
                 alt={`cover-of-${item.title}`}
                 fill
                 sizes={"720px"}
-                priority
+                priority={idx === 0}
                 blurDataURL={item.blurDataURL}
               />
             </div>

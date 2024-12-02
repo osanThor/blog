@@ -1,7 +1,3 @@
-import Giscus from "@/components/post/Giscus";
-import PostContentsContainer from "@/containers/post/PostContentsContainer";
-import PostSeriesContainer from "@/containers/post/PostSeriesContainer";
-import PostSideTOCContainer from "@/containers/post/PostSideTOCContainer";
 import {
   getAllPosts,
   getPost,
@@ -11,6 +7,17 @@ import { getMetadata } from "@/utils/getMetadata";
 import { MDXContent } from "@/components/post/mdx/MDXContent";
 import { notFound } from "next/navigation";
 import { META } from "@/constants/meta";
+import dynamic from "next/dynamic";
+const Giscus = dynamic(() => import("@/components/post/Giscus"));
+const PostContentsContainer = dynamic(
+  () => import("@/containers/post/PostContentsContainer")
+);
+const PostSeriesContainer = dynamic(
+  () => import("@/containers/post/PostSeriesContainer")
+);
+const PostSideTOCContainer = dynamic(
+  () => import("@/containers/post/PostSideTOCContainer")
+);
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => {

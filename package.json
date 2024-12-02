@@ -10,12 +10,14 @@
     "dev": "run-p dev:*",
     "build": "run-s build:*",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
     "@next/third-parties": "^15.0.3",
     "@plaiceholder/next": "^3.0.0",
+    "@vercel/speed-insights": "^1.1.0",
     "gsap": "^3.12.5",
     "next": "15.0.3",
     "next-themes": "^0.4.3",
@@ -31,6 +33,7 @@
     "zustand": "^5.0.1"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.0.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -44,5 +47,6 @@
     "tailwindcss-content-visibility": "^1.0.0",
     "typescript": "^5",
     "velite": "^0.2.1"
-  }
+  },
+  "sideEffects": false
 }

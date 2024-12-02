@@ -3,7 +3,9 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 
-gsap.registerPlugin(ScrollTrigger, TextPlugin, useGSAP);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, TextPlugin, useGSAP);
+}
 
 export const transformTextAnimation = (target: HTMLElement, text: string) => {
   gsap.to(target, {

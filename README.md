@@ -26,7 +26,9 @@
 - [x] SEO 최적화
 - [x] open graph
 - [x] rss
-- [ ] lazy image
-- [ ] Google Analytics 적용
+- [x] lazy image
+- [x] Google Analytics 적용
+
+## 🧹 최적화 과정
 
 ## 📚 프로젝트 폴더구조
