@@ -31,14 +31,10 @@ export default function AsideContainer() {
         <SmallTitle text="About Me" />
         <div className="w-full flex flex-col items-center mb-10 opacity-0">
           <div className="max-w-[calc(100%-32px)] lg:max-w-[calc(100%-60px)] rounded-full overflow-hidden">
-            <Img
-              className="object-cover max-w-full"
-              src="/aside.gif"
-              alt="it's me"
-              width={260}
-              height={82}
-              priority
-            />
+            <video autoPlay loop muted playsInline>
+              <source src="/videos/aside.webm" type="video/webm" />
+              <source src="/videos/aside.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
         <p className="text-center break-keep mb-2">
