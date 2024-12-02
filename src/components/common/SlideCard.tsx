@@ -41,13 +41,14 @@ export default function SlideCard({ list }: Props) {
           >
             <div className="overflow-hidden w-full h-full rounded-xl mb-2 relative flex items-center justify-center">
               <Img
-                className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200"
+                className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200 "
                 src={item.cover}
                 alt={`cover-of-${item.title}`}
                 fill
-                sizes={"720px"}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 priority={idx === 0}
                 blurDataURL={item.blurDataURL}
+                loading={idx === 0 ? "eager" : "lazy"}
               />
             </div>
             <div className="flex flex-col absolute top-0 bottom-0 left-0 right-0 overflow-hidden bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-200 px-10 py-8">

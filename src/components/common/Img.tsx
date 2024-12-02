@@ -7,7 +7,7 @@ export default function Img(props: ImageProps) {
       placeholder="blur"
       blurDataURL={
         props.blurDataURL ||
-        "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcuaS9HgAGJwJV/XWwGgAAAABJRU5ErkJggg=="
+        "data:image/*;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8VQ8AAlkBa3ROiyoAAAAASUVORK5CYII="
       }
     />
   );
