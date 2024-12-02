@@ -1,6 +1,5 @@
 "use client";
 
-import Img from "@/components/common/Img";
 import SmallTitle from "@/components/common/SmallTitle";
 import SocialLinks from "@/components/common/SocialLinks";
 import { transformVisible } from "@/utils/lib/gsap";
