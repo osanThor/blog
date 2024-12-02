@@ -31,7 +31,7 @@ export default function PostContentsContainer({
           className="object-cover w-full"
           src={cover}
           alt={`${title}-cover`}
-          width={img.width}
+          width={750}
           height={img.height}
           priority
           blurDataURL={blurDataURL}

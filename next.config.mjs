@@ -23,7 +23,7 @@ const config = {
   },
   swcMinify: true,
   experimental: {
-    optimizePackageImports: ["swiper", "gsap"],
+    optimizePackageImports: ["swiper", "ssr-window", "dom7", "gsap"],
   },
   webpack: (config) => {
     // 코드 스플리팅 설정 오버라이드
