@@ -7,7 +7,6 @@ import { Post } from "#site/content";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
-import "swiper/css/effect-creative";
 
 import Img from "@/components/common/Img";
 
