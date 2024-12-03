@@ -4,7 +4,7 @@ import { cache } from "react";
 
 export const getAllPosts = cache((): Post[] => {
   return posts
-    .filter((post) => post.draft)
+    .filter((post) => !post.draft)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 });
 

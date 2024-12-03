@@ -8,7 +8,7 @@ import { useRef } from "react";
 type Props = {
   text: string;
 };
-function BigTitle({ text }: Props) {
+export default function BigTitle({ text }: Props) {
   const [mounted, setMounted] = useState<boolean>(false);
   const ref = useRef<HTMLHeadingElement>(null);
   useGSAP(
@@ -33,4 +33,3 @@ function BigTitle({ text }: Props) {
     </div>
   );
 }
-export default React.memo(BigTitle);

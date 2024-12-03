@@ -6,7 +6,7 @@ type Props = {
   text: string;
   count?: number;
 };
-function SmallTitle({ text, count }: Props) {
+export default function SmallTitle({ text, count }: Props) {
   return (
     <div className="flex gap-2 items-center mb-7">
       <h2 className="text-xl md:text-2xl font-black capitalize text-wrap truncate">
@@ -19,4 +19,3 @@ function SmallTitle({ text, count }: Props) {
     </div>
   );
 }
-export default React.memo(SmallTitle);
