@@ -36,6 +36,7 @@ export default function ListItem({ item }: Props) {
             src={item.cover}
             alt={`cover-of-${item.title}`}
             fill
+            placeholder="blur"
             blurDataURL={item.blurDataURL}
           />
         </div>
