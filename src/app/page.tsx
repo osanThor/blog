@@ -7,11 +7,8 @@ import Signboard from "@/components/common/Signboard";
 import AsideContainer from "@/containers/home/AsideContainer";
 import TagsListContainer from "@/containers/tags/TagsListContainer";
 import SlideCard from "@/components/common/SlideCard";
-
-import dynamic from "next/dynamic";
-const PostsListContainer = dynamic(
-  () => import("@/containers/posts/PostsListContainer")
-);
+import PostsListContainer from "@/containers/posts/PostsListContainer";
+export const dynamic = "force-static";
 
 export default function Home() {
   const posts = getAllPosts();
