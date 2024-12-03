@@ -40,10 +40,12 @@ export default function SlideCard({ list }: Props) {
           >
             <div className="overflow-hidden w-full h-full rounded-xl mb-2 relative flex items-center justify-center">
               <Img
-                className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200 "
+                className="object-cover w-full h-[300px] md:h-[400px] lg:h-[480px] group-hover:scale-[1.1] transition-all duration-200 "
                 src={item.cover}
                 alt={`cover-of-${item.title}`}
-                fill
+                width={720}
+                height={400}
+                sizes="(max-width: 768px) 300px, (max-width: 1200px) 600px, 400px"
                 priority
               />
             </div>
