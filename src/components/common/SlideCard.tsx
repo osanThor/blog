@@ -2,15 +2,13 @@
 import { PropsWithChildren } from "react";
 import { EffectCreative } from "swiper/modules";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { Post } from "#site/content";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
-import "swiper/css/effect-creative";
 
-const Img = dynamic(() => import("./Img"), { ssr: false });
+import Img from "@/components/common/Img";
 
 type Props = {
   list: Post[];

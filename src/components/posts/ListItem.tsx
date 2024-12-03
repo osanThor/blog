@@ -30,14 +30,12 @@ export default function ListItem({ item }: Props) {
             </span>
           </div>
         </div>
-        <div className="overflow-hidden w-full max-w-[12vw] min-w-[30%] max-h-[140px] rounded-lg mb-2 relative flex items-center justify-center">
+        <div className="overflow-hidden w-full max-w-[12vw] min-w-[30%] max-h-[140px] h-[17vw] md:h-[10vw] rounded-lg mb-2 relative flex items-center justify-center">
           <Img
             className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200"
             src={item.cover}
             alt={`cover-of-${item.title}`}
-            width={220}
-            height={item.img.height}
-            sizes={"220px"}
+            fill
             blurDataURL={item.blurDataURL}
           />
         </div>

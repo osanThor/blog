@@ -17,6 +17,7 @@ function BigTitle({ text }: Props) {
     },
     { scope: ref, dependencies: [text] }
   );
+
   useEffect(() => {
     setTimeout(() => setMounted(true), 1100);
   }, []);
