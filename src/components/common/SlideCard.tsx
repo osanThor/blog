@@ -32,7 +32,7 @@ export default function SlideCard({ list }: Props) {
       loop={true}
       className="mySwiper"
     >
-      {list.map((item, idx) => (
+      {list.map((item) => (
         <SwiperSlide key={`slide-card-${item.title}`}>
           <Link
             href={`/post/${item.category}/${item.href}`}
