@@ -21,9 +21,8 @@ function GridItem({ item }: Props) {
               alt={`cover-of-${item.title}`}
               fill
               sizes={"350px"}
-              blurDataURL={item.blurDataURL}
               placeholder="blur"
-              priority
+              blurDataURL={item.blurDataURL}
             />
           </div>
         )}

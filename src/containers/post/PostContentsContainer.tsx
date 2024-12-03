@@ -28,19 +28,16 @@ export default function PostContentsContainer({
   );
   return (
     <div ref={ref} className="w-full">
-      <div
-        id="postCoverImg"
-        className="mb-10 overflow-hidden rounded-xl max-h-[500px] flex items-center justify-center"
-      >
+      <div className="mb-10 overflow-hidden rounded-xl max-h-[500px] flex items-center justify-center">
         <Img
           className="object-cover w-full"
           src={cover}
           alt={`${title}-cover`}
           width={img.width}
           height={img.height}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority
           loading="eager"
+          placeholder="blur"
           blurDataURL={blurDataURL}
         />
       </div>
