@@ -17,7 +17,7 @@ export default function ListItem({ item }: Props) {
         className="flex transition-all gap-7 items-start"
       >
         <div className="w-full flex flex-col">
-          <span className="text-xs md:text-sm font-medium text-yellow-600">
+          <span className="text-xs md:text-sm font-medium text-yellow-800 dark:text-yellow-600">
             {item.tags.join(" & ")}
           </span>
           <h2 className="text-xl font-bold mb-2 text-pretty flex group-hover:text-violet-500">
