@@ -5,8 +5,6 @@ import { pretendard } from "./fonts";
 import HeaderContainer from "@/containers/common/HeaderContainer";
 import FooterContainer from "@/containers/common/FooterContainer";
 import { getMetadata } from "@/utils/getMetadata";
-import { Suspense } from "react";
-import GoogleAnalytics from "@/components/common/GoogleAnalytics";
 
 export const metadata: Metadata = getMetadata();
 
@@ -17,9 +15,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <Suspense fallback={null}>
-        <GoogleAnalytics GID={process.env.GOOGLE_ANALYTICS || ""} />
-      </Suspense>
       <body
         className={`${pretendard.variable} antialiased relative`}
         suppressHydrationWarning
