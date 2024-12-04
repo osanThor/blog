@@ -47,6 +47,9 @@ export default function SlideCard({ list }: Props) {
                 height={400}
                 sizes="(max-width: 768px) 300px, (max-width: 1200px) 600px, 400px"
                 priority
+                loading="eager"
+                placeholder="blur"
+                blurDataURL={item.blurDataURL}
               />
             </div>
             <div className="flex flex-col absolute top-0 bottom-0 left-0 right-0 overflow-hidden bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-200 px-10 py-8">

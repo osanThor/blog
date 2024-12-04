@@ -36,6 +36,7 @@ export default function PostContentsContainer({
           width={img.width}
           height={img.height}
           priority
+          sizes="(max-width: 768px) 300px, (max-width: 1200px) 600px, 400px"
           loading="eager"
           placeholder="blur"
           blurDataURL={blurDataURL}
