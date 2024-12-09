@@ -45,9 +45,8 @@ export default function SlideCard({ list }: Props) {
                 alt={`cover-of-${item.title}`}
                 width={720}
                 height={400}
-                sizes="(max-width: 768px) 300px, (max-width: 1200px) 600px, 400px"
                 priority={idx === 0}
-                loading={idx === 0 ? "eager" : "lazy"}
+                loading="eager"
                 placeholder="blur"
                 blurDataURL={item.blurDataURL}
               />
