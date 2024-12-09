@@ -34,6 +34,7 @@ export default function HeaderContainer() {
         <div className="flex items-center justify-between gap-4">
           <HeaderSearchContainer />
           <button
+            aria-label="menuToggleBtn"
             className="text-2xl flex sm:hidden"
             onClick={() => setOpen(!open)}
           >

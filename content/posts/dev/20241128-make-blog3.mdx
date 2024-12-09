@@ -4,13 +4,13 @@ tags:
   - Next
   - 최적화
 description: "블로그를 웹 성능 최적화를 해보자"
-date: 2024.11.28
+date: 2024.12.09
 cover: "/posts/dev/20241128-make-blog3/cover.jpg"
 href: "20241128-make-blog3"
 series: "블로그 개발일지"
 category: dev
 featured: true
-draft: true
+draft: false
 ---
 
 <Blockquote type="warn">
@@ -18,4 +18,303 @@ draft: true
   <br /> 안지키고 있으면 댓글로 혼내주세요..
 </Blockquote>
 
-<Heading type="h2">블로그 개발일지 No.3 - 2024-11-25 ~ 2024-11-28</Heading>
+<Heading type="h2">블로그 개발일지 No.3 - 2024-11-25 ~ 2024-12-09</Heading>
+
+안녕하세요. 꾸준히 글 쓰고 싶은 개발자 이준영입니다.
+요즘 블로그 프로젝트를 최적화할려고 이것저것 많이 시도해보고 있습니다.
+
+<Heading type="h2">웹 성능 최적화</Heading>
+
+그전에 우선 왜 우리는 웹 성능 최적화를 해야할까요?
+우리가 사용하는 웹 서비스는 모두 물리적인 원리로 동작합니다. 우리가 일을 하든 운동을 하든 효율적으로 움직여야 그 효과도 극대화 될 수 있는데요.
+웹 성능 최적화는 불필요한 요청을 최소화하고 동작 방식을 간소화하여 사용자에게 보다 쾌적한 서비스를 제공하는데 그 의미가 있다고 생각합니다.
+
+![웹 동작원리](/posts/dev/20241128-make-blog3/1.png)
+
+사용자는 요청하고 서버는 응답하는데 위와 같은 과정들이 필요합니다. 웹 브라우저에 노출되는 `HTML` 역시 하나의 정적인 파일이며
+이미지나 동영상 등 파일을 브라우저가 서버로 부터 응답받고 서버 또는 스토리지 등에서 다운 받고 랜더링하기까지 불필요한 요청이 늘어갈수록 로딩과 랜더링 성능에 좋지 않고 이는
+사용자 경험에 직결이 되니 우리는 웹 성능을 고려해서 최적화를 생각해야겠죠?
+
+<Blockquote type="error">
+  페이지 표시시간에 **1초**에서 **3초**로 늘어나기만 해도 사용자 이탈률이 **32%
+  증가**한다고 합니다.
+</Blockquote>
+
+저는 크롬 웹 브라우저에서 제공하는 개발자 도구와 Lighthouse를 사용하여 최적화하기 위해 노력했습니다.
+
+<Heading type="h3">라이트하우스(Lighthouse)</Heading>
+
+![웹 성능검사 초기](/posts/dev/20241128-make-blog3/2.png)
+
+처참한 성능...
+
+라이트하우스에서는 이런 퍼포먼스 점수를 알려주고 이 점수는 아래의 5개 기준이 적용된 점수입니다...
+이러한 지표를 웹 바이탈(Web Vitals)라고 부른다고 하네요.
+
+1. **First Contentfill Paint(FCP)**
+
+   FCP는 페이지가 로드될 때 브라우저가 DOM 요소의 **첫번째 부분을 렌더링하는데 걸리는 시간**입니다.
+
+2. **Largest Contentful Pain(LCP)**
+
+   제일 점수가 처참한 LCP는 페이지가 로드 될 때 **화면에 있는 가장 큰 이미지나 텍스트 요소가 렌더링 되기까지 걸리는 시간**입니다.
+
+3. **Total Blocking Time(TBT)**
+
+   TBT는 FCP부터 사이트와 사용자가 상호작용하기까지 메인 스레드를 독점해서 다른 동작을 막는데 걸린 시간입니다.
+
+4. **Comulative Layout Shift(CLS)**
+
+   CLS는 페이지가 로드 되는 과정에서 레이아웃이 크게 변동되는 정도를 나타냅니다. 보통 이미지 업로드 되면서 화면이 변동되면서 발생하게 됩니다.
+
+5. **Speed Index(SI)**
+
+   SI는 페이지 로드 중 내용이 노출되는 속도를 나타냅니다.
+
+이제 다 뭘 뜻하는지 알았으니 최적화를 해보도록 하겠습니다.
+
+<Heading type="h3">Use video formats for animated content</Heading>
+
+![웹 성능검사 초기2](/posts/dev/20241128-make-blog3/3.png)
+
+이건 몰랐는데 애니메이션 이미지에 경우 gif가 콘텐츠 노출에 비효율적이라고 하네요. 차라리 비디오 포멧 MPEG4/WebM을 추천하고 있습니다.
+
+[애니메이션 GIF를 동영상으로 대체해야하는 이유](https://developer.chrome.com/docs/lighthouse/performance/efficient-animated-content?utm_source=lighthouse&utm_medium=devtools&hl=ko)
+
+해당 페이지에서는 FFmpeg를 사용해서 포맷 변환 방법을 알려줬지만 gif 하나 바꾸는데 FFmpeg를 다운 받고 싶진 않았습니다.
+명령어도 알려줘서 간단해 보이긴 하는데 다음에 영상을 다루는 프로젝트를 만들때 고려해보면 좋을 것 같습니다.
+
+그럼 저는 뭘 썼냐. [Gif to Video](https://ezgif.com/)
+여기서 간단하게 원하는 비디오 포맷으로 변경이 가능합니다.
+
+<Heading type="h3">초기 로드 최적화</Heading>
+
+![웹 성능검사 초기3](/posts/dev/20241128-make-blog3/4.png)
+
+웹 페이지가 처음 로드될 때 First Load JS가 커지면 당연히 렌더링에도 영향을 미치겠죠?
+이번엔 초기 로드되는 파일들의 용량을 줄여 초기 렌더링 속도를 개선 시켜 보도록 하겠습니다.
+
+<Heading type="h3">용량이 커지는 이유</Heading>
+
+용량 사이즈가 커지는 이유는 단순히 코드의 비대성 뿐만 아니라 이미지나 컨텐츠의 크기 그리고 번들 패키지의 사이즈도 영향을 미칩니다.
+
+<Heading type="h3">용량 줄이는 법 1 이미지 사이즈 줄이기</Heading>
+
+일단 가장 간단한 이미지 사이즈 줄이는 법입니다. 후에 서술할 `next/image`도 있지만 필요 이상으로 큰 이미지는 쓸데 없기도 하고 우리 컴퓨터 과식하지 않게 좀 줄여줄 수 있습니다.
+
+[이미지 압축 사이트1](https://compressor.io/)  
+[이미지 압축 사이트2](https://www.iloveimg.com/ko)
+
+<Heading type="h3">용량 줄이는 법 2 번들 사이즈 줄이기</Heading>
+
+다음은 번들 사이즈를 확인할 수 있는 패키지가 있습니다.
+
+`@next/bundle-analyzer`
+
+**사용법**
+
+```bash
+npm i @next/bundle-analyzer
+# or
+yarn add @next/bundle-analyzer
+# or
+pnpm add @next/bundle-analyzer
+```
+
+위 방법 중 택 1로 다운받아 줍니다.
+
+그리고 next.config.js에 설정해줍니다.
+
+```ts
+// next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {};
+
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+module.exports = withBundleAnalyzer(nextConfig);
+```
+
+```json
+"analyze": "ANALYZE=true next build"
+```
+
+package.json에 script에 위와 같이 설정해주고  
+명령어를 입력해주면 끝입니다!
+
+```bash
+npm run analyze
+# or
+yarn analyze
+# or
+pnpm run analyze
+```
+
+그러면 다음과 같은 화면이 활성화 됩니다.
+
+![웹 성능검사 초기4](/posts/dev/20241128-make-blog3/5.png)
+
+여기서 초기 client에서 번들링된 패키지들을 확인할 수 있고 불필요한 의존성은 삭제하거나 코드 분할 또는 지연로딩으로 사이즈를 간소화 할 수 있습니다.  
+불필요한 의존성 제거는 모두 할수 있을것이고.
+코드 분할이란 처음 렌더링될 때 필요하지 않은 코드들을 분리하는 것입니다.
+
+React에서는 `React.lazy()`와 `Suspense`를 사용해서 지연로딩으로 처음 로드되지 않아도 되는 요소들을 분리했습니다.
+Next에서는 `next/dynamic`으로 이 기능을 사용할 수 있습니다.
+
+```ts
+import dynamic from "next/dynamic";
+
+const Component = dynamic(() => import("@/components/common/Component"));
+```
+
+하지만 이 블로그는 정적으로 만들어지고 동적으로 불러올만한 요소가 없어 dynamic보단 라이브러리들을 동적 import 하는 방식으로 번들 사이즈를 줄이려고 시도해 봤습니다.
+
+```ts
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+import { TextPlugin } from "gsap/TextPlugin";
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(TextPlugin, useGSAP);
+}
+export const transformTextAnimation = (target: HTMLElement, text: string) => {
+  gsap.to(target, {
+    duration: 1,
+    text,
+  });
+};
+```
+
+```ts
+export const transformTextAnimation = async (
+  target: HTMLElement,
+  text: string
+) => {
+  const gsap = (await import("gsap")).default;
+  const textPlugin = (await import("gsap/TextPlugin")).TextPlugin;
+  gsap.registerPlugin(textPlugin);
+
+  gsap.to(target, {
+    duration: 1,
+    text,
+  });
+};
+```
+
+그리고 트리쉐이킹(Tree shaking)을 사용하여 중복되는 코드로 발생하는 사이드 이펙트를 다음과 같은 방법으로 최적화할 수 있습니다.
+
+```json
+//pakage.json
+ "sideEffects": false
+```
+
+마지막으로 swiper같이 큰 라이브러리는 import 하는 것 만으로 많은 번들 파일을 가져올 수 있어 아래와 같이 설정해
+실제 사용되는 기능만 가져오도록 설정해 줄 수 있습니다.
+
+```ts
+// next.config.js
+  experimental: {
+    optimizePackageImports: [
+      "swiper",
+      "react-icons",
+      "ssr-window",
+      "dom7",
+      "gsap",
+    ],
+  },
+```
+
+[참고](https://nextjs.org/docs/app/building-your-application/optimizing/package-bundling#optimizing-package-imports)
+
+![웹 성능검사 번들](/posts/dev/20241128-make-blog3/6.png)
+
+그래도 좀 자잘한 얘들은 사라진 것 같습니다.
+
+![초기 로드 JS 비교](/posts/dev/20241128-make-blog3/7.png)
+
+First Load JS 가 조금이지만 줄어든 것을 확인할 수 있었습니다.
+
+<Heading type="h3">이미지 최적화</Heading>
+
+Next에서 제공하는 `next/Image`는 자동으로 디바이스 크기에 맞는 이미지 사이즈와 포맷까지도 컨버팅 해주는 기능이 있습니다.
+
+일단 첫번째로 확장자 변경하기.
+
+![이미지 확장자 비교](/posts/dev/20241128-make-blog3/8.png)
+[출처](https://ko.widsmob.com/articles/avif-vs-webp.html)
+
+요즘은 무손실 압축으로 webp, avif 포맷이 대세인듯 합니다.
+그리고 NextJS에서는 간편하게 변경할 수 있습니다.
+
+```ts
+ images: {
+   formats: ["image/avif", "image/webp"],
+  },
+```
+
+![webp 사용가능 브라우저](/posts/dev/20241128-make-blog3/9.png)  
+webp 사용 가능 브라우저
+![avif 사용가능 브라우저](/posts/dev/20241128-make-blog3/10.png)  
+avif 사용 가능 브라우저
+
+그리고 NextJS 이미지 태그에는 `placeholder` 속성이 있습니다. 이는 이미지가 로드되는 동안 표시할 임시 이미지 데이터를 정의하는 것이고 `blur` 값과
+`blurDataURL`에 값을 주면 스켈레톤 처럼 흐릿한 이미지를 표시해 이미지가 깜빡이는 듯한 증상을 완화할 수 있습니다.
+
+리모트 이미지의 경우에는 base64로 인코딩된 data URL을 지정해 줘야하는데  
+`blurDataURL`에는 `plaiceholder`를 사용해서 로드될 이미지에 맞는 데이터를 빌드 시 만들 수 있었습니다.
+
+```ts
+import fs from "node:fs/promises";
+import path from "node:path";
+import { getPlaiceholder } from "plaiceholder";
+
+const getBase64 = async (src: string) => {
+  const buffer = await fs.readFile(path.join("./public", src));
+
+  const {
+    metadata: { height, width },
+    ...plaiceholder
+  } = await getPlaiceholder(buffer, { size: 37 }); // size 값으로 생설될 base64 데이터의 화질 및 용량을 설정할 수 있습니다.
+
+  return {
+    ...plaiceholder,
+    img: { src, height, width },
+  };
+};
+
+export default getBase64;
+```
+
+그리고 `priority` 프로퍼티를 설정해주면 로딩 때 필요한 요소라면 우선적으로 로드되며 LCP 향상에 영향을 줍니다.
+
+그리고 `loading` 프로퍼티 역시 `lazy`가 아닌 `eager`값을 넣으면 즉시 로드 된다고 합니다.
+
+![LCP](/posts/dev/20241128-make-blog3/11.png)
+
+SI는 잘 개선된 것을 볼 수 있습니다.  
+그런데 아직 LCP는 제대로 불러오지를 못합니다... 왤까요..?
+
+필요한 옵션값이랑 이미지 사이즈 최적화 등 많은 방법을 동원해 봤지만 결과는 변함이 없었습니다...
+
+그러던 그때 [어떤분의 블로그](https://velog.io/@dhgg321/Next.js-%EC%84%B1%EB%8A%A5-%EC%B5%9C%EC%A0%81%ED%99%94-%ED%95%98%EA%B8%B0)에서 눈에 띄는 문구를 발견했습니다.
+
+**네트워크 Preview 탭에서 힌트**를 얻었다는 문구였는데요.
+
+당장 Preview를 열어봤습니다.
+
+![뭐야 이게](/posts/dev/20241128-make-blog3/12.png)
+
+Image의 layout이 fill이라 일어난 일인데 수정해줘도 아직 LCP는 정상화되지 않았습니다...
+흑흑 LCP 관련해서 더 공부하고 오겠습니다.
+
+![result](/posts/dev/20241128-make-blog3/13.png)
+
+결과물
+
+<Heading type="h2">마무리📚</Heading>
+
+웹사이트를 최적화하는 것에 대해 중요하다고 느끼고 있었지만 어떻게 하는지 방법은 잘모르고 있었는데요.  
+막상 직접 해보니 최적화는 보통 작업이 아니라는 것을 느꼈습니다.
+세상에 정말 고수님들이 많고 저도 꾸준히 해서 언젠가 그들처럼 멋진 개발자가 되는 것을 목표로 더욱 증진해야겠습니다.
+읽어주셔서 감사합니다. 😀

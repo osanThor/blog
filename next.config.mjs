@@ -18,10 +18,17 @@ const config = {
   // next config here...
   images: {
     formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 31536000,
   },
   swcMinify: true,
   experimental: {
-    optimizePackageImports: ["swiper", "ssr-window", "dom7", "gsap"],
+    optimizePackageImports: [
+      "swiper",
+      "react-icons",
+      "ssr-window",
+      "dom7",
+      "gsap",
+    ],
   },
   webpack: (config) => {
     // 코드 스플리팅 설정 오버라이드
