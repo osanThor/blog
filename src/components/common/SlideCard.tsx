@@ -32,7 +32,7 @@ export default function SlideCard({ list }: Props) {
       loop={true}
       className="mySwiper"
     >
-      {list.map((item) => (
+      {list.map((item, idx) => (
         <SwiperSlide key={`slide-card-${item.title}`}>
           <Link
             href={`/post/${item.category}/${item.href}`}
@@ -46,8 +46,8 @@ export default function SlideCard({ list }: Props) {
                 width={720}
                 height={400}
                 sizes="(max-width: 768px) 300px, (max-width: 1200px) 600px, 400px"
-                priority
-                loading="eager"
+                priority={idx === 0}
+                loading={idx === 0 ? "eager" : "lazy"}
                 placeholder="blur"
                 blurDataURL={item.blurDataURL}
               />
