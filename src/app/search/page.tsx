@@ -1,6 +1,7 @@
 import { getAllPosts } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
 import SearchContainer from "@/components/search/SearchContainer";
+import { Suspense } from "react";
 
 export function generateStaticParams() {
   return [];
@@ -19,5 +20,9 @@ export async function generateMetadata({ searchParams }: Props) {
 
 export default function SearchPage() {
   const list = getAllPosts();
-  return <SearchContainer list={list} />;
+  return (
+    <Suspense>
+      <SearchContainer list={list} />
+    </Suspense>
+  );
 }
