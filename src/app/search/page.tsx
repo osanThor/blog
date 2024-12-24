@@ -1,7 +1,7 @@
-import { getSearchPosts } from "@/services/posts.service.velite";
-import BigTitle from "@/components/common/BigTitle";
-import PostsGridContainer from "@/containers/posts/PostsGridContainer";
+import { getAllPosts } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
+import SearchContainer from "@/components/search/SearchContainer";
+import { Suspense } from "react";
 
 export function generateStaticParams() {
   return [];
@@ -18,14 +18,11 @@ export async function generateMetadata({ searchParams }: Props) {
   });
 }
 
-export default async function SearchPage({ searchParams }: Props) {
-  const { query } = await searchParams;
-  const list = getSearchPosts(query);
+export default function SearchPage() {
+  const list = getAllPosts();
   return (
-    <>
-      <BigTitle text={query ? query : "Search"} />
-      <div className="mb-10" />
-      <PostsGridContainer list={list} />
-    </>
+    <Suspense>
+      <SearchContainer list={list} />
+    </Suspense>
   );
 }
