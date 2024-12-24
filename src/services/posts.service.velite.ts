@@ -34,7 +34,7 @@ export const getFeaturedPost = (): Post[] =>
     .filter((item) => item.featured === true)
     .slice(0, 4);
 
-export const getSearchPosts = (keyword?: string): Post[] => {
+export const getSearchPosts = (keyword: string | null): Post[] => {
   return getAllPosts().filter((item) =>
     item.title.toLowerCase().includes(keyword ? keyword.toLowerCase() : "")
   );
