@@ -1,4 +1,4 @@
-import { getAllPosts, getSearchPosts } from "@/services/posts.service.velite";
+import { getAllPosts } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
 import SearchContainer from "@/components/search/SearchContainer";
 
