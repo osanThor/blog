@@ -51,8 +51,8 @@ export default function PostSeriesContainer({ series, title, list }: Props) {
                   </span>
                   <h2
                     className={`${
-                      isSamePost ? "text-violet-400" : ""
-                    } text-xl font-bold mb-2 text-pretty flex group-hover:text-violet-500`}
+                      isSamePost ? "text-violet-500" : ""
+                    } text-xl font-bold mb-2 text-pretty flex group-hover:text-violet-400`}
                   >
                     {item.title}
                   </h2>
