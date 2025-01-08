@@ -10,7 +10,7 @@ export default function ListItem({ item }: Props) {
   return (
     <li
       key={item.title}
-      className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px] opacity-0"
+      className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px]"
     >
       <Link
         href={`/post/${item.category}/${item.href}`}
