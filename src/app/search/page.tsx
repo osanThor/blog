@@ -3,10 +3,6 @@ import { getMetadata } from "@/utils/getMetadata";
 import SearchContainer from "@/components/search/SearchContainer";
 import { Suspense } from "react";
 
-export function generateStaticParams() {
-  return [];
-}
-
 type Props = {
   searchParams: Promise<{ query?: string }>;
 };

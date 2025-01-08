@@ -6,6 +6,10 @@
 <img src="https://img.shields.io/badge/Typescript-3178C6?style=flat&logo=typescript&logoColor=white"/>  
 <img src="https://img.shields.io/badge/Tailwindcss-06B6D4?style=flat&logo=Tailwindcss&logoColor=white"/>
 
+## Deploy URL
+
+[Given's Log](https://blog.given-log.com)
+
 ## 블로그를 만든 이유
 
 사실 이전에도 블로그를 만들어 본적이 있습니다. 그러나 당시에는 CMS단에서 동적으로 데이터를 관리하고 노출하는 SSR 방식으로 개발하여 DB와 클라우드에 제한이 있었습니다. (금전적인...)
@@ -14,7 +18,7 @@
 
 > [이전 블로그](https://given-log.vercel.app/)
 
-## 1. 개발 환경 (Package 설정)
+## 1. ⚙️ 개발 환경 (Package 설정)
 
 ### Next
 
@@ -28,7 +32,7 @@ Typescript는 Javascript의 슈퍼셋으로 Typescript에서 제공하는 강력
 
 Tailwind CSS는 완전한 유틸리티 클래스를 지원하여 CSS-IN-JS 보다 HTML에 명시적이고 네임스페이스 오염을 방지하며 tailwind.config.js로 간편하게 커스텀 그리고 간편한 다크모드 지원등 이점이 많고 npm 트렌드에서도 대세이기 때문에 선택하게 되었습니다.
 
-## 2. 구현 기능
+## 2. 📚 구현 기능
 
 ### ✨ UI/UX 기능
 
@@ -37,7 +41,7 @@ Tailwind CSS는 완전한 유틸리티 클래스를 지원하여 CSS-IN-JS 보�
 - [x] interaction 컴포넌트
 - [x] 슬라이드 기능
 
-### 🔥 필수 기능
+### ⭐️ 필수 기능
 
 - [x] `mdx` 파일 컨텐츠 렌더링
 - [x] 시리즈, 태그 기능
@@ -49,3 +53,13 @@ Tailwind CSS는 완전한 유틸리티 클래스를 지원하여 CSS-IN-JS 보�
 - [x] rss
 - [x] lazy image
 - [x] Google Analytics 적용
+
+## 3. 🌝 개발 이슈
+
+### 1. 정적 컨텐츠
+
+정적 컨텐츠를 NextJS에서 다룰 때 크게 세가지를 사용할 수 있습니다. `@next/mdx` 사용한 방식이 있는데 필요한 포스팅마다 페이지를 만들어 줘야하는 것이 마음에 들지 않았습니다. 자세히 보실려면 [여기](https://blog.given-log.com/post/dev/20241120-make-blog2#MDX-%EB%A0%8C%EB%8D%94%EB%A7%81-57)를 클릭해주세요. 그리하여 node의 fs를 사용하여 확장자 mdx 파일을 읽어와 뿌려주는 방식으로 구현했습니다. mdx를 사용한 이유는 저만의 커스텀 컴포넌트와 호환을 시켜주기 위해 선택했습니다. 그러나 fs로 파일을 읽어오는 방식이 개발 환경시 사용 경험이 좋지 못해 마크다운 형식의 글을 다루는 라이브러리에 대해 알아보게 되었습니다.
+
+그러다 알게 된 Velite와 Contentlayer
+
+두 라이브러리는 모두 기존에 사용한 mdx 파일을 호환하며 더욱 간단하게 데이터 추상화가 가능합니다. 그리고 추상화 레이어를 제공해주는 라이브러리이므로 Next에도 호환이 잘 되는 것을 알 수 있습니다.
