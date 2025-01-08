@@ -63,3 +63,8 @@ Tailwind CSS는 완전한 유틸리티 클래스를 지원하여 CSS-IN-JS 보�
 그러다 알게 된 Velite와 Contentlayer
 
 두 라이브러리는 모두 기존에 사용한 mdx 파일을 호환하며 더욱 간단하게 데이터 추상화가 가능합니다. 그리고 추상화 레이어를 제공해주는 라이브러리이므로 Next에도 호환이 잘 되는 것을 알 수 있습니다.
+npm trends에 따르면 Velite와 Contentlayer는 다운로드 수에 차이가 큽니다. Contentlayer가 많지요. 그러나 데이터의 타입을 제공하고 마크다운 파일의 내용까지 스키마로 정의되며 지속적으로 업데이트 중인 Velite를 선택하게 되었습니다. Contentlayer는 2년전이 마지막 업데이트입니다(2025년기준)
+
+### 2. 최적화
+
+성능 최적화에 대한 고민을 담은 포스팅은 [여기](https://blog.given-log.com/post/dev/20241128-make-blog3)를 보시면 됩니다.
