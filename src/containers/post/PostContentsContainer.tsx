@@ -17,12 +17,11 @@ export default function PostContentsContainer({
   useGSAP(
     async () => {
       if (ref.current)
-        await transformVisible(
-          Array.from(ref.current.children),
-          0.5,
-          "left",
-          0.15
-        );
+        await transformVisible(Array.from(ref.current.children), {
+          time: 0.5,
+          direction: "left",
+          stagger: 0.15,
+        });
     },
     { scope: ref }
   );

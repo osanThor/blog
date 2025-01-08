@@ -14,7 +14,7 @@ export default function PostsGridContainer({ list }: Props) {
   const ref = useRef<HTMLElement>(null);
   useGSAP(
     async () => {
-      if (ref.current) await transformVisible(ref.current, 0.4);
+      if (ref.current) await transformVisible(ref.current, { time: 0.4 });
     },
     { scope: ref, dependencies: [list] }
   );

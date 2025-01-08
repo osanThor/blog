@@ -20,7 +20,7 @@ export default function BigTitle({ text }: Props) {
 
   useEffect(() => {
     setTimeout(() => setMounted(true), 1100);
-  }, []);
+  }, [text]);
 
   return (
     <div className="flex gap-2">
