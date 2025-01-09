@@ -24,7 +24,7 @@ export default async function PostsByTagsPage({ params }: Props) {
   const tags = getAllTags();
   const list = getPostsByTag(convertedTag);
 
-  console.log(tag, convertedTag, tags, list);
+  console.log(tag, convertedTag, tags);
 
   return (
     <>
