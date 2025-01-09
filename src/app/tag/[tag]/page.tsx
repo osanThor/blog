@@ -6,7 +6,7 @@ import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 
 export async function generateStaticParams() {
   return getAllTags().map((tag) => ({
-    tag: encodeURI(tag.name.replaceAll(" ", "-")),
+    tag: tag.name,
   }));
 }
 
