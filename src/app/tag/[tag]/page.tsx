@@ -1,6 +1,8 @@
 import { getAllTags, getPostsByTag } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
-import TagPageContainer from "@/containers/tags/TagPageContainer";
+import BigTitle from "@/components/common/BigTitle";
+import TagsListContainer from "@/containers/tags/TagsListContainer";
+import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 
 export function generateStaticParams() {
   return getAllTags().map((tag) => ({ tag: tag.name }));
@@ -21,5 +23,14 @@ export default async function PostsByTagsPage({ params }: Props) {
   const tags = getAllTags();
   const list = getPostsByTag(convertedTag);
 
-  return <TagPageContainer tag={convertedTag} tags={tags} list={list} />;
+  return (
+    <>
+      <div className="w-full flex items-center justify-center pt-6 h-[84px] mb-10">
+        <BigTitle text={`#${tag}`} />
+      </div>
+      <TagsListContainer currentTag={tag} tags={tags} />
+      <div className="mb-20" />
+      <PostsGridContainer list={list} />
+    </>
+  );
 }

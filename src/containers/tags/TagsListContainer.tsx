@@ -4,27 +4,21 @@ import TreeDotsIcon from "@/components/common/icons/TreeDotsIcon";
 import { CountType } from "@/types/post";
 import { useTagsStore } from "@/utils/lib/zustand/tags";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 type Props = { currentTag?: string; tags: CountType[] };
 
 const INITIAL_LENGTH = 7;
 
 export default function TagsListContainer({ currentTag, tags }: Props) {
-  const [list, setList] = useState<CountType[]>(tags.slice(0, INITIAL_LENGTH));
   const { open, setOpen } = useTagsStore();
 
   const handleClickToggle = () => setOpen(!open);
-
-  useEffect(() => {
-    if (open) setList(tags);
-    else setList(tags.slice(0, INITIAL_LENGTH));
-  }, [open]);
+  const visibleTags = open ? tags : tags.slice(0, INITIAL_LENGTH);
 
   return (
     <div className="w-full flex items-center justify-center border-t border-b border-neutral-300 dark:border-neutral-500">
       <ul className="w-[calc(100%-32px)] max-w-[600px] py-4 flex items-center justify-center gap-4 flex-wrap transition-all duration-200">
-        {list.map((tag) => (
+        {visibleTags.map((tag) => (
           <li key={`tag-item-${tag.name}`}>
             <Link
               href={`/tag/${tag.name.replaceAll(" ", "-")}`}
