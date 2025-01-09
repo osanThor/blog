@@ -10,7 +10,8 @@ type Props = { currentTag?: string; tags: CountType[] };
 const INITIAL_LENGTH = 7;
 
 export default function TagsListContainer({ currentTag, tags }: Props) {
-  const { open, setOpen } = useTagsStore();
+  const open = useTagsStore((state) => state.open);
+  const setOpen = useTagsStore((state) => state.setOpen);
 
   const handleClickToggle = () => setOpen(!open);
   const visibleTags = open ? tags : tags.slice(0, INITIAL_LENGTH);

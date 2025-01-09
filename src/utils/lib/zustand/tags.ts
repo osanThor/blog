@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 
 type TagStore = {
   open: boolean;
@@ -14,7 +14,6 @@ export const useTagsStore = create(
     }),
     {
       name: "tag-storage",
-      storage: createJSONStorage(() => sessionStorage),
     }
   )
 );

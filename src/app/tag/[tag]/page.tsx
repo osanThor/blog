@@ -3,7 +3,7 @@ import { getMetadata } from "@/utils/getMetadata";
 import BigTitle from "@/components/common/BigTitle";
 import TagsListContainer from "@/containers/tags/TagsListContainer";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
-export const revalidate = 60;
+
 export function generateStaticParams() {
   return getAllTags().map((tag) => ({ tag: tag.name }));
 }
