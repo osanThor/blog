@@ -1,4 +1,4 @@
-import { getAllTags, getPostsByTag } from "@/services/posts.service.velite";
+import { getAllTags } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
 // import BigTitle from "@/components/common/BigTitle";
 // import PostsGridContainer from "@/containers/posts/PostsGridContainer";
