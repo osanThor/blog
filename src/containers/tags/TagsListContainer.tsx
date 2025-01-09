@@ -4,19 +4,13 @@ import TreeDotsIcon from "@/components/common/icons/TreeDotsIcon";
 import { CountType } from "@/types/post";
 import { useTagsStore } from "@/utils/lib/zustand/tags";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 type Props = { currentTag?: string; tags: CountType[] };
 
 const INITIAL_LENGTH = 7;
 
-export default function TagsListContainer({ currentTag, tags }: Props) {
-  const [mounted, setMounted] = useState<boolean>(false);
+export default function TagsListContainer({ tags }: Props) {
   const { open, setOpen } = useTagsStore();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const handleClickToggle = () => setOpen(!open);
   const visibleTags = open ? tags : tags.slice(0, INITIAL_LENGTH);
@@ -24,20 +18,17 @@ export default function TagsListContainer({ currentTag, tags }: Props) {
   return (
     <div className="w-full flex items-center justify-center border-t border-b border-neutral-300 dark:border-neutral-500">
       <ul className="w-[calc(100%-32px)] max-w-[600px] py-4 flex items-center justify-center gap-4 flex-wrap transition-all duration-200">
-        {mounted &&
-          visibleTags.map((tag) => (
-            <li key={`${tag.name}`}>
-              <Link
-                href={`/tag/${tag.name.replaceAll(" ", "-")}`}
-                className={`${
-                  currentTag === tag.name ? "font-bold" : "font-medium"
-                } hover:underline relative`}
-              >
-                {tag.name}
-                <sup>({tag.count})</sup>
-              </Link>
-            </li>
-          ))}
+        {visibleTags.map((tag) => (
+          <li key={`${tag.name}`}>
+            <Link
+              href={`/tag/${tag.name.replaceAll(" ", "-")}`}
+              className={`font-medium hover:underline relative`}
+            >
+              {tag.name}
+              <sup>({tag.count})</sup>
+            </Link>
+          </li>
+        ))}
         <li>
           <button
             aria-label="toggleTagBtn"
