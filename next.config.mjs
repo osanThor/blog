@@ -29,6 +29,10 @@ const config = {
       "gsap",
     ],
   },
+  i18n: {
+    locales: ["en", "ko"],
+    defaultLocale: "ko",
+  },
   webpack: (config) => {
     // 코드 스플리팅 설정 오버라이드
     config.optimization.splitChunks = {
