@@ -5,6 +5,7 @@ import TagsListContainer from "@/containers/tags/TagsListContainer";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 
 export async function generateStaticParams() {
+  console.log(getAllTags().map((tag) => ({ tag: tag.name })));
   return getAllTags().map((tag) => ({ tag: tag.name }));
 }
 
@@ -22,6 +23,8 @@ export default async function PostsByTagsPage({ params }: Props) {
   const convertedTag = decodeURI(tag).replaceAll("-", " ");
   const tags = getAllTags();
   const list = getPostsByTag(convertedTag);
+
+  console.log(tag, convertedTag, tags, list);
 
   return (
     <>
