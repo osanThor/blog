@@ -5,7 +5,9 @@ import TagsListContainer from "@/containers/tags/TagsListContainer";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 
 export async function generateStaticParams() {
-  return getAllTags().map((tag) => ({ tag: encodeURIComponent(tag.name) }));
+  return getAllTags().map((tag) => ({
+    tag: encodeURIComponent(tag.name.replaceAll("-", " ")),
+  }));
 }
 
 type Props = {
@@ -14,7 +16,9 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { tag } = await params;
-  return getMetadata({ title: `${decodeURI(tag).replaceAll("-", " ")} 태그` });
+  return getMetadata({
+    title: `${decodeURIComponent(tag).replaceAll("-", " ")} 태그`,
+  });
 }
 
 export default async function PostsByTagsPage({ params }: Props) {

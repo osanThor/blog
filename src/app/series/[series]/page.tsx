@@ -4,7 +4,9 @@ import BigTitle from "@/components/common/BigTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 
 export async function generateStaticParams() {
-  return getAllSeries().map((s) => ({ series: encodeURIComponent(s.name) }));
+  return getAllSeries().map((s) => ({
+    series: encodeURIComponent(s.name.replaceAll("-", " ")),
+  }));
 }
 
 type Props = {
@@ -14,13 +16,13 @@ type Props = {
 export async function generateMetadata({ params }: Props) {
   const { series } = await params;
   return getMetadata({
-    title: `${decodeURI(series).replaceAll("-", " ")} 시리즈`,
+    title: `${decodeURIComponent(series).replaceAll("-", " ")} 시리즈`,
   });
 }
 
 export default async function SeriesPage({ params }: Props) {
   const { series } = await params;
-  const convertedSeriesName = decodeURI(series).replaceAll("-", " ");
+  const convertedSeriesName = decodeURIComponent(series).replaceAll("-", " ");
   const list = getSeries(convertedSeriesName);
 
   return (
