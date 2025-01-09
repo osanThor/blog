@@ -26,10 +26,6 @@ export default async function PostsByTagsPage({ params }: Props) {
       <div className="w-full flex items-center justify-center pt-6 h-[84px] mb-10">
         <BigTitle text={`#${decodeURI(tag).replaceAll("-", " ")}`} />
       </div>
-      <TagsListContainer
-        currentTag={decodeURI(tag).replaceAll("-", " ")}
-        tags={tags}
-      />
       <div className="mb-20" />
       <PostsGridContainer list={list} />
     </>
