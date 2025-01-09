@@ -3,7 +3,7 @@ import { getMetadata } from "@/utils/getMetadata";
 import BigTitle from "@/components/common/BigTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return getAllSeries().map((s) => ({ series: s.name }));
 }
 

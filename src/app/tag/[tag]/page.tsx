@@ -4,7 +4,7 @@ import BigTitle from "@/components/common/BigTitle";
 import TagsListContainer from "@/containers/tags/TagsListContainer";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return getAllTags().map((tag) => ({ tag: tag.name }));
 }
 
