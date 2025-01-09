@@ -22,7 +22,7 @@ export default async function PostsByTagsPage({ params }: Props) {
   const { tag } = await params;
   const convertedTag = decodeURI(tag).replaceAll("-", " ");
   const tags = getAllTags();
-  const list = getPostsByTag(convertedTag);
+  // const list = getPostsByTag(convertedTag);
   return (
     <>
       {/* <div className="w-full flex items-center justify-center pt-6 h-[84px] mb-10">
