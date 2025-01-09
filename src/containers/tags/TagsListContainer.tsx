@@ -6,10 +6,7 @@ import { useEffect, useState } from "react";
 
 type CountType = { name: string; count: number };
 
-type Props = {
-  currentTag?: string;
-  tags: CountType[];
-};
+type Props = { currentTag?: string; tags: CountType[] };
 
 const INITIAL_LENGTH = 7;
 
@@ -31,7 +28,7 @@ export default function TagsListContainer({ currentTag, tags }: Props) {
         {list.map((tag) => (
           <li key={`tag-item-${tag.name}`}>
             <Link
-              href={`/tag/${encodeURIComponent(tag.name.replaceAll(" ", "-"))}`}
+              href={`/tag/${tag.name.replaceAll(" ", "-")}`}
               className={`${
                 currentTag === tag.name ? "font-bold" : "font-medium"
               } hover:underline relative`}
