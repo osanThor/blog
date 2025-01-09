@@ -5,7 +5,7 @@ import TagsListContainer from "@/containers/tags/TagsListContainer";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 
 export async function generateStaticParams() {
-  return getAllTags().map((tag) => ({ tag: tag.name }));
+  return getAllTags().map((tag) => ({ tag: encodeURI(tag.name) }));
 }
 
 type Props = {
