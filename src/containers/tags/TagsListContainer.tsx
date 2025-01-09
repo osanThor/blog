@@ -9,7 +9,7 @@ type Props = { currentTag?: string; tags: CountType[] };
 
 const INITIAL_LENGTH = 7;
 
-export default function TagsListContainer({ tags }: Props) {
+export default function TagsListContainer({ currentTag, tags }: Props) {
   const { open, setOpen } = useTagsStore();
 
   const handleClickToggle = () => setOpen(!open);
@@ -22,7 +22,9 @@ export default function TagsListContainer({ tags }: Props) {
           <li key={`${tag.name}`}>
             <Link
               href={`/tag/${tag.name.replaceAll(" ", "-")}`}
-              className={`font-medium hover:underline relative`}
+              className={`${
+                currentTag === tag.name ? "font-bold" : "font-medium"
+              } hover:underline relative`}
             >
               {tag.name}
               <sup>({tag.count})</sup>

@@ -18,5 +18,5 @@ export default function makeCountObj(list: PostType[], type: "series" | "tag") {
   }
   return Array.from(targetMap.entries())
     .map(([name, count]) => ({ name, count }))
-    .sort((a, b) => b.count - a.count);
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, "ko-KR"));
 }
