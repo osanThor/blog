@@ -2,7 +2,6 @@ import { getAllTags, getPostsByTag } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
 import BigTitle from "@/components/common/BigTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
-import TagsListContainer from "@/containers/tags/TagsListContainer";
 
 export function generateStaticParams() {
   return getAllTags().map((tag) => ({ tag: tag.name }));
@@ -19,7 +18,6 @@ export async function generateMetadata({ params }: Props) {
 }
 export default async function PostsByTagsPage({ params }: Props) {
   const { tag } = await params;
-  const tags = getAllTags();
   const list = getPostsByTag(decodeURI(tag).replaceAll("-", " "));
   return (
     <>
