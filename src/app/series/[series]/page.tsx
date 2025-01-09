@@ -3,7 +3,7 @@ import { getMetadata } from "@/utils/getMetadata";
 import BigTitle from "@/components/common/BigTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return getAllSeries().map((s) => ({ series: s.name }));
 }
 
@@ -20,11 +20,12 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function SeriesPage({ params }: Props) {
   const { series } = await params;
-  const list = getSeries(decodeURI(series).replaceAll("-", " "));
+  const convertedSeriesName = decodeURI(series).replaceAll("-", " ");
+  const list = getSeries(convertedSeriesName);
 
   return (
     <>
-      <BigTitle text={decodeURI(series).replaceAll("-", " ")} />
+      <BigTitle text={convertedSeriesName} />
       <div className="mb-10" />
       <PostsGridContainer list={list} />
     </>
