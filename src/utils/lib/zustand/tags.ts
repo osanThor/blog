@@ -1,11 +1,20 @@
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 type TagStore = {
   open: boolean;
   setOpen: (by: boolean) => void;
 };
 
-export const useTagsStore = create<TagStore>((set) => ({
-  open: false,
-  setOpen: (by) => set(() => ({ open: by })),
-}));
+export const useTagsStore = create(
+  persist<TagStore>(
+    (set) => ({
+      open: false,
+      setOpen: (by) => set(() => ({ open: by })),
+    }),
+    {
+      name: "tag-storage",
+      storage: createJSONStorage(() => sessionStorage),
+    }
+  )
+);
