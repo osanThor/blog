@@ -26,9 +26,9 @@ export default async function PostsByTagsPage({ params }: Props) {
   return (
     <>
       <div className="w-full flex items-center justify-center pt-6 h-[84px] mb-10">
-        <BigTitle text={`#${tag}`} />
+        <BigTitle text={`#${convertedTag}`} />
       </div>
-      <TagsListContainer currentTag={tag} tags={tags} />
+      <TagsListContainer currentTag={convertedTag} tags={tags} />
       <div className="mb-20" />
       <PostsGridContainer list={list} />
     </>
