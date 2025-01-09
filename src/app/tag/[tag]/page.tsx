@@ -1,15 +1,6 @@
 import { getAllTags, getPostsByTag } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
-import BigTitle from "@/components/common/BigTitle";
-import PostsGridContainer from "@/containers/posts/PostsGridContainer";
-import dynamic from "next/dynamic";
-
-const TagsListContainer = dynamic(
-  () => import("@/containers/tags/TagsListContainer"),
-  {
-    loading: () => <p>Loading...</p>,
-  }
-);
+import TagPageContainer from "@/containers/tags/TagPageContainer";
 
 export function generateStaticParams() {
   return getAllTags().map((tag) => ({ tag: tag.name }));
@@ -30,14 +21,5 @@ export default async function PostsByTagsPage({ params }: Props) {
   const tags = getAllTags();
   const list = getPostsByTag(convertedTag);
 
-  return (
-    <>
-      <div className="w-full flex items-center justify-center pt-6 h-[84px] mb-10">
-        <BigTitle text={`#${convertedTag}`} />
-      </div>
-      <TagsListContainer currentTag={convertedTag} tags={tags} />
-      <div className="mb-20" />
-      <PostsGridContainer list={list} />
-    </>
-  );
+  return <TagPageContainer tag={convertedTag} tags={tags} list={list} />;
 }

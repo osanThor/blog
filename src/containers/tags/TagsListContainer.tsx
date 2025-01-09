@@ -1,11 +1,10 @@
 "use client";
 
 import TreeDotsIcon from "@/components/common/icons/TreeDotsIcon";
+import { CountType } from "@/types/post";
 import { useTagsStore } from "@/utils/lib/zustand/tags";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-type CountType = { name: string; count: number };
 
 type Props = { currentTag?: string; tags: CountType[] };
 
@@ -14,7 +13,6 @@ const INITIAL_LENGTH = 7;
 export default function TagsListContainer({ currentTag, tags }: Props) {
   const [list, setList] = useState<CountType[]>(tags.slice(0, INITIAL_LENGTH));
   const { open, setOpen } = useTagsStore();
-  const isCanOpen = tags.length > INITIAL_LENGTH;
 
   const handleClickToggle = () => setOpen(!open);
 
@@ -39,17 +37,15 @@ export default function TagsListContainer({ currentTag, tags }: Props) {
             </Link>
           </li>
         ))}
-        {isCanOpen && (
-          <li>
-            <button
-              aria-label="toggleTagBtn"
-              onClick={handleClickToggle}
-              className="p-1 rounded hover:bg-neutral-200 dark:hover:bg-neutral-600 w-6 h-6 min-w-6 min-h-6 flex items-center justify-center transition-all duration-200"
-            >
-              <TreeDotsIcon />
-            </button>
-          </li>
-        )}
+        <li>
+          <button
+            aria-label="toggleTagBtn"
+            onClick={handleClickToggle}
+            className="p-1 rounded hover:bg-neutral-200 dark:hover:bg-neutral-600 w-6 h-6 min-w-6 min-h-6 flex items-center justify-center transition-all duration-200"
+          >
+            <TreeDotsIcon />
+          </button>
+        </li>
       </ul>
     </div>
   );
