@@ -4,7 +4,7 @@ import BigTitle from "@/components/common/BigTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
 
 export async function generateStaticParams() {
-  return getAllSeries().map((s) => ({ series: s.name }));
+  return getAllSeries().map((s) => ({ series: encodeURIComponent(s.name) }));
 }
 
 type Props = {
