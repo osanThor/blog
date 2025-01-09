@@ -2,20 +2,15 @@
 import TreeDotsIcon from "@/components/common/icons/TreeDotsIcon";
 import { useTagsStore } from "@/utils/lib/zustand/tags";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type CountType = { name: string; count: number };
 
-type Props = {
-  tags: CountType[];
-};
+type Props = { currentTag?: string; tags: CountType[] };
 
 const INITIAL_LENGTH = 7;
 
-export default function TagsListContainer({ tags }: Props) {
-  const { tag } = useParams();
-  const [currentTag, setCurrentTag] = useState<string>("");
+export default function TagsListContainer({ currentTag, tags }: Props) {
   const [list, setList] = useState<CountType[]>(tags.slice(0, INITIAL_LENGTH));
   const { open, setOpen } = useTagsStore();
   const isCanOpen = tags.length > INITIAL_LENGTH;
@@ -26,11 +21,6 @@ export default function TagsListContainer({ tags }: Props) {
     if (open) setList(tags);
     else setList(tags.slice(0, INITIAL_LENGTH));
   }, [open]);
-
-  useEffect(() => {
-    if (tag) setCurrentTag(decodeURI(tag as string).replaceAll("-", " "));
-    else setCurrentTag("");
-  }, [tag]);
 
   return (
     <div className="w-full flex items-center justify-center border-t border-b border-neutral-300 dark:border-neutral-500">
