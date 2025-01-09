@@ -2,7 +2,7 @@ import { getAllTags, getPostsByTag } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
 import BigTitle from "@/components/common/BigTitle";
 import PostsGridContainer from "@/containers/posts/PostsGridContainer";
-// import TagsListContainer from "@/containers/tags/TagsListContainer";
+import TagsListContainer from "@/containers/tags/TagsListContainer";
 
 export function generateStaticParams() {
   return getAllTags().map((tag) => ({ tag: tag.name }));
@@ -14,21 +14,21 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { tag } = await params;
-  const convertedTag = decodeURI(tag).replaceAll("-", " ");
-  return getMetadata({ title: `태그 ${convertedTag}` });
+  return getMetadata({ title: `${decodeURI(tag).replaceAll("-", " ")} 태그` });
 }
 
 export default async function PostsByTagsPage({ params }: Props) {
   const { tag } = await params;
   const convertedTag = decodeURI(tag).replaceAll("-", " ");
-  // const tags = getAllTags();
+  const tags = getAllTags();
   const list = getPostsByTag(convertedTag);
+
   return (
     <>
       <div className="w-full flex items-center justify-center pt-6 h-[84px] mb-10">
         <BigTitle text={`#${convertedTag}`} />
       </div>
-      {/* <TagsListContainer currentTag={convertedTag} tags={tags} /> */}
+      <TagsListContainer currentTag={convertedTag} tags={tags} />
       <div className="mb-20" />
       <PostsGridContainer list={list} />
     </>
