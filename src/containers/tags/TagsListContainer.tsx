@@ -2,16 +2,17 @@
 
 import TreeDotsIcon from "@/components/common/icons/TreeDotsIcon";
 import { CountType } from "@/types/post";
-import { useTagsStore } from "@/utils/lib/zustand/tags";
 import Link from "next/link";
+import { useState } from "react";
 
 type Props = { currentTag?: string; tags: CountType[] };
 
 const INITIAL_LENGTH = 7;
 
 export default function TagsListContainer({ currentTag, tags }: Props) {
-  const open = useTagsStore((state) => state.open);
-  const setOpen = useTagsStore((state) => state.setOpen);
+  const [open, setOpen] = useState<boolean>(false);
+  // const open = useTagsStore((state) => state.open);
+  // const setOpen = useTagsStore((state) => state.setOpen);
 
   const handleClickToggle = () => setOpen(!open);
   const visibleTags = open ? tags : tags.slice(0, INITIAL_LENGTH);
