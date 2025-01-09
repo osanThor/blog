@@ -1,32 +1,61 @@
+let isPluginRegistered = false;
+
 export const transformTextAnimation = async (
   target: HTMLElement,
-  text: string
+  text: string,
+  options?: { duration?: number; ease?: string }
 ) => {
   const gsap = (await import("gsap")).default;
-  const textPlugin = (await import("gsap/TextPlugin")).TextPlugin;
-  gsap.registerPlugin(textPlugin);
+  if (!isPluginRegistered) {
+    const textPlugin = (await import("gsap/TextPlugin")).TextPlugin;
+    gsap.registerPlugin(textPlugin);
+    isPluginRegistered = true;
+  }
 
   gsap.to(target, {
-    duration: 1,
     text,
+    duration: options?.duration || 1,
+    ease: options?.ease || "power1.out",
   });
 };
 
-export type Direction = "up" | "left";
+export type Direction = "up" | "left" | "down" | "right";
 
 export const transformVisible = async (
   target: HTMLElement | Element[],
-  time?: number | null,
-  direction: Direction = "up",
-  stagger: number = 0.1
+  options?: {
+    time?: number;
+    direction?: Direction;
+    stagger?: number;
+    ease?: string;
+  }
 ) => {
   const gsap = (await import("gsap")).default;
 
-  const duration = time || 0.35;
-  // 위치 설정
-  const initialPosition = direction === "left" ? { x: 10 } : { y: 10 };
-  const finalPosition = direction === "left" ? { x: 0 } : { y: 0 };
+  const duration = options?.time || 0.35;
+  const stagger = options?.stagger || 0.1;
+  const ease = options?.ease || "power1.out";
 
+  let initialPosition = {};
+  let finalPosition = {};
+  switch (options?.direction || "up") {
+    case "up":
+      initialPosition = { y: 10 };
+      finalPosition = { y: 0 };
+      break;
+    case "down":
+      initialPosition = { y: -10 };
+      finalPosition = { y: 0 };
+      break;
+    case "left":
+      initialPosition = { x: 10 };
+      finalPosition = { x: 0 };
+      break;
+    case "right":
+      initialPosition = { x: -10 };
+      finalPosition = { x: 0 };
+      break;
+  }
   gsap
     .timeline()
     .set(target, {
@@ -38,6 +67,7 @@ export const transformVisible = async (
       y: 0,
       opacity: 1,
       stagger,
+      ease,
       ...finalPosition,
     });
 };

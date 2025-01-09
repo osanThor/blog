@@ -16,13 +16,11 @@ export default function PostsSeriesListContainer({ list }: Props) {
   const listRef = useRef<HTMLUListElement>(null);
   useGSAP(
     async () => {
-      if (ref.current) await transformVisible(ref.current, 0.4);
+      if (ref.current) await transformVisible(ref.current, { time: 0.4 });
       if (listRef.current)
-        await transformVisible(
-          Array.from(listRef.current.children),
-          null,
-          "left"
-        );
+        await transformVisible(Array.from(listRef.current.children), {
+          direction: "left",
+        });
     },
     { scope: ref }
   );

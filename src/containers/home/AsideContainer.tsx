@@ -12,12 +12,10 @@ export default function AsideContainer() {
   useGSAP(
     async () => {
       if (ref.current)
-        await transformVisible(
-          Array.from(ref.current.children),
-          null,
-          "left",
-          0.2
-        );
+        await transformVisible(Array.from(ref.current.children), {
+          direction: "left",
+          stagger: 0.2,
+        });
     },
     { scope: ref }
   );

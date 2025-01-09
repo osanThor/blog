@@ -66,11 +66,10 @@ export default function PostSideTOCContainer() {
     async () => {
       if (containerRef.current) await transformVisible(containerRef.current);
       if (listRef.current)
-        await transformVisible(
-          Array.from(listRef.current.children),
-          0.5,
-          "left"
-        );
+        await transformVisible(Array.from(listRef.current.children), {
+          time: 0.5,
+          direction: "left",
+        });
     },
     { scope: containerRef, dependencies: [headItem] }
   );

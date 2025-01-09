@@ -12,12 +12,9 @@ type Props = {
 
 export default function PostsListContainer({ list }: Props) {
   const ref = useRef<HTMLElement>(null);
-  const listRef = useRef<HTMLUListElement>(null);
   useGSAP(
     async () => {
-      if (ref.current) await transformVisible(ref.current, 0.4);
-      if (listRef.current)
-        await transformVisible(Array.from(listRef.current.children), null);
+      if (ref.current) await transformVisible(ref.current, { time: 0.4 });
     },
     { scope: ref }
   );
@@ -26,7 +23,7 @@ export default function PostsListContainer({ list }: Props) {
       <section ref={ref}>
         <SmallTitle text={"All Posts"} count={list.length} />
         {!!list.length ? (
-          <ul ref={listRef} className="flex flex-col gap-10">
+          <ul className="flex flex-col gap-10">
             {list.map((item) => (
               <ListItem key={`item-${item.title}`} item={item} />
             ))}

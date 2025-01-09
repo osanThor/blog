@@ -20,7 +20,6 @@ const config = {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000,
   },
-  swcMinify: true,
   experimental: {
     optimizePackageImports: [
       "swiper",

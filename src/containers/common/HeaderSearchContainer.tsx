@@ -9,7 +9,7 @@ function HeaderSearchContainer() {
   const pathname = usePathname();
   const router = useRouter();
   const [value, setValue] = useState("");
-  const debouncedValue = useDebounce(value);
+  const debouncedValue = useDebounce<string>(value);
 
   const handleFocus = () => {
     if (!pathname.startsWith("/search")) router.push("/search");

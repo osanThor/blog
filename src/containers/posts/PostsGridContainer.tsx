@@ -12,12 +12,9 @@ type Props = {
 
 export default function PostsGridContainer({ list }: Props) {
   const ref = useRef<HTMLElement>(null);
-  const listRef = useRef<HTMLUListElement>(null);
   useGSAP(
     async () => {
-      if (ref.current) await transformVisible(ref.current, 0.4);
-      if (listRef.current)
-        await transformVisible(Array.from(listRef.current.children), null);
+      if (ref.current) await transformVisible(ref.current, { time: 0.4 });
     },
     { scope: ref, dependencies: [list] }
   );
@@ -26,10 +23,7 @@ export default function PostsGridContainer({ list }: Props) {
       <section ref={ref}>
         <SmallTitle text={"Posts"} count={list.length} />
         {!!list.length ? (
-          <ul
-            ref={listRef}
-            className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 "
-          >
+          <ul className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ">
             {list.map((item) => (
               <GridItem key={`item-${item.title}`} item={item} />
             ))}

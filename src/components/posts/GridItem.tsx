@@ -6,9 +6,9 @@ import { Post } from "#site/content";
 type Props = {
   item: Post;
 };
-function GridItem({ item }: Props) {
+export default function GridItem({ item }: Props) {
   return (
-    <li className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px] opacity-0">
+    <li className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px]">
       <Link
         href={`/post/${item.category}/${item.href}`}
         className="flex flex-col transition-all flex-grow"
@@ -41,4 +41,3 @@ function GridItem({ item }: Props) {
     </li>
   );
 }
-export default React.memo(GridItem);
