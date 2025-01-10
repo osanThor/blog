@@ -1,23 +1,20 @@
 import {
   getAllSeries,
-  getPostsByCategory,
+  getPostsByCategoryPaginated,
 } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
-import dynamic from "next/dynamic";
-
-const BigTitle = dynamic(() => import("@/components/common/BigTitle"));
-const PostsGridContainer = dynamic(
-  () => import("@/containers/posts/PostsGridContainer")
-);
-const PostsSeriesListContainer = dynamic(
-  () => import("@/containers/posts/PostsSeriesListContainer")
-);
+import BigTitle from "@/components/common/BigTitle";
+import PostsGridContainer from "@/containers/posts/PostsGridContainer";
+import PostsSeriesListContainer from "@/containers/posts/PostsSeriesListContainer";
 
 export function generateStaticParams() {
   return [{ slug: ["dev"] }, { slug: ["life"] }];
 }
 type Props = {
   params: Promise<{ slug: string[] }>;
+  searchParams?: Promise<{
+    page?: string;
+  }>;
 };
 
 const messages = {
@@ -30,11 +27,17 @@ export async function generateMetadata({ params }: Props) {
   return getMetadata({ title: `${category.toUpperCase()} 기록` });
 }
 
-export default async function PostsByCategoryPage({ params }: Props) {
+export default async function PostsByCategoryPage({
+  params,
+  searchParams,
+}: Props) {
   const { slug } = await params;
+  const page = await searchParams;
+  const currentPage = Number(page) || 1;
   const category = slug[0];
   const series = getAllSeries(category);
-  const list = getPostsByCategory(category);
+  const posts = getPostsByCategoryPaginated(category, currentPage);
+
   return (
     <>
       <BigTitle text={category} />
@@ -42,7 +45,11 @@ export default async function PostsByCategoryPage({ params }: Props) {
         {messages[category as "dev" | "life"]}
       </p>
       {!!series.length && <PostsSeriesListContainer list={series} />}
-      <PostsGridContainer list={list} />
+      <PostsGridContainer
+        list={posts.data}
+        total={posts.total}
+        totalPages={posts.totalPages}
+      />
     </>
   );
 }

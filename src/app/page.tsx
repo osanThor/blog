@@ -1,7 +1,7 @@
 import {
-  getAllPosts,
   getAllTags,
   getFeaturedPost,
+  getPostsPaginated,
 } from "@/services/posts.service.velite";
 import Signboard from "@/components/common/Signboard";
 import AsideContainer from "@/containers/home/AsideContainer";
@@ -9,8 +9,16 @@ import TagsListContainer from "@/containers/tags/TagsListContainer";
 import SlideCard from "@/components/common/SlideCard";
 import PostsListContainer from "@/containers/posts/PostsListContainer";
 
-export default function Home() {
-  const posts = getAllPosts();
+type Props = {
+  searchParams?: Promise<{
+    page?: string;
+  }>;
+};
+
+export default async function Home(props: Props) {
+  const searchParams = await props.searchParams;
+  const currentPage = Number(searchParams?.page) || 1;
+  const posts = getPostsPaginated(currentPage);
   const tags = getAllTags();
   const featured = getFeaturedPost();
 
@@ -25,7 +33,7 @@ export default function Home() {
           <section>
             <SlideCard list={featured} />
           </section>
-          <PostsListContainer list={posts} />
+          <PostsListContainer list={posts.data} total={posts.total} />
         </div>
         <AsideContainer />
       </div>
