@@ -5,13 +5,13 @@ import { Suspense } from "react";
 import SpinnerIcon from "@/components/common/icons/SpinnerIcon";
 
 type Props = {
-  searchParams: Promise<{ query?: string }>;
+  searchParams?: Promise<{ query?: string }>;
 };
 
 export async function generateMetadata({ searchParams }: Props) {
-  const query = (await searchParams).query;
+  const query = await searchParams;
   return getMetadata({
-    title: `검색 결과 ${query || ""}`,
+    title: `검색 결과 ${query?.query || ""}`,
   });
 }
 

@@ -33,11 +33,7 @@ export default async function Home(props: Props) {
           <section>
             <SlideCard list={featured} />
           </section>
-          <PostsListContainer
-            list={posts.data}
-            total={posts.total}
-            page={currentPage}
-          />
+          <PostsListContainer list={posts.data} total={posts.total} />
         </div>
         <AsideContainer />
       </div>

@@ -20,12 +20,12 @@ export default function Pagination({ total, pageSize = 10, limit = 5 }: Props) {
   const handleChangePage = (page: number) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", page.toString());
-    router.replace(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   const sliceArrayByLimit = (numPages: number, limit: number): number[][] => {
-    let pages = Array.from({ length: numPages }, (_, i) => i + 1);
-    let result = [];
+    const pages = Array.from({ length: numPages }, (_, i) => i + 1);
+    const result = [];
     for (let i = 0; i < pages.length; i += limit) {
       result.push(pages.slice(i, i + limit));
     }

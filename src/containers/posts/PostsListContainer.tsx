@@ -10,7 +10,6 @@ import { Suspense, useRef } from "react";
 type Props = {
   list: Post[];
   total?: number;
-  page?: number;
 };
 
 export default function PostsListContainer({ list, total }: Props) {
