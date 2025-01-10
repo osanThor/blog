@@ -4,12 +4,33 @@
         <title>Given's log</title>
         <link>undefined</link>
         <description>FE 개발자 준영의 개발 및 일상 일지</description>
-        <lastBuildDate>Fri, 10 Jan 2025 02:56:43 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 10 Jan 2025 03:15:27 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>RSS for Node and Next.js</generator>
         <language>ko-KR</language>
         <ttl>60</ttl>
         <copyright>Copyright 2025</copyright>
+        <item>
+            <title><![CDATA[강원도 홍천 캠핑]]></title>
+            <link>http://localhost:3000/life/202305-hc-camp</link>
+            <guid>http://localhost:3000/life/202305-hc-camp</guid>
+            <pubDate>Tue, 23 May 2023 15:00:00 GMT</pubDate>
+            <description><![CDATA[힐링하고 왔당]]></description>
+        </item>
+        <item>
+            <title><![CDATA[11월 회고록]]></title>
+            <link>http://localhost:3000/life/20241130-memoir</link>
+            <guid>http://localhost:3000/life/20241130-memoir</guid>
+            <pubDate>Fri, 29 Nov 2024 15:00:00 GMT</pubDate>
+            <description><![CDATA[2024년 11월 회고록]]></description>
+        </item>
+        <item>
+            <title><![CDATA[다사다난했던 2024년을 보내며]]></title>
+            <link>http://localhost:3000/life/20241231-goodbye2024</link>
+            <guid>http://localhost:3000/life/20241231-goodbye2024</guid>
+            <pubDate>Mon, 30 Dec 2024 15:00:00 GMT</pubDate>
+            <description><![CDATA[2024년 12월 회고록]]></description>
+        </item>
         <item>
             <title><![CDATA[window crypto]]></title>
             <link>http://localhost:3000/dev/202305-crypto</link>
@@ -135,27 +156,6 @@
             <guid>http://localhost:3000/dev/20241229-devteam2</guid>
             <pubDate>Sat, 28 Dec 2024 15:00:00 GMT</pubDate>
             <description><![CDATA[오픈 API를 활용한 검색 웹 사이트 제작 프로젝트]]></description>
-        </item>
-        <item>
-            <title><![CDATA[강원도 홍천 캠핑]]></title>
-            <link>http://localhost:3000/life/202305-hc-camp</link>
-            <guid>http://localhost:3000/life/202305-hc-camp</guid>
-            <pubDate>Tue, 23 May 2023 15:00:00 GMT</pubDate>
-            <description><![CDATA[힐링하고 왔당]]></description>
-        </item>
-        <item>
-            <title><![CDATA[11월 회고록]]></title>
-            <link>http://localhost:3000/life/20241130-memoir</link>
-            <guid>http://localhost:3000/life/20241130-memoir</guid>
-            <pubDate>Fri, 29 Nov 2024 15:00:00 GMT</pubDate>
-            <description><![CDATA[2024년 11월 회고록]]></description>
-        </item>
-        <item>
-            <title><![CDATA[다사다난했던 2024년을 보내며]]></title>
-            <link>http://localhost:3000/life/20241231-goodbye2024</link>
-            <guid>http://localhost:3000/life/20241231-goodbye2024</guid>
-            <pubDate>Mon, 30 Dec 2024 15:00:00 GMT</pubDate>
-            <description><![CDATA[2024년 12월 회고록]]></description>
         </item>
     </channel>
 </rss>

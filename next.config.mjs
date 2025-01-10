@@ -22,12 +22,14 @@ if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
 const config = {
   // github pages deploy
   output: "export",
-  assetPrefix: prefix,
-
+  trailingSlash: true,
+  basePath: "/blog",
+  assetPrefix: "/blog",
   // next config here...
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000,
+    unoptimized: true,
   },
   experimental: {
     optimizePackageImports: [
