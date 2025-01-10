@@ -2,10 +2,31 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://localhost:3000</id>
     <title>Given's log</title>
-    <updated>2025-01-10T02:56:43.997Z</updated>
+    <updated>2025-01-10T03:15:27.243Z</updated>
     <generator>RSS for Node and Next.js</generator>
     <subtitle>FE 개발자 준영의 개발 및 일상 일지</subtitle>
     <rights>Copyright 2025</rights>
+    <entry>
+        <title type="html"><![CDATA[강원도 홍천 캠핑]]></title>
+        <id>http://localhost:3000/life/202305-hc-camp</id>
+        <link href="http://localhost:3000/life/202305-hc-camp"/>
+        <updated>2023-05-23T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[힐링하고 왔당]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[11월 회고록]]></title>
+        <id>http://localhost:3000/life/20241130-memoir</id>
+        <link href="http://localhost:3000/life/20241130-memoir"/>
+        <updated>2024-11-29T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[2024년 11월 회고록]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[다사다난했던 2024년을 보내며]]></title>
+        <id>http://localhost:3000/life/20241231-goodbye2024</id>
+        <link href="http://localhost:3000/life/20241231-goodbye2024"/>
+        <updated>2024-12-30T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[2024년 12월 회고록]]></summary>
+    </entry>
     <entry>
         <title type="html"><![CDATA[window crypto]]></title>
         <id>http://localhost:3000/dev/202305-crypto</id>
@@ -131,26 +152,5 @@
         <link href="http://localhost:3000/dev/20241229-devteam2"/>
         <updated>2024-12-28T15:00:00.000Z</updated>
         <summary type="html"><![CDATA[오픈 API를 활용한 검색 웹 사이트 제작 프로젝트]]></summary>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[강원도 홍천 캠핑]]></title>
-        <id>http://localhost:3000/life/202305-hc-camp</id>
-        <link href="http://localhost:3000/life/202305-hc-camp"/>
-        <updated>2023-05-23T15:00:00.000Z</updated>
-        <summary type="html"><![CDATA[힐링하고 왔당]]></summary>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[11월 회고록]]></title>
-        <id>http://localhost:3000/life/20241130-memoir</id>
-        <link href="http://localhost:3000/life/20241130-memoir"/>
-        <updated>2024-11-29T15:00:00.000Z</updated>
-        <summary type="html"><![CDATA[2024년 11월 회고록]]></summary>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[다사다난했던 2024년을 보내며]]></title>
-        <id>http://localhost:3000/life/20241231-goodbye2024</id>
-        <link href="http://localhost:3000/life/20241231-goodbye2024"/>
-        <updated>2024-12-30T15:00:00.000Z</updated>
-        <summary type="html"><![CDATA[2024년 12월 회고록]]></summary>
     </entry>
 </feed>

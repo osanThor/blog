@@ -4,6 +4,24 @@
     "description": "FE 개발자 준영의 개발 및 일상 일지",
     "items": [
         {
+            "url": "http://localhost:3000/life/202305-hc-camp",
+            "title": "강원도 홍천 캠핑",
+            "summary": "힐링하고 왔당",
+            "date_modified": "2023-05-23T15:00:00.000Z"
+        },
+        {
+            "url": "http://localhost:3000/life/20241130-memoir",
+            "title": "11월 회고록",
+            "summary": "2024년 11월 회고록",
+            "date_modified": "2024-11-29T15:00:00.000Z"
+        },
+        {
+            "url": "http://localhost:3000/life/20241231-goodbye2024",
+            "title": "다사다난했던 2024년을 보내며",
+            "summary": "2024년 12월 회고록",
+            "date_modified": "2024-12-30T15:00:00.000Z"
+        },
+        {
             "url": "http://localhost:3000/dev/202305-crypto",
             "title": "window crypto",
             "summary": "Oauth2 구현 시 고려",
@@ -110,24 +128,6 @@
             "title": "프로그래머스 데브코스 FE 2차 팀 프로젝트 회고",
             "summary": "오픈 API를 활용한 검색 웹 사이트 제작 프로젝트",
             "date_modified": "2024-12-28T15:00:00.000Z"
-        },
-        {
-            "url": "http://localhost:3000/life/202305-hc-camp",
-            "title": "강원도 홍천 캠핑",
-            "summary": "힐링하고 왔당",
-            "date_modified": "2023-05-23T15:00:00.000Z"
-        },
-        {
-            "url": "http://localhost:3000/life/20241130-memoir",
-            "title": "11월 회고록",
-            "summary": "2024년 11월 회고록",
-            "date_modified": "2024-11-29T15:00:00.000Z"
-        },
-        {
-            "url": "http://localhost:3000/life/20241231-goodbye2024",
-            "title": "다사다난했던 2024년을 보내며",
-            "summary": "2024년 12월 회고록",
-            "date_modified": "2024-12-30T15:00:00.000Z"
         }
     ]
 }
