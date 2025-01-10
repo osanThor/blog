@@ -5,8 +5,7 @@ import useDebounce from "@/hooks/debounde";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-function HeaderSearchContainer() {
-  const searchParams = useSearchParams();
+export default function HeaderSearchContainer() {
   const pathname = usePathname();
   const router = useRouter();
   const [value, setValue] = useState("");
@@ -61,5 +60,3 @@ function HeaderSearchContainer() {
     </div>
   );
 }
-
-export default React.memo(HeaderSearchContainer);
