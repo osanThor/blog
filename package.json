@@ -6,7 +6,6 @@
     "dev:content": "velite --watch",
     "build:content": "velite --clean",
     "dev:next": "next dev --turbopack",
-    "build:rss": "ts-node --project tsconfig.node.json ./scripts/generateRSS.ts",
     "build:next": "next build",
     "dev": "run-p dev:*",
     "build": "run-s build:*",
