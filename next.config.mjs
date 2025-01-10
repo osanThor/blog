@@ -15,6 +15,7 @@ if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
 
 /** @type {import('next').NextConfig} */
 const config = {
+  output: "export",
   // next config here...
   images: {
     formats: ["image/avif", "image/webp"],
