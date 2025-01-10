@@ -20,11 +20,6 @@ if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
 
 /** @type {import('next').NextConfig} */
 const config = {
-  // github pages deploy
-  output: "export",
-  trailingSlash: true,
-  basePath: "/blog",
-  assetPrefix: prefix,
   // next config here...
   images: {
     formats: ["image/avif", "image/webp"],
