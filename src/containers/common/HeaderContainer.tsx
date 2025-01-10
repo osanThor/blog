@@ -66,7 +66,7 @@ export default function HeaderContainer() {
         onClick={handleClickTopBtn}
         className={`${
           isScrolled ? "bottom-5" : "-bottom-20"
-        } fixed transition-all ease-linear right-4 w-10 h-10 md:w-16 md:h-16 font-bold z-[99] group`}
+        } fixed transition-all ease-linear right-4 w-10 h-10 md:w-14 md:h-14 font-bold z-[99] group`}
       >
         <span className="group-hover:animate-pulse absolute h-full w-full rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-300 dark:bg-white opacity-35"></span>
         up!
