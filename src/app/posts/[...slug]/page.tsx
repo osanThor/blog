@@ -33,7 +33,7 @@ export default async function PostsByCategoryPage({
 }: Props) {
   const { slug } = await params;
   const page = await searchParams;
-  const currentPage = Number(page) || 1;
+  const currentPage = Number(page?.page) || 1;
   const category = slug[0];
   const series = getAllSeries(category);
   const posts = getPostsByCategoryPaginated(category, currentPage);
