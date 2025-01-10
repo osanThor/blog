@@ -37,7 +37,7 @@ export default function PostSeriesContainer({ series, title, list }: Props) {
                 <div className="overflow-hidden w-full max-w-[10vw] min-w-[20%] max-h-[140px] rounded-lg mb-2 relative flex items-center justify-center">
                   <Img
                     className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200"
-                    src={item.cover}
+                    src={`/blog${item.cover}`}
                     alt={`cover-of-${item.title}`}
                     width={220}
                     height={item.img.width}

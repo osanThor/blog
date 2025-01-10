@@ -17,7 +17,7 @@ export default function GridItem({ item }: Props) {
           <div className="overflow-hidden h-[100vw] max-h-[300px] sm:max-h-[230px] lg:max-h-[210px] rounded-lg mb-2 relative">
             <Img
               className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200"
-              src={item.cover}
+              src={`/blog${item.cover}`}
               alt={`cover-of-${item.title}`}
               fill
               sizes={"350px"}
