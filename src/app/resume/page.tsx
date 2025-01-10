@@ -13,7 +13,7 @@ export default function ResumePage() {
       <BigTitle text="👋 FE Developer" />
       <div className="my-10 h-full flex flex-col items-center justify-center">
         <div className="flex flex-col md:flex-row gap-7 items-center">
-          <Image src={"/me2.png"} alt="it's me" width={350} height={400} />
+          <Image src={"/blog/me2.png"} alt="it's me" width={350} height={400} />
           <div className="flex flex-col md:items-start gap-4 text-pretty break-keep">
             <h2 className="text-2xl ">
               이준영 <b>(Lee Junyoung)</b>

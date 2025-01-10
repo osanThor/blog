@@ -2,7 +2,7 @@ import { getAllPosts } from "@/services/posts.service.velite";
 import { getMetadata } from "@/utils/getMetadata";
 import SearchContainer from "@/components/search/SearchContainer";
 import { Suspense } from "react";
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 type Props = {
   searchParams: Promise<{ query?: string }>;
 };

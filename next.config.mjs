@@ -24,7 +24,7 @@ const config = {
   output: "export",
   trailingSlash: true,
   basePath: "/blog",
-  assetPrefix: "/blog",
+  assetPrefix: prefix,
   // next config here...
   images: {
     formats: ["image/avif", "image/webp"],

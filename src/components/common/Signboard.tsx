@@ -18,7 +18,7 @@ export default function Signboard() {
     <h1 ref={HeaderRef} className="max-w-[calc(100%-32px)] h-[84px]">
       <Image
         className="dark:invert object-cover"
-        src="/logo.svg"
+        src="/blog/logo.svg"
         alt="Give's log logo"
         width={320}
         height={92}
