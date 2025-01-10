@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://localhost:3000</id>
     <title>Given's log</title>
-    <updated>2025-01-10T03:20:51.016Z</updated>
+    <updated>2025-01-10T03:31:13.961Z</updated>
     <generator>RSS for Node and Next.js</generator>
     <subtitle>FE 개발자 준영의 개발 및 일상 일지</subtitle>
     <rights>Copyright 2025</rights>
