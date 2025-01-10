@@ -1,6 +1,11 @@
 import withPlaiceholder from "@plaiceholder/next";
 import withBundleAnalyzer from "@next/bundle-analyzer";
 
+const prefix =
+  process.env.NODE_ENV === "production"
+    ? "https://osanThor.github.io/blog/"
+    : "";
+
 const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
@@ -15,7 +20,10 @@ if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
 
 /** @type {import('next').NextConfig} */
 const config = {
+  // github pages deploy
   output: "export",
+  assetPrefix: prefix,
+
   // next config here...
   images: {
     formats: ["image/avif", "image/webp"],
