@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://localhost:3000</id>
+    <title>Given's log</title>
+    <updated>2025-01-10T03:45:40.956Z</updated>
+    <generator>RSS for Node and Next.js</generator>
+    <subtitle>FE 개발자 준영의 개발 및 일상 일지</subtitle>
+    <rights>Copyright 2025</rights>
+    <entry>
+        <title type="html"><![CDATA[강원도 홍천 캠핑]]></title>
+        <id>http://localhost:3000/life/202305-hc-camp</id>
+        <link href="http://localhost:3000/life/202305-hc-camp"/>
+        <updated>2023-05-23T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[힐링하고 왔당]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[11월 회고록]]></title>
+        <id>http://localhost:3000/life/20241130-memoir</id>
+        <link href="http://localhost:3000/life/20241130-memoir"/>
+        <updated>2024-11-29T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[2024년 11월 회고록]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[다사다난했던 2024년을 보내며]]></title>
+        <id>http://localhost:3000/life/20241231-goodbye2024</id>
+        <link href="http://localhost:3000/life/20241231-goodbye2024"/>
+        <updated>2024-12-30T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[2024년 12월 회고록]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[window crypto]]></title>
+        <id>http://localhost:3000/dev/202305-crypto</id>
+        <link href="http://localhost:3000/dev/202305-crypto"/>
+        <updated>2023-05-30T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Oauth2 구현 시 고려]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[mouse, touch 이벤트로 FlipBook 이벤트]]></title>
+        <id>http://localhost:3000/dev/202305-flipbook</id>
+        <link href="http://localhost:3000/dev/202305-flipbook"/>
+        <updated>2023-05-15T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[react-pageFlip eventHandler]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Next13에서 react-query 사용]]></title>
+        <id>http://localhost:3000/dev/202305-next-react-query</id>
+        <link href="http://localhost:3000/dev/202305-next-react-query"/>
+        <updated>2023-05-16T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[클라이언트 컴포넌트에서 provider 만들기]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Next13 렌더링 방식]]></title>
+        <id>http://localhost:3000/dev/202305-next13-rendering</id>
+        <link href="http://localhost:3000/dev/202305-next13-rendering"/>
+        <updated>2023-05-02T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[첫 블로그 포스팅, Next 13버전 렌더링 방식 정리]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Next13+ Routes]]></title>
+        <id>http://localhost:3000/dev/202305-next13-routes</id>
+        <link href="http://localhost:3000/dev/202305-next13-routes"/>
+        <updated>2023-05-04T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[next 13 app derectory dynamic routes]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Next13 build 배포 에러 수정]]></title>
+        <id>http://localhost:3000/dev/202305-nextbuild-error</id>
+        <link href="http://localhost:3000/dev/202305-nextbuild-error"/>
+        <updated>2023-05-25T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[에러 수정]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Nodemailer 오류 해결]]></title>
+        <id>http://localhost:3000/dev/202305-nodemailer-error</id>
+        <link href="http://localhost:3000/dev/202305-nodemailer-error"/>
+        <updated>2023-05-14T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[오류 해결]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Nest.js를 사용해서 User Service 만들기]]></title>
+        <id>http://localhost:3000/dev/202308-next-user-serviuce</id>
+        <link href="http://localhost:3000/dev/202308-next-user-serviuce"/>
+        <updated>2023-08-05T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[해야할 일 정리]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[2024-03-12 TIL]]></title>
+        <id>http://localhost:3000/dev/202403-TIL</id>
+        <link href="http://localhost:3000/dev/202403-TIL"/>
+        <updated>2024-03-11T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[TIL]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[AWS(EC2,Route 53) 과 NginX로 Next 배포하기]]></title>
+        <id>http://localhost:3000/dev/202403-aws-ec2-next-deploy</id>
+        <link href="http://localhost:3000/dev/202403-aws-ec2-next-deploy"/>
+        <updated>2024-03-12T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[AWS(EC2,Route 53) 과 NginX로 Next 배포하기]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Safe area(CSS)]]></title>
+        <id>http://localhost:3000/dev/202404-safe-area-css</id>
+        <link href="http://localhost:3000/dev/202404-safe-area-css"/>
+        <updated>2024-04-23T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[IOS 모바일 환경에서 생기는 Safe Area 대처]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[React Hook 톺아보기 useState(1)]]></title>
+        <id>http://localhost:3000/dev/20241015-react-useState</id>
+        <link href="http://localhost:3000/dev/20241015-react-useState"/>
+        <updated>2024-10-14T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[React Hook useState의 코드를 보며 react의 동작원리에 대해 이해하자]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[블로그 개발 일지 No.1]]></title>
+        <id>http://localhost:3000/dev/20241115-make-blog</id>
+        <link href="http://localhost:3000/dev/20241115-make-blog"/>
+        <updated>2024-11-14T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[나만의 블로그를 기획하고 개발해보자]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[블로그 개발 일지 No.2]]></title>
+        <id>http://localhost:3000/dev/20241120-make-blog2</id>
+        <link href="http://localhost:3000/dev/20241120-make-blog2"/>
+        <updated>2024-11-19T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Tailwind CSS를 사용해서 다크 모드 구현하기, MDX 파일 렌더링하기]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[프로그래머스 Lv.2 풀이 (Feat. Javascript)]]></title>
+        <id>http://localhost:3000/dev/20241124-programers-lv2</id>
+        <link href="http://localhost:3000/dev/20241124-programers-lv2"/>
+        <updated>2024-11-23T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[프로그래머스 Lv.2 정답률 6~70대 문제 Javascript 풀이]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[React Hook 톺아보기 useState(2)]]></title>
+        <id>http://localhost:3000/dev/20241015-react-useState</id>
+        <link href="http://localhost:3000/dev/20241015-react-useState"/>
+        <updated>2024-11-25T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[React Hook useState의 코드를 보며 react의 동작원리에 대해 이해하자]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[블로그 개발 일지 No.3]]></title>
+        <id>http://localhost:3000/dev/20241128-make-blog3</id>
+        <link href="http://localhost:3000/dev/20241128-make-blog3"/>
+        <updated>2024-12-08T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[블로그를 웹 성능 최적화를 해보자]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[프로그래머스 데브코스 FE 2차 팀 프로젝트 회고]]></title>
+        <id>http://localhost:3000/dev/20241229-devteam2</id>
+        <link href="http://localhost:3000/dev/20241229-devteam2"/>
+        <updated>2024-12-28T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[오픈 API를 활용한 검색 웹 사이트 제작 프로젝트]]></summary>
+    </entry>
+</feed>

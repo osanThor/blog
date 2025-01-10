@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Given's log</title>
+        <link>undefined</link>
+        <description>FE 개발자 준영의 개발 및 일상 일지</description>
+        <lastBuildDate>Fri, 10 Jan 2025 03:45:40 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>RSS for Node and Next.js</generator>
+        <language>ko-KR</language>
+        <ttl>60</ttl>
+        <copyright>Copyright 2025</copyright>
+        <item>
+            <title><![CDATA[강원도 홍천 캠핑]]></title>
+            <link>http://localhost:3000/life/202305-hc-camp</link>
+            <guid>http://localhost:3000/life/202305-hc-camp</guid>
+            <pubDate>Tue, 23 May 2023 15:00:00 GMT</pubDate>
+            <description><![CDATA[힐링하고 왔당]]></description>
+        </item>
+        <item>
+            <title><![CDATA[11월 회고록]]></title>
+            <link>http://localhost:3000/life/20241130-memoir</link>
+            <guid>http://localhost:3000/life/20241130-memoir</guid>
+            <pubDate>Fri, 29 Nov 2024 15:00:00 GMT</pubDate>
+            <description><![CDATA[2024년 11월 회고록]]></description>
+        </item>
+        <item>
+            <title><![CDATA[다사다난했던 2024년을 보내며]]></title>
+            <link>http://localhost:3000/life/20241231-goodbye2024</link>
+            <guid>http://localhost:3000/life/20241231-goodbye2024</guid>
+            <pubDate>Mon, 30 Dec 2024 15:00:00 GMT</pubDate>
+            <description><![CDATA[2024년 12월 회고록]]></description>
+        </item>
+        <item>
+            <title><![CDATA[window crypto]]></title>
+            <link>http://localhost:3000/dev/202305-crypto</link>
+            <guid>http://localhost:3000/dev/202305-crypto</guid>
+            <pubDate>Tue, 30 May 2023 15:00:00 GMT</pubDate>
+            <description><![CDATA[Oauth2 구현 시 고려]]></description>
+        </item>
+        <item>
+            <title><![CDATA[mouse, touch 이벤트로 FlipBook 이벤트]]></title>
+            <link>http://localhost:3000/dev/202305-flipbook</link>
+            <guid>http://localhost:3000/dev/202305-flipbook</guid>
+            <pubDate>Mon, 15 May 2023 15:00:00 GMT</pubDate>
+            <description><![CDATA[react-pageFlip eventHandler]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Next13에서 react-query 사용]]></title>
+            <link>http://localhost:3000/dev/202305-next-react-query</link>
+            <guid>http://localhost:3000/dev/202305-next-react-query</guid>
+            <pubDate>Tue, 16 May 2023 15:00:00 GMT</pubDate>
+            <description><![CDATA[클라이언트 컴포넌트에서 provider 만들기]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Next13 렌더링 방식]]></title>
+            <link>http://localhost:3000/dev/202305-next13-rendering</link>
+            <guid>http://localhost:3000/dev/202305-next13-rendering</guid>
+            <pubDate>Tue, 02 May 2023 15:00:00 GMT</pubDate>
+            <description><![CDATA[첫 블로그 포스팅, Next 13버전 렌더링 방식 정리]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Next13+ Routes]]></title>
+            <link>http://localhost:3000/dev/202305-next13-routes</link>
+            <guid>http://localhost:3000/dev/202305-next13-routes</guid>
+            <pubDate>Thu, 04 May 2023 15:00:00 GMT</pubDate>
+            <description><![CDATA[next 13 app derectory dynamic routes]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Next13 build 배포 에러 수정]]></title>
+            <link>http://localhost:3000/dev/202305-nextbuild-error</link>
+            <guid>http://localhost:3000/dev/202305-nextbuild-error</guid>
+            <pubDate>Thu, 25 May 2023 15:00:00 GMT</pubDate>
+            <description><![CDATA[에러 수정]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Nodemailer 오류 해결]]></title>
+            <link>http://localhost:3000/dev/202305-nodemailer-error</link>
+            <guid>http://localhost:3000/dev/202305-nodemailer-error</guid>
+            <pubDate>Sun, 14 May 2023 15:00:00 GMT</pubDate>
+            <description><![CDATA[오류 해결]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Nest.js를 사용해서 User Service 만들기]]></title>
+            <link>http://localhost:3000/dev/202308-next-user-serviuce</link>
+            <guid>http://localhost:3000/dev/202308-next-user-serviuce</guid>
+            <pubDate>Sat, 05 Aug 2023 15:00:00 GMT</pubDate>
+            <description><![CDATA[해야할 일 정리]]></description>
+        </item>
+        <item>
+            <title><![CDATA[2024-03-12 TIL]]></title>
+            <link>http://localhost:3000/dev/202403-TIL</link>
+            <guid>http://localhost:3000/dev/202403-TIL</guid>
+            <pubDate>Mon, 11 Mar 2024 15:00:00 GMT</pubDate>
+            <description><![CDATA[TIL]]></description>
+        </item>
+        <item>
+            <title><![CDATA[AWS(EC2,Route 53) 과 NginX로 Next 배포하기]]></title>
+            <link>http://localhost:3000/dev/202403-aws-ec2-next-deploy</link>
+            <guid>http://localhost:3000/dev/202403-aws-ec2-next-deploy</guid>
+            <pubDate>Tue, 12 Mar 2024 15:00:00 GMT</pubDate>
+            <description><![CDATA[AWS(EC2,Route 53) 과 NginX로 Next 배포하기]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Safe area(CSS)]]></title>
+            <link>http://localhost:3000/dev/202404-safe-area-css</link>
+            <guid>http://localhost:3000/dev/202404-safe-area-css</guid>
+            <pubDate>Tue, 23 Apr 2024 15:00:00 GMT</pubDate>
+            <description><![CDATA[IOS 모바일 환경에서 생기는 Safe Area 대처]]></description>
+        </item>
+        <item>
+            <title><![CDATA[React Hook 톺아보기 useState(1)]]></title>
+            <link>http://localhost:3000/dev/20241015-react-useState</link>
+            <guid>http://localhost:3000/dev/20241015-react-useState</guid>
+            <pubDate>Mon, 14 Oct 2024 15:00:00 GMT</pubDate>
+            <description><![CDATA[React Hook useState의 코드를 보며 react의 동작원리에 대해 이해하자]]></description>
+        </item>
+        <item>
+            <title><![CDATA[블로그 개발 일지 No.1]]></title>
+            <link>http://localhost:3000/dev/20241115-make-blog</link>
+            <guid>http://localhost:3000/dev/20241115-make-blog</guid>
+            <pubDate>Thu, 14 Nov 2024 15:00:00 GMT</pubDate>
+            <description><![CDATA[나만의 블로그를 기획하고 개발해보자]]></description>
+        </item>
+        <item>
+            <title><![CDATA[블로그 개발 일지 No.2]]></title>
+            <link>http://localhost:3000/dev/20241120-make-blog2</link>
+            <guid>http://localhost:3000/dev/20241120-make-blog2</guid>
+            <pubDate>Tue, 19 Nov 2024 15:00:00 GMT</pubDate>
+            <description><![CDATA[Tailwind CSS를 사용해서 다크 모드 구현하기, MDX 파일 렌더링하기]]></description>
+        </item>
+        <item>
+            <title><![CDATA[프로그래머스 Lv.2 풀이 (Feat. Javascript)]]></title>
+            <link>http://localhost:3000/dev/20241124-programers-lv2</link>
+            <guid>http://localhost:3000/dev/20241124-programers-lv2</guid>
+            <pubDate>Sat, 23 Nov 2024 15:00:00 GMT</pubDate>
+            <description><![CDATA[프로그래머스 Lv.2 정답률 6~70대 문제 Javascript 풀이]]></description>
+        </item>
+        <item>
+            <title><![CDATA[React Hook 톺아보기 useState(2)]]></title>
+            <link>http://localhost:3000/dev/20241015-react-useState</link>
+            <guid>http://localhost:3000/dev/20241015-react-useState</guid>
+            <pubDate>Mon, 25 Nov 2024 15:00:00 GMT</pubDate>
+            <description><![CDATA[React Hook useState의 코드를 보며 react의 동작원리에 대해 이해하자]]></description>
+        </item>
+        <item>
+            <title><![CDATA[블로그 개발 일지 No.3]]></title>
+            <link>http://localhost:3000/dev/20241128-make-blog3</link>
+            <guid>http://localhost:3000/dev/20241128-make-blog3</guid>
+            <pubDate>Sun, 08 Dec 2024 15:00:00 GMT</pubDate>
+            <description><![CDATA[블로그를 웹 성능 최적화를 해보자]]></description>
+        </item>
+        <item>
+            <title><![CDATA[프로그래머스 데브코스 FE 2차 팀 프로젝트 회고]]></title>
+            <link>http://localhost:3000/dev/20241229-devteam2</link>
+            <guid>http://localhost:3000/dev/20241229-devteam2</guid>
+            <pubDate>Sat, 28 Dec 2024 15:00:00 GMT</pubDate>
+            <description><![CDATA[오픈 API를 활용한 검색 웹 사이트 제작 프로젝트]]></description>
+        </item>
+    </channel>
+</rss>
