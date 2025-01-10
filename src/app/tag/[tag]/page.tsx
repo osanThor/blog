@@ -25,8 +25,6 @@ export default async function PostsByTagsPage({ params }: Props) {
   const tags = getAllTags();
   const list = getPostsByTag(convertedTag);
 
-  console.log(tag, convertedTag, tags);
-
   return (
     <>
       <div className="w-full flex items-center justify-center pt-6 h-[84px] mb-10">
