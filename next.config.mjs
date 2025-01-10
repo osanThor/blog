@@ -1,11 +1,6 @@
 import withPlaiceholder from "@plaiceholder/next";
 import withBundleAnalyzer from "@next/bundle-analyzer";
 
-const prefix =
-  process.env.NODE_ENV === "production"
-    ? "https://osanThor.github.io/blog/"
-    : "";
-
 const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
@@ -46,4 +41,5 @@ const config = {
     return config;
   },
 };
+
 export default bundleAnalyzer(withPlaiceholder(config));
