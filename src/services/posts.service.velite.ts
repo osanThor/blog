@@ -2,11 +2,37 @@ import { posts, Post } from "#site/content";
 import makeCountObj from "@/utils/makeCountObj";
 import { cache } from "react";
 
+interface PaginatedResult<T> {
+  data: T[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+}
+
+const paginate = <T>(
+  items: T[],
+  page: number = 1,
+  pageSize: number = 10
+): PaginatedResult<T> => {
+  const total = items.length;
+  const totalPages = Math.ceil(total / pageSize);
+  const offset = (page - 1) * pageSize;
+  const data = items.slice(offset, offset + pageSize);
+
+  return { data, total, page, pageSize, totalPages };
+};
+
 export const getAllPosts = cache((): Post[] => {
   return posts
     .filter((post) => !post.draft)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 });
+
+export const getPostsPaginated = (
+  page: number = 1,
+  pageSize: number = 10
+): PaginatedResult<Post> => paginate(getAllPosts(), page, pageSize);
 
 export const getPost = (href: string): Post | undefined =>
   posts.find((post) => post.href === href);
