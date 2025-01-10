@@ -2,11 +2,10 @@
 
 import ThemeToggle from "@/components/common/ThemeToggle";
 import useDebounce from "@/hooks/debounde";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-function HeaderSearchContainer() {
-  const searchParams = useSearchParams();
+export default function HeaderSearchContainer() {
   const pathname = usePathname();
   const router = useRouter();
   const [value, setValue] = useState("");
@@ -16,27 +15,18 @@ function HeaderSearchContainer() {
     if (!pathname.startsWith("/search")) router.push("/search");
   };
 
-  const handleMove = (value: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (value.trim()) {
-      params.set("query", value.trim());
-    } else {
-      params.delete("query");
-    }
-    router.replace(`/search?${params.toString()}`);
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    handleMove(value);
+    if (value.trim()) router.replace(`/search?query=${value.trim()}`);
   };
 
   useEffect(() => {
-    if (pathname.startsWith("/search")) handleMove(debouncedValue);
+    if (pathname.startsWith("/search"))
+      router.replace(`/search?query=${debouncedValue}`);
   }, [debouncedValue]);
 
   useEffect(() => {
@@ -61,5 +51,3 @@ function HeaderSearchContainer() {
     </div>
   );
 }
-
-export default React.memo(HeaderSearchContainer);
