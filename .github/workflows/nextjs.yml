@@ -75,6 +75,16 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        env:
+          NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+          NEXT_PUBLIC_DATA_REPO: ${{ secrets.NEXT_PUBLIC_DATA_REPO }}
+          NEXT_PUBLIC_DATA_REPO_ID: ${{ secrets.NEXT_PUBLIC_DATA_REPO_ID }}
+          NEXT_PUBLIC_DATA_CATEGORY: ${{ secrets.NEXT_PUBLIC_DATA_CATEGORY }}
+          NEXT_PUBLIC_DATA_CATEGORY_ID: ${{ secrets.NEXT_PUBLIC_DATA_CATEGORY_ID }}
+          NAVER_SITE_VERIFICATION: ${{ secrets.NAVER_SITE_VERIFICATION }}
+          GOOGLE_SITE_VERIFICATION: ${{ secrets.GOOGLE_SITE_VERIFICATION }}
+          NEXT_PUBLIC_GOOGLE_ANALYTICS: ${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
