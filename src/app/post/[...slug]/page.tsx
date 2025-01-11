@@ -66,7 +66,7 @@ export default async function PostDetailPage({ params }: Props) {
       <div className="w-full flex gap-[5%]">
         <article className="w-full md:w-[70%] max-w-full flex-1 mb-7 ">
           <PostContentsContainer data={data} />
-          <div id="viewer" className="text-pretty ">
+          <div id="viewer" className="text-pretty">
             <MDXContent code={data.content} />
           </div>
         </article>

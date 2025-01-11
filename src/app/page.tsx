@@ -24,7 +24,7 @@ export default async function Home(props: Props) {
 
   return (
     <>
-      <section className="w-full flex flex-col items-center gap-10">
+      <section className="w-full flex flex-col items-center gap-4 sm:gap-10">
         <Signboard />
         <TagsListContainer tags={tags} />
       </section>

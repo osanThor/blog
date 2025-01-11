@@ -15,7 +15,10 @@ export default function Signboard() {
   );
 
   return (
-    <h1 ref={HeaderRef} className="max-w-[calc(100%-32px)] h-[84px]">
+    <h1
+      ref={HeaderRef}
+      className="max-w-[calc(100%-84px)] xs:max-w-[calc(100%-180px)] h-[84px]"
+    >
       <Image
         className="dark:invert object-cover"
         src="/logo.svg"

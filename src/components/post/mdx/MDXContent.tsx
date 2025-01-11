@@ -49,7 +49,7 @@ const sharedComponents = {
       </SyntaxHighlighter>
     ) : (
       <code
-        className="bg-neutral-500 text-yellow-300 px-2 py-[3px] rounded text-sm relative -translate-y-[2px]"
+        className="bg-neutral-500 text-yellow-300 px-2 py-[3px] rounded text-sm relative -translate-y-[2px] break-words whitespace-pre-wrap"
         {...props}
       >
         {children}

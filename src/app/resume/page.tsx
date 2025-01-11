@@ -12,7 +12,7 @@ export default function ResumePage() {
     <>
       <BigTitle text="👋 FE Developer" />
       <div className="my-10 h-full flex flex-col items-center justify-center">
-        <div className="flex flex-col md:flex-row gap-7 items-center">
+        <div className="flex flex-col md:flex-row gap-7 items-center md:border-b border-neutral-300 dark:border-neutral-500">
           <Image
             src={"/me2.png"}
             alt="it's me"

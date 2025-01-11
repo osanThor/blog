@@ -18,14 +18,14 @@ export default function TagsListContainer({ currentTag, tags }: Props) {
 
   return (
     <div className="w-full flex items-center justify-center border-t border-b border-neutral-300 dark:border-neutral-500">
-      <ul className="w-[calc(100%-32px)] max-w-[600px] py-4 flex items-center justify-center gap-4 flex-wrap transition-all duration-200">
+      <ul className="w-[calc(100%-32px)] max-w-[600px] py-4 flex items-center justify-center gap-2 md:gap-4 flex-wrap transition-all duration-200">
         {visibleTags.map((tag) => (
           <li key={`${tag.name}`}>
             <Link
               href={`/tag/${tag.name.replaceAll(" ", "-")}`}
               className={`${
                 currentTag === tag.name ? "font-bold" : "font-medium"
-              } hover:underline relative`}
+              } text-sm md:text-base hover:underline relative`}
             >
               {tag.name}
               <sup>({tag.count})</sup>

@@ -33,6 +33,9 @@ export default {
         pretendard: ["var(--font-pretendard)"],
         imperialScript: ["var(--font-imperialScript)"],
       },
+      screens: {
+        xs: "440px",
+      },
     },
   },
   plugins: [require("tailwindcss-content-visibility")],
