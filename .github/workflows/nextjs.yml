@@ -5,9 +5,8 @@ on:
       - main
 
 env:
-  S3_BUCKET_NAME: til-web
-  CODE_DEPLOY_APPLICATION_NAME: til_web
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: til_fe_dev
+  S3_BUCKET_NAME: given-myworksbucket
+  CODE_DEPLOY_APPLICATION_NAME: given-log
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -47,11 +46,11 @@ jobs:
 
       - name: zip create
         run: |
-          zip -qq -r --symlinks  ./til-dev.zip .
+          zip -qq -r --symlinks  ./given-log.zip .
         shell: bash
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v3-node20
+        uses: aws-actions/configure-aws-credentials@v1-node16
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -59,12 +58,11 @@ jobs:
 
       - name: Upload to S3
         run: |
-          aws s3 cp --region ap-northeast-2 ./til-dev.zip s3://given-myworksbucket/til-dev.zip
+          aws s3 cp --region ap-northeast-2 ./given-log.zip s3://$S3_BUCKET_NAME/given-log.zip
 
       - name: Deploy For Development
         run: |
           aws deploy create-deployment \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
-          --s3-location bucket=given-myworksbucket,key=til-dev.zip,bundleType=zip
+          --s3-location bucket=$S3_BUCKET_NAME,key=given-log.zip,bundleType=zip
