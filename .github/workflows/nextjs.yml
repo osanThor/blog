@@ -21,7 +21,7 @@ jobs:
         mkdir -p ~/.ssh
         echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        echo "StrictHostKeyChecking no" >> ~/.ssh/config
+        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
     # 3. 애플리케이션 배포
     - name: Deploy to EC2
