@@ -5,7 +5,7 @@ REPOSITORY_PROD=/home/ubuntu/deploy
 
 echo "DEPLOYMENT_GROUP_NAME: ${DEPLOYMENT_GROUP_NAME}"
 
-if [ "${DEPLOYMENT_GROUP_NAME}" == "given-log" ]; then
+if [ "${DEPLOYMENT_GROUP_NAME}" == "given" ]; then
   echo "운영 서버 배포"
   cd "${REPOSITORY_PROD}"
   
@@ -21,7 +21,7 @@ if [ "${DEPLOYMENT_GROUP_NAME}" == "given-log" ]; then
   	echo "given-log 프로세스가 실행되지 않았습니다."
 	  sudo npm run pm2:start:prod
   fi
-elif [ "${DEPLOYMENT_GROUP_NAME}" == "til_fe_dev" ]; then
+elif [ "${DEPLOYMENT_GROUP_NAME}" == "given_dev" ]; then
   echo "개발 서버 배포"
   cd "${REPOSITORY}"
   sudo npm install
