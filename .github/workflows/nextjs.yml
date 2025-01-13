@@ -29,11 +29,11 @@ jobs:
 
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install
+        run: yarn
 
       - name: Build
         run: |
-          npm run build
+          yarn build
         env:
           NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
           NEXT_PUBLIC_DATA_REPO: ${{ secrets.NEXT_PUBLIC_DATA_REPO }}
