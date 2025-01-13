@@ -1,0 +1,35 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy Application
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. 리포지토리 체크아웃
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 2. SSH 키 설정
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        echo "StrictHostKeyChecking no" >> ~/.ssh/config
+
+    # 3. 애플리케이션 배포
+    - name: Deploy to EC2
+      run: |
+        ssh ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+        cd /path/to/your/app
+        git pull origin main
+        yarn install
+        yarn build
+        pm2 restart all
+        EOF
