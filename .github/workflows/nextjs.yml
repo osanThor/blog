@@ -66,5 +66,5 @@ jobs:
           aws deploy create-deployment \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \ # AWS의 Code Deploy 애플리케이션의 배포 그룹 이름.
+          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
           --s3-location bucket=$S3_BUCKET_NAME,key=given-log.zip,bundleType=zip
