@@ -2,7 +2,7 @@ name: Deploy
 on:
   push:
     branches:
-      - develop
+      - main
 
 env:
   S3_BUCKET_NAME: til-web
@@ -10,7 +10,6 @@ env:
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: til_fe_dev
 jobs:
   build:
-    environment: develop
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code.
