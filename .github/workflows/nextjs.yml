@@ -7,7 +7,7 @@ on:
 env:
   S3_BUCKET_NAME: given-myworksbucket
   CODE_DEPLOY_APPLICATION_NAME: given
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: given-log
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: given
 jobs:
   build:
     runs-on: ubuntu-latest
