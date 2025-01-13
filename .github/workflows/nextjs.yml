@@ -59,7 +59,7 @@ jobs:
 
       - name: Upload to S3
         run: |
-          aws s3 cp --region ap-northeast-2 ./given-log.zip s3://$S3_BUCKET_NAME/given-log.zip
+          aws s3 cp --region ap-northeast-2 ./given-log.zip s3://$S3_BUCKET_NAME/
 
       - name: Deploy For Development
         run: |
