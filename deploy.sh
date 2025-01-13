@@ -1,7 +1,7 @@
 #!/bin/bash
 
-REPOSITORY=/home/ubuntu/deploy
-REPOSITORY_PROD=/home/ubuntu/deploy
+REPOSITORY=/home/ubuntu/blog
+REPOSITORY_PROD=/home/ubuntu/blog
 
 echo "DEPLOYMENT_GROUP_NAME: ${DEPLOYMENT_GROUP_NAME}"
 
