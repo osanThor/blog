@@ -1,35 +1,71 @@
-name: Deploy to EC2
-
+name: Deploy
 on:
   push:
     branches:
-      - main
+      - develop
 
+env:
+  S3_BUCKET_NAME: til-web
+  CODE_DEPLOY_APPLICATION_NAME: til_web
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: til_fe_dev
 jobs:
-  deploy:
-    name: Deploy Application
+  build:
+    environment: develop
     runs-on: ubuntu-latest
-
     steps:
-    # 1. 리포지토리 체크아웃
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout source code.
+        uses: actions/checkout@v3
 
-    # 2. SSH 키 설정
-    - name: Setup SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+      - name: Check Node v
+        run: node -v
 
-    # 3. 애플리케이션 배포
-    - name: Deploy to EC2
-      run: |
-        ssh ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
-        cd /path/to/your/app
-        git pull origin main
-        yarn install
-        yarn build
-        pm2 restart all
-        EOF
+      - name: Cache node modules
+        uses: actions/cache@v3
+        id: cache
+        with:
+          # node_modules라는 폴더를 검사하여
+          path: node_modules
+          # 아래 키값으로 cache가 돼있는지 확인합니다.
+          key: npm-packages-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Build
+        run: |
+          npm run build
+        env:
+          NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+          NEXT_PUBLIC_DATA_REPO: ${{ secrets.NEXT_PUBLIC_DATA_REPO }}
+          NEXT_PUBLIC_DATA_REPO_ID: ${{ secrets.NEXT_PUBLIC_DATA_REPO_ID }}
+          NEXT_PUBLIC_DATA_CATEGORY: ${{ secrets.NEXT_PUBLIC_DATA_CATEGORY }}
+          NEXT_PUBLIC_DATA_CATEGORY_ID: ${{ secrets.NEXT_PUBLIC_DATA_CATEGORY_ID }}
+          NAVER_SITE_VERIFICATION: ${{ secrets.NAVER_SITE_VERIFICATION }}
+          GOOGLE_SITE_VERIFICATION: ${{ secrets.GOOGLE_SITE_VERIFICATION }}
+          NEXT_PUBLIC_GOOGLE_ANALYTICS: ${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+
+      - name: zip create
+        run: |
+          zip -qq -r --symlinks  ./til-dev.zip .
+        shell: bash
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Upload to S3
+        run: |
+          aws s3 cp --region ap-northeast-2 ./til-dev.zip s3://$S3_BUCKET_NAME/til-dev.zip
+
+      - name: Deploy For Development
+        run: |
+          aws deploy create-deployment \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+          --s3-location bucket=$S3_BUCKET_NAME,key=til-dev.zip,bundleType=zip
