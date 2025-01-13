@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code.
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Check Node v
         run: node -v
@@ -47,11 +47,11 @@ jobs:
 
       - name: zip create
         run: |
-          zip -qq -r --symlinks  ./given-log.zip .
+          zip -qq -r ./given-log.zip ./.next/ ./appspec.yml ./deploy.sh
         shell: bash
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v3
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
@@ -59,12 +59,12 @@ jobs:
 
       - name: Upload to S3
         run: |
-          aws s3 cp --region ap-northeast-2 ./given-log.zip s3://$S3_BUCKET_NAME/
+          aws s3 cp --region ap-northeast-2 ./given-log.zip s3://$S3_BUCKET_NAME/given-log.zip
 
       - name: Deploy For Development
         run: |
-          aws deploy create-deployment \
-          --deployment-config-name CodeDeployDefault.AllAtOnce \
-          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+          aws deploy create-deployment 
+          --deployment-config-name CodeDeployDefault.AllAtOnce 
+          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} 
+          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} 
           --s3-location bucket=$S3_BUCKET_NAME,key=given-log.zip,bundleType=zip

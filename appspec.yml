@@ -6,11 +6,11 @@ files:
     overwrite: yes
 permissions:
   - object: /home/ubuntu/blog
-    owner: ubuntu
-    group: ubuntu
+    owner: root
+    group: root
     mode: 755
 hooks:
   ApplicationStart:
     - location: deploy.sh
       timeout: 500
-      runas: ubuntu
+      runas: root

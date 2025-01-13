@@ -1,17 +1,17 @@
 module.exports = {
   apps: [
     {
-      /* 개발 환경용 서버 */
-      name: "given", // pm2 이름
-      cwd: "./", // 경로
-      script: "npm",
-      args: "run start:dev", // package.json 명령어 실행
-      instances: 1, // 단일 쓰레드
-      autorestart: false,
-      watch: false,
+      name: "blog",
+      cwd: "./",
+      script: "node_modules/next/dist/bin/next",
+      args: "start",
+      exec_mode: "cluster",
+      instances: 0,
+      autorestart: true,
+      listen_timeout: 50000,
+      kill_timeout: 5000,
       env: {
-        Server_PORT: 3000,
-        NODE_ENV: "development",
+        PORT: 3000,
       },
     },
   ],
