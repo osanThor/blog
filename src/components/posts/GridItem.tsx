@@ -14,13 +14,13 @@ export default function GridItem({ item }: Props) {
         className="flex flex-col transition-all flex-grow"
       >
         {!!item.cover && (
-          <div className="overflow-hidden h-[100vw] max-h-[300px] sm:max-h-[230px] lg:max-h-[210px] rounded-lg mb-2 relative">
+          <div className="overflow-hidden rounded-lg mb-2 relative">
             <Img
-              className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200"
+              className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200 aspect-[5/3]"
               src={item.cover}
               alt={`cover-of-${item.title}`}
-              fill
-              sizes={"350px"}
+              width={350}
+              height={220}
               placeholder="blur"
               blurDataURL={item.blurDataURL}
             />
