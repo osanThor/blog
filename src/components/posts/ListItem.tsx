@@ -30,9 +30,9 @@ export default function ListItem({ item }: Props) {
             </span>
           </div>
         </div>
-        <div className="overflow-hidden w-full max-w-[12vw] min-w-[30%] max-h-[140px] rounded-lg mb-2 relative flex items-center justify-center">
+        <div className="overflow-hidden w-full max-w-[12vw] min-w-[30%] max-h-[140px] rounded-lg relative flex items-center justify-center">
           <Img
-            className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200 rounded-lg"
+            className="object-cover w-full group-hover:scale-[1.1] transition-all duration-200 rounded-lg aspect-[5/3]"
             src={item.cover}
             alt={`cover-of-${item.title}`}
             width={220}
