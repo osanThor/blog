@@ -1,0 +1,297 @@
+---
+title: Vue에서 Next로 마이그레이션
+tags:
+  - Next
+  - Seo
+description: "Vue 프로젝트 콤마를 Next로 마이그레이션 해보자"
+date: 2025.02.17
+cover: "/posts/dev/20250217-comma/cover.jpg"
+href: "20250217-comma"
+category: dev
+featured: true
+draft: false
+---
+
+<Blockquote type="warn">
+  이런 **회고록**이나 **개발일지**는 문어체가 아닌 격식체로 작성하려고 합니다.
+  <br /> 안지키고 있으면 댓글로 혼내주세요..
+</Blockquote>
+
+<Heading type="h2">3차 팀 프로젝트 - Comma</Heading>
+
+<Heading type="h3">프로젝트 들어가기 전에</Heading>
+
+프로그래머스 데브코스 팀 프로젝트도 어느덧 3차에 이르렀고, 새로운 팀에서 팀장을 맡게 되었습니다. 팀원들이 그만큼 저를 믿어준다고 생각해 책임감을 갖고
+프로젝트를 잘 이끌어가야겠다고 다짐했습니다. 이번에도 역시 프로그래머스에서 api를 제공해준다고 했지만 필수는 아니라는 새로운 조건이 붙었습니다. 저희 팀은
+불안전하고 확정성도 떨어지며 시간이 지나면 사라지는 오픈 api보다 저희가 직접 DB의 오너가 되어 쿼리를 커스텀 할 수 있는 `CMS`를 찾기로 했고 **Supabase**가 적합하다 판단해 기술 스택으로 선택했습니다.
+
+<Blockquote type="info">1등 가즈아~!</Blockquote>
+
+<Heading type="h3">프로젝트 기획</Heading>
+
+협업은 크게 **슬렉**과 **노션**에서 정보와 진행사항을 공유하기로 하고 디자인 및 기획은 **피그마**, 그리고 회의는 [ZEP](https://zep.us/home/spaces)에서 진행하기로 했습니다.
+
+프로젝트에 들어가면서 저희는 다양한 주제를 이야기해보면서 프로젝트의 주제를 정하기로 했습니다.
+
+![나왔던 주제들](/posts/dev/20250204-devteam3/1.png)
+
+다양한 좋은 주제들이 나왔고 투표를 통해 감사하게도 제가 선정한 **게임 플랫폼**을 주제로 결정하게 되었습니다.
+
+<Heading type="h4">📚 프로젝트 주제</Heading>
+
+저희는 **오락실**, **레트로**를 키워드로 주제와 컨셉을 디테일하게 잡아나가기 시작했고,
+
+![주제회의](/posts/dev/20250204-devteam3/2.png)
+![슬로건](/posts/dev/20250204-devteam3/3.png)
+
+<Blockquote type="info">추억을 깨우는 쉼표!</Blockquote>
+
+바쁜 현대인들에게 잠깐의 여유를 제공하고 어린 시절 오락실의 감성을 되살릴 수 있는 공간이 있다면 어떨까?에서
+쉼표라는 힌트를 얻고 추억을 깨우는 즐거운 쉼표라는 뜻에서 **콤마**(**COMMA**)라고 이름짓게 되었습니다.
+
+<Heading type="h4">✨ 프로젝트 기능</Heading>
+
+![페이지구현목록](/posts/dev/20250204-devteam3/4.png)
+
+필요한 기능들을 페이지 별로 분리하고 역할분담 후 개발에 들어가도록 했습니다.
+
+<Heading type="h4">✏️ Git Convention</Heading>
+
+- 🚨 Fix: [수정 대상] - [수정 내용]
+- ✨ Feat: 새로운 기능 추가, 사용자 입장에서 변화가 있을 경우
+- 🎉 Init: 프로젝트 초기 생성
+- 📝 Chore: 그 외 자잘한 수정에 대한 커밋, 주석, 의존성 설치, 리드미 수정
+- 💄 Style: CSS, styled-component 스타일 관련 변경
+- 🔨 Refactor: 코드 리팩토링에 대한 커밋, 사용자 입장에서 변화가 없는 코드, 파일명 폴더명 변경 및 이동
+- 🗑️ Remove: 파일을 삭제하는 작업만 수행하는 경우
+- ♻️ Format: 코드 포맷팅 변경에 관련된 작업
+
+<Heading type="h4">🗓️ SPRINT</Heading>
+
+![sprint](/posts/dev/20250204-devteam3/5.png)
+
+<Heading type="h3">✨ 기능 구현</Heading>
+
+<Heading type="h4">Supabase 프로젝트 만들기</Heading>
+
+Supabase 기본 설정은 매우 간단했습니다. Firebase처럼 한글로 된 doc 페이지가 있는 것은 아니었지만 마찬가지로 Firebase는 **noSQL**로 관계형 데이터를 다루기 어렵지만
+강력한 **PostgreSQL** 기반으로 다양한 쿼리를 다룰수 있습니다.
+
+<Heading type="h4">ERD</Heading>
+
+![ERD](/posts/dev/20250204-devteam3/6.png)
+
+복잡한 테이블 구조는 아니지만 저희 프로젝트를 구현하는데는 충분한 구조입니다.
+위에서 언급했듯이 Firebase처럼 noSQL이 아니기 때문에 이정도로도 필요한 값을 join등으로 가져올 수 있었습니다.
+
+예를 들어, 포스트와 댓글에 좋아요 기능이 있는데 이에 각각의 카운트 수가 필요하다면 Firebase는 카운트 row를 따로 만들어 increase, decrease 해줘야하지만
+Supabase에서는 아래와 같이 간단한 SQL문만 작성해주면 간단하게 카운트를 가져올 수 있습니다.
+
+```sql
+CREATE OR REPLACE VIEW posts_with_counts AS
+SELECT
+    posts.*,
+    COUNT(DISTINCT likes.id) AS like_count,
+    COUNT(DISTINCT comments.id) AS comment_count
+FROM
+    posts
+LEFT JOIN
+    likes ON likes.post_id = posts.id
+LEFT JOIN
+    comments ON comments.post_id = posts.id
+GROUP BY
+    posts.id;
+```
+
+<Heading type="h4">실시간 데이터(Realtime data)</Heading>
+
+Supabase에서도 실시간으로 데이터를 불러올 수 있습니다.
+
+![sprint](/posts/dev/20250204-devteam3/7.png)
+
+코드를 뜯어보면 이렇습니다.
+
+```js
+return supabase
+  .channel("notifications") // 구독할 테이블
+  .on(
+    "postgres_changes", // Postgres 데이터 변경 사항을 감지
+    {
+      event: "*", // 모든 이벤트 (INSERT, UPDATE, DELETE)를 감지
+      schema: "public", // "public" 스키마에서 데이터 변경 사항을 감지
+      table: "notifications", // "notifications" 테이블을 대상으로 함
+      filter: `user_id=eq.${userId}`, // 특정 user_id에 해당하는 데이터만 감지
+    },
+    (payload) => {
+      callback(payload.new); // 변경된 데이터를 콜백 함수로 전달
+    }
+  )
+  .subscribe(); // 채널을 구독하여 변경 사항을 실시간으로 반영
+```
+
+<Heading type="h3">🎮 게임 개발</Heading>
+
+각자 다양한 게임을 맡았는데요. 저는 테트리스를 맡아서 진행했습니다.
+
+테트리스의 핵심 로직은 벽의 충돌 그리고 줄의 삭제 및 생성인데요. 코드로 보여 드리겠습니다.
+
+```js
+  valid(p) {
+    return p.shape.every((row, dy) => {
+      return row.every((value, dx) => {
+        let x = p.x + dx;
+        let y = p.y + dy;
+        return (
+          value === 0 || (this.isInsideWalls(x, y) && this.notOccupied(x, y))
+        );
+      });
+    });
+  }
+```
+
+위에 코드는 블록이 벽에 닿거나 다른 블록에 닿았는지 확인하는 로직으로
+2차원 배열을 순회 검사를 하며 충돌 여부를 확인하는 방식입니다.
+트리거는 블록의 이동, 회전, 낙하 시에 검사가 진행됩니다.
+
+```js
+clearLines(account, time, pointsSound) {
+    let lines = 0;
+
+    this.grid.forEach((row, y) => {
+      // 모든 값이 0보다 크다면 해당 줄은 꽉 찬 상태.
+      if (row.every((value) => value > 0)) {
+        lines++;
+
+        // 해당 줄을 제거.
+        this.grid.splice(y, 1);
+
+        // 맨 위에 0으로 채워진 새로운 줄 추가.
+        this.grid.unshift(Array(COLS).fill(0));
+      }
+    });
+
+    if (lines > 0) {
+      // 지운 줄의 개수와 현재 레벨을 기반으로 점수 계산.
+      account.score += this.getLinesClearedPoints(lines, account, pointsSound);
+      account.lines += lines;
+
+      // 다음 레벨에 도달했는지 확인
+      if (account.lines >= LINES_PER_LEVEL) {
+        // 다음 레벨로 이동
+        account.level++;
+
+        // 다음 레벨을 위한 줄 개수 초기화
+        account.lines -= LINES_PER_LEVEL;
+
+        // 게임 속도 증가
+        time.value.level = LEVEL[account.level];
+      }
+    }
+  }
+```
+
+<Heading type="h3">💄 코드 스타일</Heading>
+
+콤마(Comma)는 VUE 코드 스타일 가이드를 준수하여 개발하였습니다.
+
+<Heading type="h4">우선 순위 A - 필수</Heading>
+
+1. 멀티 워드 컴포넌트 이름
+
+```vue
+<template>
+  <main-card-section></main-card-section>
+  <main-game-community-section></main-game-community-section>
+  <main-community-section></main-community-section>
+  <base-footer></base-footer>
+</template>
+```
+
+2. 상세한 PROP 정의 사용
+
+![스크린샷 2025-02-04 오전 11 24 47](https://github.com/user-attachments/assets/20a4f424-e288-42f0-92ab-610353ef049b)
+
+3. V-for에 key 사용
+
+![스크린샷 2025-02-04 오전 11 25 41](https://github.com/user-attachments/assets/58b3ecab-5b66-4d4a-b21e-de4a655b1d92)
+
+<Heading type="h4">우선 순위 B - 강력히 권장</Heading>
+
+1. PROP 이름 대소문자 규칙
+
+![스크린샷 2025-02-04 오전 11 26 29](https://github.com/user-attachments/assets/72635d8e-0994-4b39-a7ed-8e25453437eb)
+
+2. 템플릿의 간단한 표현 규칙
+
+![스크린샷 2025-02-04 오전 11 26 47](https://github.com/user-attachments/assets/5f4c4572-2912-4047-9884-71337af6ddc7)
+
+<Heading type="h3">🔥 트러블 슈팅</Heading>
+
+<Heading type="h4">모니터 주사율에 따른 게임 속도 차이</Heading>
+
+**문제** <br/> 모니터 주사율(Hz)에 따라 게임 속도가 다르게 보이는 현상이 발생함. 프레임 기반 업데이트를 사용하여, 주사율이 높은 모니터에서 게임이 더 빠르게 실행됨.
+
+**원인** <br/> 프레임 기반으로 게임 로직이 실행될 경우, 초당 프레임 수(Frame Rate)에 따라 업데이트 횟수가 달라짐.
+예를 들어, 60Hz 모니터에서는 1초에 60번 업데이트되지만, 144Hz 모니터에서는 144번 업데이트되어 속도가 증가
+
+**해결** <br/> **Delta Time**을 사용한 시간 기반 업데이트
+**Delta Time**은 각 프레임 사이의 시간 간격을 측정하여, 이 값을 바탕으로 게임 오브젝트의 이동 속도나 애니메이션 속도를 보정하는 방식이다.
+
+**수정된 로직** <br/>
+`requestAnimationFrame`의 `timestamp` 값을 활용해 이전 프레임과 현재 프레임 사이의 시간 차이를 계산
+게임 오브젝트 이동 속도(`speed * deltaTime`)를 적용하여, 초당 일정한 속도로 움직이도록 보정
+
+```js
+let lastFrameTime = 0; // 이전 프레임의 시간 저장
+
+function main(timestamp) {
+  if (!lastFrameTime) lastFrameTime = timestamp;
+  const deltaTime = (timestamp - lastFrameTime) / 1000; // 밀리초 → 초로 변환
+  lastFrameTime = timestamp;
+
+  if (!Enemy.isGameOver) {
+    update(deltaTime);
+    render();
+    requestId.value = requestAnimationFrame(main);
+  } else {
+    stop();
+    stopAllMusic();
+    emits("open-game-over", score.value, currentTime.value);
+    cancelAnimationFrame(requestId.value);
+  }
+}
+```
+
+<Heading type="h3">⚡️ 결과물</Heading>
+
+정말 감사하게도 이번에 1등을 했습니다~! 모두 놀러오셔서 게임 한번 씩 해보고 가세요~🤓
+
+![Thumbnail](https://github.com/user-attachments/assets/b0a56a57-818f-4b4a-9b88-ae4729d90d02)
+
+- 프로젝트 기간 : 2025-01-13 ~ 2025-02-04
+- 배포 URL : https://comma-one.vercel.app/
+
+<Heading type="h3">🤓 회고</Heading>
+
+이번 회고는 **KPT 방식**을 작성했습니다.
+
+- **Keep**: React와 다른 방식을 Client를 구축하는 것이 재밌었습니다. Supabase를 처음 사용해 봤는데 프론트엔드 개발자가 개발을 경험해보기 정말 좋은 서비스라고 생각합니다.
+- **Probelm**: 처음해보는 게임 개발에서 좀 막혔습니다. 다행히 게임 관련 소스들이 많이 Vue로 마이그레이션 및 사이트 컨셉에 맞게 커스텀하는 과정에서 캔버스를 다루는 법을 익혀 유익했습니다.
+- **Try**: 좀더 발전시킬 방향이 있을지 검토해보고 React나 Next 등으로 마이그레이션을 도전해보는 것도 좋을 것 같습니다.
+
+<Blockquote type="info">
+  <b>참고 레퍼런스</b>
+  <ul>
+    <li>
+      <a href="https://ui.toast.com/weekly-pick/ko_20191216">
+        Toast UI - 모던 자바스크립트로 테트리스 만들기
+      </a>
+    </li>
+    <li>
+      <a href="https://michael-karen.medium.com/learning-modern-javascript-with-tetris-92d532bcd057">
+        Learning Modern JavaScript with Tetris
+      </a>
+    </li>
+
+  </ul>
+</Blockquote>

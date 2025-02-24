@@ -29,7 +29,7 @@ export default function PostContentsContainer({
     <div ref={ref} className="w-full">
       <div className="mb-10 overflow-hidden rounded-xl max-h-[500px] flex items-center justify-center">
         <Img
-          className="object-cover w-full"
+          className="object-cover w-full aspect-video"
           src={cover}
           alt={`${title}-cover`}
           width={img.width}
