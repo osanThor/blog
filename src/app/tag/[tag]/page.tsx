@@ -16,12 +16,12 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { tag } = await params;
-  return getMetadata({ title: `${decodeURI(tag).replaceAll("-", " ")} 태그` });
+  return getMetadata({ title: `${decodeURI(tag).replaceAll("_", " ")} 태그` });
 }
 
 export default async function PostsByTagsPage({ params }: Props) {
   const { tag } = await params;
-  const convertedTag = decodeURI(tag).replaceAll("-", " ");
+  const convertedTag = decodeURI(tag).replaceAll("_", " ");
   const tags = getAllTags();
   const list = getPostsByTag(convertedTag);
 

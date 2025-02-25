@@ -16,7 +16,7 @@ export default function Heading({ type, children, ...rest }: Props) {
     h4: "text-xl font-extrabold mt-4",
   }[type];
   const id =
-    content?.replaceAll(" ", "-") +
+    content?.replaceAll(" ", "_") +
       String(Math.ceil(Math.random() * 100) + 1) || "";
   return (
     <HeadingTag id={id} className={`${headingClass} group`} {...rest}>
