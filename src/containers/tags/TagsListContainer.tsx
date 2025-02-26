@@ -22,7 +22,7 @@ export default function TagsListContainer({ currentTag, tags }: Props) {
         {visibleTags.map((tag) => (
           <li key={`${tag.name}`}>
             <Link
-              href={`/tag/${tag.name.replaceAll(" ", "-")}`}
+              href={`/tag/${tag.name.replaceAll(" ", "_")}`}
               className={`${
                 currentTag === tag.name ? "font-bold" : "font-medium"
               } text-sm md:text-base hover:underline relative`}

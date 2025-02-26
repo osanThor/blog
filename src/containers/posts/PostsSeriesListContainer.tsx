@@ -36,7 +36,7 @@ export default function PostsSeriesListContainer({ list }: Props) {
                 className="group flex flex-col opacity-0"
               >
                 <Link
-                  href={`/series/${item.name.replaceAll(" ", "-")}`}
+                  href={`/series/${item.name.replaceAll(" ", "_")}`}
                   className="flex flex-col transition-all flex-grow relative text-lg font-bold group-hover:underline"
                 >
                   {item.name}

@@ -15,7 +15,7 @@ export default function PostSeriesContainer({ series, title, list }: Props) {
       <div className="text-xl font-bold flex items-center gap-2 mb-5">
         시리즈
         <Link
-          href={`/series/${series.replaceAll(" ", "-")}`}
+          href={`/series/${series.replaceAll(" ", "_")}`}
           className="hover:underline"
         >
           {series}

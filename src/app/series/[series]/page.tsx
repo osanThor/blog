@@ -14,13 +14,13 @@ type Props = {
 export async function generateMetadata({ params }: Props) {
   const { series } = await params;
   return getMetadata({
-    title: `${decodeURI(series).replaceAll("-", " ")} 시리즈`,
+    title: `${decodeURI(series).replaceAll("_", " ")} 시리즈`,
   });
 }
 
 export default async function SeriesPage({ params }: Props) {
   const { series } = await params;
-  const convertedSeriesName = decodeURI(series).replaceAll("-", " ");
+  const convertedSeriesName = decodeURI(series).replaceAll("_", " ");
   const list = getSeries(convertedSeriesName);
 
   return (
