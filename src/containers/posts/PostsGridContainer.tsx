@@ -38,7 +38,7 @@ export default function PostsGridContainer({
             </ul>
             {totalPages > 1 && (
               <Suspense>
-                <Pagination total={total || list.length} />
+                <Pagination total={total || list.length} pageSize={12} />
               </Suspense>
             )}
           </>
