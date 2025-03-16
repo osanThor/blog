@@ -82,3 +82,463 @@ bun add next-auth@beta
 ```bash
 npx auth secret
 ```
+
+위와 같이 입력하면 자동으로 .env.local 파일과 환경변수가 설정됩니다!
+
+<Heading type="h3">3. 기본 설정</Heading>
+
+그 다음은 기본 설정입니다. app 폴더와 같은 레벨에 `auth.ts` 파일을 작성해 주세요. 이 파일에 기본적인 Next Auth 설정값들이 입력됩니다.
+
+```ts
+// ./auth.ts
+import NextAuth from "next-auth";
+
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  providers: [],
+});
+```
+
+다음으로 App Router에 Handler를 등록해줍니다.
+
+```ts
+// ./app/api/[...nextauth]/router.ts
+import { handlers } from "@/auth"; // Referring to the auth.ts we just created
+export const { GET, POST } = handlers;
+```
+
+세션을 활성화하기 위해 선택적으로 middleware에 추가해서 호출 때마다 세션을 업데이트할 수 있습니다.
+
+```ts
+// ./middleware.ts
+export { auth as middleware } from "@/auth";
+```
+
+auth 파일을 다시 한번 보겠습니다.
+
+반환되는 값 `handlers`, `signIn`, `signOut`, `auth`에서 `auth`는 위 설명과 같이 세션 정보를 불러올수 있는 비동기 함수입니다.
+그리고 나머지는 서버 액션으로 동작할 수 있습니다.
+
+```tsx
+import { signIn } from "@/auth";
+
+export function SignIn() {
+  return (
+    <form
+      action={async (formData) => {
+        "use server"; // use server 필요
+        await signIn("credentials", formData); // signIn(프로바이더, 옵션 값)
+      }}
+    >
+      <label>
+        Email
+        <input name="email" type="email" />
+      </label>
+      <label>
+        Password
+        <input name="password" type="password" />
+      </label>
+      <button>Sign In</button>
+    </form>
+  );
+}
+```
+
+안에 내용은 `providers` 외에는 옵션값입니다.
+
+- `providers`: Authentication 공급자를 입력합니다. 'credentials', 'kakao', 'google' 등
+- `session`: session 설정
+  ```ts
+  optional session: {
+  generateSessionToken: () => string; // 세션 생성 시 사용할 고유한 토큰을 생성하는 함수
+  maxAge: number;                    // 세션이 유지되는 최대 시간(초 단위), 이 시간이 지나면 세션이 만료됨
+  strategy: "jwt" | "database";      // 세션 관리 전략 설정, JWT 또는 데이터베이스 기반 선택
+  updateAge: number;                 // 세션이 만료되기 전에 주기적으로 세션을 갱신하는 시간(초 단위)
+  }
+  ```
+- `pages`: 사용자 커스텀 페이지 입력 가능
+  ```ts
+  // 기본 경로
+  pages: {
+    signIn: '/auth/signin',
+    signOut: '/auth/signout',
+    error: '/auth/error',
+    verifyRequest: '/auth/verify-request',
+    newUser: '/auth/new-user'
+  }
+  ```
+- `callbacks`: 인증 콜백함수들 핸들러
+
+  ```ts
+  callbacks: {
+  jwt: (params) => Awaitable<null | JWT>;
+  // JWT 토큰 생성 또는 업데이트 시 호출되는 콜백 (커스텀한 JWT 추가정보를 설정 가능)
+
+  redirect: (params) => Awaitable<string>;
+  // 로그인 또는 로그아웃 등 인증 후 리디렉션 될 URL을 지정하는 콜백
+
+  session: (params) => Awaitable<Session | DefaultSession>;
+  // 세션이 생성될 때 호출되어 세션 객체를 커스텀하거나 추가 정보를 넣을 수 있는 콜백
+
+  signIn: (params) => Awaitable<string | boolean>;
+  // 로그인 시 호출되며, 로그인 허용 여부(boolean) 또는 리디렉션할 URL(string)을 지정할 수 있는 콜백
+  } & {
+  authorized: (params) => any;
+  // 미들웨어 등에서 사용자 접근 권한을 검증할 때 호출되며, 요청된 접근이 허용되는지 여부를 결정하는 콜백
+  };
+  ```
+
+<Heading type="h2">Credential 로그인</Heading>
+
+일반 로그인을 구현해 봅시다.
+
+<Heading type="h3">로그인 구현</Heading>
+
+`providers`에 `Credentials`을 추가해줍니다.
+
+```ts
+import NextAuth, {CredentialsSignin} from "next-auth";
+
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  providers: [
+    Credentials({
+      credentials: {
+        id: { label: "id" }, // 로그인값 label과 type 정의, next-auth 제공 로그인창 사용시 placeholder 추가도 가능
+        password: { label: "password", type: "password" },
+      },
+      authorize: async (credentials) => {
+        const { id, password } = credentials;
+        try{
+          // 로그인 로직
+          const user = await login({
+            id: id as string,
+            password: password as string,
+          });
+
+          // 사용자 정보 반환
+          return user;
+        }catch(err){
+          // 에러 핸들링
+          throw new Error(err.message)
+        }
+      }
+    }),
+    // ...
+
+})
+
+```
+
+<Heading type="h3">로그인 구현 - View</Heading>
+
+View 단에서는 이렇게 처리해줍니다. 저는 `react-hook-form`을 사용했기에 server 액션을 사용할 수 없어 클라이언트 처리를 했습니다.
+
+```ts
+const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  try {
+    setLoading(true);
+    const { email, password, agree } = values;
+    const result = await signIn("credentials", {
+      id: email,
+      password,
+      redirect: false,
+    });
+    if (result) {
+      // 로그인 완료 처리
+    }
+  } catch (err) {
+    console.error(err);
+    toast(err as string);
+  } finally {
+    setLoading(false);
+  }
+};
+```
+
+<Heading type="h3">토큰 처리</Heading>
+
+서버에서 토큰 응답을 어떻게 했느냐에 따라 달라지겠지만 응답값 headers에 담아서 줬다는 가정에서 작성해보겠습니다.
+
+```ts
+// ./auth.ts
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  providers: [
+    Credentials({
+      // ...
+      authorize: async (credentials) => {
+        // ...
+        try{
+          // 로그인 로직
+          const res = await login({
+            id: id as string,
+            password: password as string,
+          });
+
+          const user = await res.json()
+          const accessToken = response.headers.get("authorization"); // 토큰 추출
+          // 사용자 정보 반환
+          return {
+            ...user,
+            accessToken // 토큰값 반환
+          };
+        }catch(err){
+          // 에러 핸들링
+        }
+      }
+    }),
+    // ...
+    callbacks: {
+      signIn: async () => {
+        return true
+      },
+      jwt: async ({ token, user }) => {
+        if (user && account) {
+          return { ...token, ...user };
+        }
+        return token
+      },
+      session: async ({ session, token }) => {
+        if (token.accessToken) {
+          session.accessToken = token.accessToken as string;
+        }
+        return session;
+      },
+    }
+})
+```
+
+`accessToken`은 Next-Auth에 정의되어 있지 않으므로 타입을 추가해줍니다.
+
+```ts
+// ./types/next-auth.d.ts
+
+import NextAuth, { DefaultSession } from "next-auth";
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      nickname: string;
+      profileImageUrl?: string;
+      email: string;
+      role: "USER" | "ADMIN";
+    } & DefaultSession["user"];
+    accessToken: string;
+  }
+
+  interface User {
+    accessToken: string;
+  }
+
+  interface JWT {
+    accessToken: string;
+  }
+}
+```
+
+페이지에서는 이렇게 사용할 수 있습니다.
+
+```ts
+export default async function Page() {
+  const session = await auth();
+  const res = await fetch("/api/posts", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${session?.accessToken}`,
+    },
+  });
+  //...
+}
+```
+
+<Heading type="h2">OAuth 로그인(구글)</Heading>
+
+이번엔 OAuth를 구현해봅니다. Next Auth에서는 다양한 OAuth providers를 제공합니다.
+
+<Blockquote type="info">
+  [Next Auth Providers 정보](https://authjs.dev/reference/core/providers)
+</Blockquote>
+
+<Heading type="h3">로그인 구현 - 설정</Heading>
+
+이번엔 그 중에 대표적으로 Google 로그인을 구현해보겠습니다.
+일단 [Google Cloud Console](https://console.cloud.google.com)에 로그인합니다.
+
+![구글 클라우드](/posts/dev/20250314-next-auth/1.png)
+
+프로젝트 만들기를 클릭합니다.
+
+![프로젝트 만들기](/posts/dev/20250314-next-auth/2.png)
+
+본인의 프로젝트 만들기 후 몇 초만 기다리면 새로운 프로젝트가 만들어집니다.
+
+![프로젝트 만들기](/posts/dev/20250314-next-auth/3.png)
+
+프로젝트가 만들어지면 위와 같은 화면에 들어갈 수 있습니다.
+api 및 서비스를 클릭합니다.
+
+![프로젝트 만들기](/posts/dev/20250314-next-auth/4.png)
+
+사용자 인증 정보에 OAuth 클라이언트 ID를 클릭합니다.
+
+![프로젝트 만들기](/posts/dev/20250314-next-auth/5.png)
+
+위 필요한 설정 값들을 읽어보고 설정해줍니다.
+
+![프로젝트 만들기](/posts/dev/20250314-next-auth/6.png)
+
+여기서 애플리케이션 유형을 입력해줍니다.
+
+![프로젝트 만들기](/posts/dev/20250314-next-auth/7.png)
+
+설정값을 입력해주는 데 중요한 부분은 **승인된 리디렉션 URL**부분입니다.
+
+```ts
+// 각각 providers 별로 redirection URL이 있습니다.
+https://example.com/api/auth/callback/google
+```
+
+![프로젝트 만들기](/posts/dev/20250314-next-auth/8.png)
+
+완료된 프로젝트 화면에서 클라이언트ID와 클라이언트 보안 비밀번호를 복사합니다.
+
+```env
+GOOGLE_CLIENT_ID=클라이언트ID
+GOOGLE_CLIENT_SECRET=클라이언트 보안 비밀번호
+```
+
+이렇게 환경변수를 지정해줍니다.
+
+```ts
+// ./auth.ts
+import Google from "next-auth/providers/google";
+ //...
+   Google({
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+    }),
+```
+
+이렇게 `providers`에 `Google`을 추가해줍니다.
+
+<Heading type="h3">로그인 구현 - View</Heading>
+
+```tsx
+<Button
+  onClick={() => signIn("google")}
+  type="button"
+  variant="outline"
+  className="w-10 h-10 p-2 flex items-center justify-center rounded-full bg-white border-gray-300"
+>
+  <Image src={googleLogo} alt="google logo" />
+
+  <span className="sr-only">구글 계정으로 로그인</span>
+</Button>
+```
+
+<Heading type="h3">회원 처리</Heading>
+
+콜백 함수에 signIn에 이렇게 처리해줄 수 있습니다.
+
+```ts
+signIn: async ({ account, profile, user }) => {
+      if (account && account.provider !== "credentials" && profile) {
+        const body = {
+          provider: account.provider,
+          socialUserId: account.providerAccountId,
+        };
+        const res = await server.post("/api/auth/social-login", body);
+        const data = await res.json();
+        if (data.status === "성공") {
+          // 로그인 성공 처리
+          // ...
+
+          return true;
+        } else {
+          // 로그인 실패시 url redirection or 회원가입 처리
+          const params = new URLSearchParams();
+          params.set("provider", account.provider);
+          params.set("id", account.providerAccountId);
+
+          return `/join?${params.toString()}`;
+        }
+      }
+      return true;
+    },
+```
+
+소셜 로그인에 경우 `account.provider`에 공급자가 나와있고 OAuth로 로그인된 반환값은 profile에 담겨서 옵니다.
+소셜 로그인이 서비스에 회원이면 로그인 처리를 해주고 true값을 반환해주면 됩니다. 그리고 회원이 아닌 경우 회원가입을 위한 처리를 해주면 되는데 만약 회원가입 페이지로
+redirection 처리를 하고 싶다면 pathname을 반환해주면 됩니다.
+
+<Heading type="h2">세션 업데이트</Heading>
+
+사용자 정보를 업데이트를 할 때는 update 매서드를 사용하면 됩니다.중요한 것은 jwt callback에서 수정된 정보를 업데이트를 할 수 있습니다.
+
+```ts
+jwt: async ({ token, user, account, trigger, session }) => {
+      if (user && account) {
+        return { ...token, ...user };
+      } else if (trigger === "update" && session) { // trigger로 update 됐는지 알 수 있습니다.
+        const { 변경된 값 } = session;
+        return { ...token, 변경된 값 };
+      }
+}
+```
+
+<Heading type="h2">리프레시 토큰 처리</Heading>
+
+리프레시 토큰이 있을 경우 `accessToken`이 만료되기 전에 리프레시를 진행하는 방법에 대해 작성해보겠습니다.
+만약 만료되는 시간을 서버에서 반환되지 않는 경우에 대해서 작성하겠습니다.
+
+`accessToken`이 **1시간** 유효시간이라고 가정하고 작성하겠습니다.
+
+```ts
+Credentials({
+      // ...
+      authorize: async (credentials) => {
+        // ...
+        try{
+          // 로그인 로직
+          const res = await login({
+            id: id as string,
+            password: password as string,
+          });
+
+          const user = await res.json()
+          const accessToken = response.headers.get("authorization"); // 토큰 추출
+          const accessTokenExpires = Math.floor(Date.now() / 1000) + 60 * 60; // 1시간
+          return {
+            ...user,
+            accessToken, // 토큰값 반환
+            accessTokenExpires // 토큰 만료
+          };
+        }catch(err){
+          // 에러 핸들링
+        }
+      }
+    }),
+```
+
+인증 과정에서 만료시간을 반환하고 `callback`에 `jwt` 함수에서 처리를 합니다.
+
+```ts
+jwt: asnyc () => {
+  if (user && account) {
+    // 로그인 처리
+  } else if (trigger === "update" && session) {
+    // 업데이트 처리
+  } else if (
+    Date.now() <
+    (token.accessTokenExpires as number) * 1000 - 10 * 60 * 1000
+  ) {
+    // 만료시간 10분 전까지 기존값 반환
+    return token;
+  }
+
+  // 리프래시 처리
+}
+```
+
+이렇게 Next Auth를 활용하면 간편하게 세션을 관리하고 사용자 인증을 유연하게 다룰 수 있습니다. 다양한 콜백을 활용하여 JWT나 세션 정보를 커스터마이징할 수 있으며, Next.js 환경에서 효과적으로 권한을 제어할 수 있습니다. Next.js 프로젝트를 진행한다면 Next Auth가 세션 관리와 보안 인증 측면에서 굉장히 유용한 도구가 될 것입니다. 긴 글 읽어주셔서 감사합니다!
+
+<Blockquote type="info">[v5 공식 문서](https://authjs.dev/)</Blockquote>
