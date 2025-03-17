@@ -1,5 +1,5 @@
-import { ImSpinner } from "react-icons/im";
+import { LoaderCircle } from "lucide-react";
 
 export default function SpinnerIcon() {
-  return <ImSpinner className="animate-spin text-4xl" />;
+  return <LoaderCircle />;
 }

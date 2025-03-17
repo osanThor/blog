@@ -1,4 +1,5 @@
-import { BsThreeDots } from "react-icons/bs";
+import { Ellipsis } from "lucide-react";
+
 export default function TreeDotsIcon() {
-  return <BsThreeDots />;
+  return <Ellipsis />;
 }

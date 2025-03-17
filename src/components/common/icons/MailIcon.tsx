@@ -1,4 +1,5 @@
-import { RiMailFill } from "react-icons/ri";
+import { Mail } from "lucide-react";
+
 export default function MailIcon() {
-  return <RiMailFill />;
+  return <Mail />;
 }
