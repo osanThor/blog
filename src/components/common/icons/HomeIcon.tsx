@@ -1,5 +1,5 @@
-import { BiSolidHomeSmile } from "react-icons/bi";
+import { Home } from "lucide-react";
 
 export default function HomeIcon() {
-  return <BiSolidHomeSmile />;
+  return <Home />;
 }

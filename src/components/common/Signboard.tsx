@@ -23,7 +23,7 @@ export default function Signboard() {
         className="dark:invert object-cover"
         src="/logo.svg"
         alt="Give's log logo"
-        width={320}
+        width={280}
         height={92}
         priority
       />

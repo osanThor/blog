@@ -1,5 +1,5 @@
-import { SiGithub } from "react-icons/si";
+import { Github } from "lucide-react";
 
 export default function GithubIcon() {
-  return <SiGithub />;
+  return <Github />;
 }
