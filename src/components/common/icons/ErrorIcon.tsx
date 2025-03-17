@@ -1,4 +1,5 @@
-import { BiSolidMessageAltError } from "react-icons/bi";
+import { MessageSquareWarning } from "lucide-react";
+
 export default function ErrorIcon() {
-  return <BiSolidMessageAltError />;
+  return <MessageSquareWarning />;
 }

@@ -1,4 +1,5 @@
-import { RiAlarmWarningFill } from "react-icons/ri";
+import { TriangleAlert } from "lucide-react";
+
 export default function WarnIcon() {
-  return <RiAlarmWarningFill />;
+  return <TriangleAlert />;
 }

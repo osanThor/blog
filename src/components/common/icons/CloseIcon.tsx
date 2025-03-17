@@ -1,4 +1,5 @@
-import { RiCloseFill } from "react-icons/ri";
+import { X } from "lucide-react";
+
 export default function CloseIcon() {
-  return <RiCloseFill />;
+  return <X />;
 }

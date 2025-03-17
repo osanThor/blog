@@ -1,4 +1,5 @@
-import { FaLink } from "react-icons/fa";
+import { Link } from "lucide-react";
+
 export default function LinkIcon() {
-  return <FaLink />;
+  return <Link />;
 }

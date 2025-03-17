@@ -18,17 +18,9 @@ const config = {
   // next config here...
   images: {
     formats: ["image/avif", "image/webp"],
-    minimumCacheTTL: 31536000,
-    unoptimized: true,
   },
   experimental: {
-    optimizePackageImports: [
-      "swiper",
-      "react-icons",
-      "ssr-window",
-      "dom7",
-      "gsap",
-    ],
+    optimizePackageImports: ["ssr-window", "dom7", "gsap"],
   },
   webpack: (config) => {
     // 코드 스플리팅 설정 오버라이드

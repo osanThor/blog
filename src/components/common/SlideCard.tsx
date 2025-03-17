@@ -1,5 +1,5 @@
 "use client";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useMemo } from "react";
 import { EffectCreative } from "swiper/modules";
 import Link from "next/link";
 import { Post } from "#site/content";
@@ -15,19 +15,19 @@ type Props = {
 } & PropsWithChildren;
 
 export default function SlideCard({ list }: Props) {
+  const creativeEffect = useMemo(
+    () => ({
+      prev: { shadow: true, translate: [0, 0, -400] },
+      next: { translate: ["100%", 0, 0] },
+    }),
+    []
+  );
+
   return (
     <Swiper
       grabCursor={true}
       effect={"creative"}
-      creativeEffect={{
-        prev: {
-          shadow: true,
-          translate: [0, 0, -400],
-        },
-        next: {
-          translate: ["100%", 0, 0],
-        },
-      }}
+      creativeEffect={creativeEffect}
       modules={[EffectCreative]}
       loop={true}
       className="mySwiper"
@@ -38,15 +38,15 @@ export default function SlideCard({ list }: Props) {
             href={`/post/${item.category}/${item.href}`}
             className="flex transition-all gap-7 items-start rounded-xl  group relative overflow-hidden"
           >
-            <div className="overflow-hidden w-full h-full rounded-xl relative flex items-center justify-center ">
+            <div className="overflow-hidden w-full h-full rounded-xl relative flex items-center justify-center">
               <Img
-                className="object-cover w-full aspect-[5/3] group-hover:scale-[1.1] transition-all duration-200 "
+                className="object-cover aspect-[5/3] group-hover:scale-[1.1] transition-all duration-200"
                 src={item.cover}
                 alt={`cover-of-${item.title}`}
                 width={720}
                 height={400}
                 priority={idx === 0}
-                loading="eager"
+                loading={idx === 0 ? "eager" : "lazy"}
                 placeholder="blur"
                 blurDataURL={item.blurDataURL}
               />

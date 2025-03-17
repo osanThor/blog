@@ -1,4 +1,5 @@
-import { FaCircleQuestion } from "react-icons/fa6";
+import { Info } from "lucide-react";
+
 export default function QuestionIcon() {
-  return <FaCircleQuestion />;
+  return <Info />;
 }

@@ -1,4 +1,5 @@
-import { IoRocket } from "react-icons/io5";
+import { Rocket } from "lucide-react";
+
 export default function InfoIcon() {
-  return <IoRocket />;
+  return <Rocket />;
 }
