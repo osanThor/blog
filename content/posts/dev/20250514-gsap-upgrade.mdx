@@ -1,0 +1,184 @@
+---
+title: GSAP ScrollSmoother 적용
+tags:
+  - GSAP
+  - Next
+description: "애니메이션 라이브러리 GSAP 3.13.0 릴리즈 & 100% 무료"
+date: 2025.05.14
+cover: "/posts/dev/20250514-gsap-upgrade/cover.jpg"
+href: "20250514-gsap-upgrade"
+category: dev
+featured: true
+draft: false
+---
+
+<Heading type="h2">GSAP (GreenSock Animation Platform)</Heading>
+
+<Heading type="h3">GSAP이란?</Heading>
+
+GSAP(GreenSock Animation Platform)은 웹에서 간편하고 강력하게 **애니메이션을 만들기 위한 자바스크립트 기반의 애니메이션 라이브러리**입니다.
+React, Vue, Next.js 등 다양한 프레임워크와 함께 사용할 수 있으며, SVG, CSS, Canvas, WebGL 등 거의 모든 DOM 요소 및 속성을 정밀하게 애니메이션화할 수 있습니다.
+
+<Heading type="h4">GSAP 강점</Heading>
+
+1. **강력하다** - requestAnimationFrame 기반으로 부드럽고 정확한 프레임 처리 (60fps 유지 가능)
+2. **정밀한 세팅** - 객체지향적으로 시간, 속도, easing, delay, 반복 등 애니메이션에 대한 모든 제어가 가능
+3. **모듈화** - 필요에 따라 필요한 플러그인만 사용 가능 (예: ScrollTrigger, SplitText 등)
+4. **크로스 브라우징** - 다양한 브라우저에서 동일한 결과 보장
+
+<Heading type="h4">GSAP 사용법</Heading>
+
+gsap의 사용법은 정말 간편합니다.
+
+1. gsap 설치
+
+```shell
+# npm
+npm install gsap
+
+# yarn
+yarn add gsap
+```
+
+2. 플러그인 등록
+
+```js
+import { gsap } from "gsap";
+
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+```
+
+3. 명령어 입력
+
+```js
+gsap.to(".box", {
+  scrollTrigger: ".box", // start animation when ".box" enters the viewport
+  x: 500,
+});
+```
+
+gsap에서 가장 많이 사용하는 명령어들은 아래와 같습니다.
+
+|  명령어  |               설명                |
+| :------: | :-------------------------------: |
+|   `to`   | 애니메이션을 지정된 속성으로 변경 |
+|  `from`  |        초기(시작)상태 설정        |
+| `fromTo` |      시작값과 종료값을 설정       |
+
+그리고 애니메이션을 길고 복잡하게 만들경우 `timeLine`을 사용합니다.
+
+```js
+const tl = gsap.timeline();
+
+tl.to(".box", { x: 100, duration: 1 })
+  .to(".box", { y: 100, duration: 1 })
+  .to(".box", { rotation: 360, duration: 1 });
+```
+
+사용법은 간단하게 이렇게 알아보고 13.3.0으로 릴리즈되면서 생긴 변화를 알아보겠습니다.
+
+<Heading type="h3">GSAP 13.3.0 릴리즈</Heading>
+
+![gsap 13.3.0 블로그 페이지](/posts/dev/20250514-gsap-upgrade/1.png)
+
+이번에 정말 파격적인 업그레이드로 gsap이 돌아왔습니다.
+무려 모든 플러그인이 100% 무료로 변경된다고 하는데요.
+
+블로그 내용을 보면 [Webflow](https://webflow.com/)의 후원으로 100% 무료가 가능해졌다고 합니다. 그리고 몇몇 업그레이드가 있는 것 같은데 자세히는 링크로 달아두겠습니다.
+
+<Blockquote type="info">
+  **GSAP 13.3.0**
+  <br />- [GSAP 13.3.0 release blog post](https://gsap.com/blog/3-13/#splittext-rewrite)
+  <br />- [업그레이드 내용 요약 - GeekNews](https://news.hada.io/topic?id=20758)
+</Blockquote>
+
+이전엔 다양한 플러그인을 사용하려면 유료플랜을 구독해야했는데 이렇게 무료로 사용할 수 있게 변경되다니 행복한 일이 아닐수 없습니다.
+
+<Blockquote>존버는 성공한다...</Blockquote>
+
+저는 기존 유료 플러그인이었던 **스크롤스무서**(**ScrollSmoother**)를 사용해보고 싶었기 때문에 바로 사용해 보겠습니다!
+
+<Heading type="h2">나만의 포트폴리오 업그레이드</Heading>
+
+저만의, 저에 의한, 저를 위한 시리즈의 첫째 포트폴리오는 GSAP이 많이 사용된 프로젝트였습니다.
+
+![이전 포트폴리오](/posts/dev/20250514-gsap-upgrade/2.gif)
+
+뭔가 효과가 이것저것 많이 보이죠?
+
+<Heading type="h3">ScrollSmoother 적용</Heading>
+
+이제 여기에 **ScrollSmoother**를 추가해보겠습니다.
+
+일단 설치된 gsap을 업그레이드 해줍니다.
+
+![package.json gsap](/posts/dev/20250514-gsap-upgrade/3.png)
+
+그리고 위 ScrollTrigger와 같이 ScrollSmoother 플러그인을 등록해주면 끝입니다!
+주위할 것은 ScrollSmoother 사용 시 ScrollTrigger은 필수라는 점인데 전 이미 사용중이니 그냥 추가해주면 되네요.
+
+그리고 스크롤 이펙트가 필요한 부분에
+
+```js
+ScrollSmoother.create({
+  smooth: 1, // how long (in seconds) it takes to "catch up" to the native scroll position
+  effects: true, // looks for data-speed and data-lag attributes on elements
+  smoothTouch: 0.1, // much shorter smoothing time on touch devices (default is NO smoothing on touch devices)
+});
+```
+
+위를 추가해주면 되는데 저는 전체적인 페이지에 필요함으로 루트 레이아웃에서 선언해주었습니다.
+
+<Blockquote type="warn">
+  gsap 사용은 Client 컴포넌트에서만 가능합니다.
+</Blockquote>
+
+```jsx
+// ID smooth-wrapper, smooth-content로 묶어줘야해요.
+<div id="smooth-wrapper">
+  <div id="smooth-content">{children}</div>
+</div>
+```
+
+<Heading type="h3">이슈</Heading>
+
+![오류](/posts/dev/20250514-gsap-upgrade/4.gif)
+
+?
+
+![오류](/posts/dev/20250514-gsap-upgrade/5.gif)
+
+??
+
+페이지 도입부분과 페이지 이동시 **Header**가 노출되는 이슈가 있네요.
+
+그리고 영상에 담지는 못했는데 Footer가 위로 올라오는 이슈가 있었는데 이건 `smooth-wrapper`가 `position: fixed`여서 발생한 문제로 Footer 위치만 바꿔주면 해결된 문제였습니다.
+
+레이아웃 깨지고 난리가 날 줄 알았는데 이정도면 괜찮은 것 같습니다.
+
+Header가 페이지 이동 시 Router-Loader Wrap과 z-index 이슈처럼 보이는 이유는
+Router-Loader가 기존엔 Header와 같은 Depth였다가 `smooth-wrapper`로 둘러 싸여서 인덱싱이 꼬인 것 입니다.
+
+Router-Loader Wrap은 Next의 **템플릿**(**Template**)으로 만든 것인데 템플릿을 사용한 이유는 경로 간에 지속되고 상태를 유지하는 **레이아웃**(**Layout**)과 달리
+탐색 시 자식의 새 인스턴스를 생성하기 때문에 Router-Loader로 사용했던 것인데 `smooth-wrapper`을 레이아웃에서 사용해 이런 이슈가 발생했습니다.
+
+<Blockquote>
+  **템플릿**은 **레이아웃**과 **자식**(**Children**) 사이에서 렌더링 됩니다.
+</Blockquote>
+
+`smooth-wrapper` 위치만 바꿔주니 간단히 해결~
+
+<Heading type="h3">결과</Heading>
+
+![결과](/posts/dev/20250514-gsap-upgrade/6.gif)
+
+어떤가요? 처음보다 스크롤이 부드러워진 것을 확인할 수 있습니다. ㅎㅎ
+
+크게 바꾼 건 아니었지만 GSAP이 무료로 풀렸다길래 이전부터 적용해보고 싶던 플러그인을 바로 적용해 볼 수 있어서 즐거웠습니다.
+계속해서 포트폴리오도 그렇고 이 블로그도 그렇고 계속 발전해나가는 모습 보여드리겠습니다. 읽어주셔서 감사합니다!
+
+<Blockquote type="info">
+  [포트폴리오 사이트 구경하기](https://www.given-log.com/)
+</Blockquote>
