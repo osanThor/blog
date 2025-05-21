@@ -5,6 +5,7 @@ import { pretendard } from "./fonts";
 import HeaderContainer from "@/containers/common/HeaderContainer";
 import FooterContainer from "@/containers/common/FooterContainer";
 import { getMetadata } from "@/utils/getMetadata";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 export const metadata: Metadata = getMetadata();
 
@@ -15,6 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" suppressHydrationWarning>
+      <GoogleTagManager gtmId={process.env.GOOGLE_GT || ""} />
+      <GoogleAnalytics gaId={process.env.GOOGLE_GA || ""} />
       <body
         className={`${pretendard.variable} antialiased relative`}
         suppressHydrationWarning
