@@ -7,8 +7,8 @@
     "build:content": "velite --clean",
     "dev:next": "next dev --turbopack",
     "build:next": "next build",
-    "dev": "run-p dev:*",
-    "build": "run-s build:*",
+    "dev": "run-p dev:content dev:next",
+    "build": "run-s build:content build:next",
     "start": "next start",
     "lint": "next lint",
     "analyze": "ANALYZE=true next build"
@@ -47,5 +47,6 @@
     "typescript": "^5",
     "velite": "^0.2.1"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "packageManager": "yarn@4.9.2"
 }
