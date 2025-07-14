@@ -1,7 +1,7 @@
 import BigTitle from "@/components/common/BigTitle";
-import SocialLinks from "@/components/common/SocialLinks";
 import { getMetadata } from "@/utils/getMetadata";
 import Image from "next/image";
+// import SocialLinks from "@/components/common/SocialLinks";
 
 export async function generateMetadata() {
   return getMetadata({ title: "Resume" });
@@ -35,7 +35,7 @@ export default function ResumePage() {
               기술적 도약를 목표로 여러 프로젝트를 진행하며 개발자로서 책임감이
               강하며 오너십을 가지고 있습니다.
             </p>
-            <SocialLinks />
+            {/* <SocialLinks /> */}
           </div>
         </div>
       </div>
