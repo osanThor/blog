@@ -5,7 +5,7 @@
   "scripts": {
     "dev:content": "velite --watch",
     "build:content": "velite --clean",
-    "dev:next": "next dev --turbopack",
+    "dev:next": "next dev --turbopack --port 3005",
     "build:next": "next build",
     "dev": "run-p dev:content dev:next",
     "build": "run-s build:content build:next",
