@@ -8,7 +8,7 @@ export async function GET() {
     title: "Given's log",
     description: "FE 개발자 준영의 개발 및 일상 일지",
     generator: "RSS for Node and Next.js",
-    feed_url: `${BASE_URI}/feed.xml`,
+    feed_url: `${BASE_URI}/rss.xml`,
     site_url: BASE_URI,
     copyright: `Copyright ${new Date().getFullYear().toString()}`,
     language: "ko-KR",
