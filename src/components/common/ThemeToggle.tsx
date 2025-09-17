@@ -27,7 +27,7 @@ export default function ThemeToggle() {
   return (
     <button
       aria-label="themeToggleBtn"
-      className={`w-[48px] h-[24px] relative flex rounded-[32px] p-[2px] ease-linear transition-all duration-200 border border-neutral-300 dark:border-neutral-500 ${
+      className={`w-[48px] h-[24px] relative flex rounded-[32px] p-[2px] ease-linear transition-all duration-200 border border-neutral-300 dark:border-neutral-700 ${
         isDark ? "bg-neutral-800" : "bg-white"
       }`}
       onClick={() => setTheme(isDark ? "light" : "dark")}
@@ -36,7 +36,7 @@ export default function ThemeToggle() {
         className={`inline-block w-full h-full relative overflow-hidden ${beforeDefault} ${afterDefault} ${
           isDark
             ? "before:bg-white before:left-[24px] after:w-[18px] after:h-[18px] after:bg-neutral-800 after:left-4 after:-top-[3px] after:opacity-1"
-            : "before:bg-neutral-700 before:left-0 after:w-[1px] after:h-[1px] after:bg-white after:left-[1px] after:-top-0 after:opacity-0"
+            : "before:bg-neutral-800 before:left-0 after:w-[1px] after:h-[1px] after:bg-white after:left-[1px] after:-top-0 after:opacity-0"
         }`}
       />
     </button>
