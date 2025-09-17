@@ -38,8 +38,9 @@ export default {
       },
     },
   },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("tailwindcss-content-visibility")],
-  darkMode: "selector",
+  darkMode: "class",
   future: {
     hoverOnlyWhenSupported: true,
   },
