@@ -42,9 +42,9 @@ export default function HeaderContainer() {
       <header
         className={`${
           isScrolled
-            ? "shadow-sm shadow-neutral-200 dark:shadow-neutral-700"
+            ? "shadow-sm shadow-neutral-200 dark:shadow-neutral-800"
             : ""
-        } transition-all duration-200 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white w-full flex items-center justify-center sticky top-0 left-0 right-0 px-4 lg:px-5 py-4 z-[999]`}
+        } transition-all duration-200 bg-white dark:bg-neutral-950 text-neutral-900 dark:text-white w-full flex items-center justify-center sticky top-0 left-0 right-0 px-4 lg:px-5 py-4 z-[999]`}
       >
         <div className="w-full max-w-[1082px] flex items-center justify-between">
           <HeaderNavbar />
