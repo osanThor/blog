@@ -6,6 +6,7 @@ import HeaderContainer from "@/containers/common/HeaderContainer";
 import FooterContainer from "@/containers/common/FooterContainer";
 import { getMetadata } from "@/utils/getMetadata";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = getMetadata();
 
@@ -34,6 +35,7 @@ export default function RootLayout({
           </main>
           <FooterContainer />
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
