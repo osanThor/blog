@@ -1,0 +1,234 @@
+---
+title: 실무하면서 느낀 Next.js 상태 관리 전략
+tags:
+  - React Query
+  - Zustand
+description: "React Query + Zustand 조합으로 실제 서비스 로직을 견고하게 만들수 있을 때까지"
+date: 2025.12.06
+cover: "/posts/dev/20251206-status-query/cover.jpg"
+href: "20251206-status-query"
+category: dev
+featured: true
+draft: false
+---
+
+<Heading type="h2">Next.js 실무에서의 복잡한 상태 관리 전략</Heading>
+
+사실 전략이라고 하기엔 좀 민망하다. 더 정확히는 실무에서 느낀 Next.js + React(Tanstack) Query + Zustand 조합에서 좋았던 점을 정리하고 공유하는 것이다.
+
+React Query + Zustand 조합으로 실제 서비스 로직을 견고하게 만들기까지
+Next.js로 웹 서비스를 만들다 보면, 어느 순간 “상태 관리가 단순하지 않은 순간”이 찾아온다. 페이지 단위 상태, 서버에서 가져온 비동기 데이터, 컴포넌트 내부에서만 필요한 임시 값, 그리고 외부 SDK(예: 지도 API)에서 발생하는 상태까지 서로 얽히면서 상태의 출처와 책임이 모호해지는 문제가 발생한다.
+나는 커머스 서비스 예약/주문 흐름을 다루는 프로젝트를 진행하면서 이러한 복잡한 상태 문제를 정면으로 마주하게 되었다.
+오늘은 그 과정에서 얻은 깨달음과, 실무에서 효과적이었던 Next.js 기반의 상태 관리 전략을 공유해 보려고 한다.
+
+<Heading type="h3">1. 복잡한 상태 문제를 단순 예시로 바꿔 보자</Heading>
+
+예시
+
+1. 서버에서 예약 가능한 날짜 목록을 조회
+2. 사용자가 날짜를 선택
+3. 사용자가 선택한 날짜에 따라 또 다른 데이터를 조회(예: 시간대 목록)
+4. 지도 SDK 또는 UI 상호작용으로 지역 정보를 업데이트
+5. 여러 페이지에 걸쳐 유지해야 하는 입력 폼 상태가 존재
+
+이걸 모두 React의 local state로 관리하면 다음과 같은 문제가 생긴다
+
+- 비동기 데이터와 동기 UI 상태가 섞여 버림
+- 컴포넌트 간 상태 전달이 복잡해짐
+- 새로고침 시 초기화 문제
+- 서버 데이터 캐싱 부재로 인해 매번 네트워크 호출 발생
+- 렌더 순서에 따라 setState 타이밍 충돌 가능
+
+그래서 상태의 책임을 명확히 나누는 전략이 필요하다.
+
+<Heading type="h3">2. React Query와 Zustand를 함께 사용해야 했던 이유</Heading>
+
+기존에는 “React Query는 서버 상태, Zustand는 글로벌 상태”라는 단순 공식이 있었다.
+하지만 실제 비즈니스 로직은 그렇게 단순하지 않았다.
+
+| 상태 종류                               | 상태 관리           | 이유                                           |
+| :-------------------------------------- | :------------------ | :--------------------------------------------- |
+| 서버에서 가져오는 예약 가능한 날짜 목록 | React Query         | 네트워크 요청 결과 + 캐싱 필요                 |
+| 사용자가 선택한 날짜                    | Zustand             | 페이지 이동 간 유지돼야 함                     |
+| 선택한 날짜로 조회한 시간대 목록        | React Query         | 서버 상태이며, 선택값 변경에 따라 자동 refetch |
+| 지도에서 선택된 위치 정보               | Zustand             | UI 상호작용 결과이며 전역 공유 필요 없음       |
+| 날짜 • 위치를 이용해 계산한 파생 상태   | useMemo (또는 함수) | 상태로 보관할 필요 없음                        |
+
+<Heading type="h3">3. 우리가 React Query를 쓰는 이유</Heading>
+
+<Heading type="h4">
+  1 React Query는 서버 데이터를 “상태”가 아닌 “캐시”로 관리
+</Heading>
+
+일반적으로 우리는 서버 데이터를 이렇게 관리한다
+
+```ts
+const [dates, setDates] = useState([]);
+useEffect(() => {
+  fetch("/api/dates").then((res) => setDates(res));
+}, []);
+```
+
+이 방식의 문제
+
+- 매번 네트워크 요청 발생
+- 다른 컴포넌트에서도 동일 데이터가 필요하면 또 요청
+- 에러/로딩 관리 로직 중복
+- 새로고침 시 다시 로딩
+- 병렬 요청을 최적화하지 못함
+
+React Query는 데이터를 상태(state)로 저장하지 않고 캐시(cache)로 저장한다.
+그래서 다음 기능이 자동으로 제공된다
+
+<Blockquote type="info">
+  <ul>
+    <li>
+      <b>캐싱</b>: 데이터를 메모리에 저장해두고, 다시 요청할 때 메모리에서
+      데이터를 가져온다.
+    </li>
+    <li>
+      <b>동기화</b>: 데이터가 변경되면 자동으로 데이터를 업데이트한다.
+    </li>
+    <li>
+      <b>자동 리패치</b>: 데이터가 변경되면 자동으로 데이터를 리패치한다.
+    </li>
+    <li>
+      <b>자동 로딩</b>: 데이터가 로딩되면 자동으로 로딩 상태를 업데이트한다.
+    </li>
+    <li>
+      <b>자동 에러 처리</b>: 데이터가 에러가 발생하면 자동으로 에러를 처리한다.
+    </li>
+  </ul>
+</Blockquote>
+
+React Query는 요청 key 기반으로 캐시를 공유하기 때문에,
+A 컴포넌트와 B 컴포넌트가 동시에 같은 데이터를 사용해도 한 번만 요청을 보낸다.
+
+이는 실무에서 렌더 경로가 길거나 컴포넌트가 중첩된 화면에서 특히 효과적이다.
+
+<Heading type="h4">
+  2 Next.js 서버 컴포넌트와 궁합이 좋은 이유 — “중복 fetch 방지 + hydration
+  최적화”
+</Heading>
+
+Next.js App Router 환경에서
+
+- 서버 컴포넌트(Server Component)는 서버에서 데이터를 호출한다.
+- 클라이언트 컴포넌트(Client Component)에서도 같은 데이터를 사용하는 경우가 많다.
+
+<Blockquote type="error">
+  문제는? 서버가 한번 fetch했고, 클라이언트도 다시 fetch할 수 있음(중복 요청).
+</Blockquote>
+
+React Query를 사용하면 서버에서 fetch한 데이터를 React Query 캐시에 사전 주입(hydration)할 수 있다.
+
+즉, 클라이언트 컴포넌트는 이미 준비된 캐시를 사용하므로 중복 fetch가 일어나지 않는다.
+
+```tsx
+const data = await fetchData();
+
+return (
+  <HydrationBoundary state={dehydrate(queryClient)}>
+    <ClientComponent />
+  </HydrationBoundary>
+);
+```
+
+React Query의 dehydrate → hydrate 방식 덕분에 클라이언트는 즉시 캐시 사용 → 네트워크 요청 없음.
+
+<Heading type="h4">
+  3 Refetch 전략이 비즈니스 로직 없이도 “자동으로” 최적화된다
+</Heading>
+
+일반 fetch로 구현하면 “데이터를 언제 다시 가져와야 하는가?”를 직접 정해야 한다.
+
+React Query는 다음이 자동이다
+
+- 브라우저 포커스가 돌아왔을 때 stale 데이터 재요청
+- 네트워크가 다시 연결되면 자동 refetch
+- staleTime 기준으로 오래된 데이터만 갱신
+- window focus / reconnect / garbage collection 정책 자동 처리
+
+```tsx
+useQuery({
+  queryKey: ["times", selectedDate],
+  queryFn: () => fetchTimes(selectedDate),
+  staleTime: 1000 * 60 * 5, // 5분 동안은 새 요청 X
+});
+```
+
+이 한 줄로
+
+- 5분 동안 API 중복 호출 없음
+- 다른 컴포넌트가 같은 key를 쓰면 동일 결과 공유
+- selectedDate가 변경되면 자동 refetch
+
+실무에서 “동일 데이터 불필요한 재호출”을 모두 제거해주는 매우 큰 장점이다.
+
+<Heading type="h4">
+  4 Suspense 와 결합했을 때 근본적으로 렌더링 흐름이 깔끔해짐
+</Heading>
+
+Next.js는 React Suspense 기반이다.
+React Query는 Suspense 모드를 지원하여 로딩 처리를 아주 단순화한다.
+
+```tsx
+const { data } = useQuery({
+  queryKey: ["dates"],
+  queryFn: fetchDates,
+  suspense: true,
+});
+```
+
+로딩 스피너를 따로 관리할 필요 없이 Suspense Boundary에서 처리된다.
+
+이는 “로딩 관리 코드가 UI 로직을 더럽히지 않는다”는 огром한 장점이 있다.
+
+<Heading type="h3">4. Zustand는 왜 전역 상태 관리로 적합한가?</Heading>
+
+Zustand는 간단한 예시로 설명하면 더 명확하다.
+
+예시: 페이지 간 유지되는 사용자 입력 정보
+
+```ts
+const useFormStore = create((set) => ({
+  name: "",
+  age: "",
+  updateField: (key, value) => set({ [key]: value }),
+}));
+```
+
+Zustand가 좋은 이유
+
+1. 리렌더 최소화 (selector 기반 구독)
+
+   ```ts
+   const name = useFormStore((state) => state.name);
+   ```
+
+   이 컴포넌트는 state.name만 변경될 때만 렌더링된다.
+
+2. 깊은 위치의 상태라도 직접 가져오기 가능
+
+   Props drilling 불필요.
+
+3. 비동기 로직과 UI 상태를 분리해 구조가 깔끔해짐
+
+   React Query → 서버 데이터  
+   Zustand → 유저 입력 상태, UI상태
+
+<Heading type="h3">5. 결론</Heading>
+
+🔥 React Query는
+
+- 네트워크 요청을 “상태가 아닌 캐시”로 관리하고
+- 중복 요청을 제거하며
+- Next.js 서버 컴포넌트와 함께 사용할 때 hydration으로 네트워크 비용을 최소화하고
+- refetch 정책이 자동으로 최적화된다.
+
+🔥 Zustand는
+
+- 사용자 입력·UI 상태를 최소한의 리렌더로 관리할 수 있고
+- 페이지 이동 간 상태가 안정적으로 유지된다.
+
+둘의 역할이 명확히 분리가 중요
