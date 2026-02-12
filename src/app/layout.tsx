@@ -38,14 +38,20 @@ export default function RootLayout({
         </Providers>
         <Analytics />
         {/* Naver Analytics */}
-        <Script src="//wcs.pstatic.net/wcslog.js" strategy="beforeInteractive" />
-        <Script id="naver-wcs" strategy="lazyOnload">
+        <Script src="//wcs.pstatic.net/wcslog.js" strategy="afterInteractive" />
+        <Script id="naver-wcs" strategy="afterInteractive">
           {`
-            if(!window.wcs_add) window.wcs_add = {};
-            window.wcs_add["wa"] = "${process.env.NEXT_PUBLIC_NAVER_WA || "322d41c19ffe14"}";
-            if(window.wcs) {
-              window.wcs_do();
-            }
+            (function initWcs(tryCount){
+              if(!window.wcs_add) window.wcs_add = {};
+              window.wcs_add["wa"] = "${process.env.NEXT_PUBLIC_NAVER_WA || "322d41c19ffe14"}";
+
+              if(window.wcs && window.wcs_do) {
+                window.wcs_do();
+                return;
+              }
+              if(tryCount > 20) return;
+              setTimeout(function(){ initWcs(tryCount + 1); }, 50);
+            })(0);
           `}
         </Script>
       </body>
