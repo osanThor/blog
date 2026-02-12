@@ -7,6 +7,7 @@ import FooterContainer from "@/containers/common/FooterContainer";
 import { getMetadata } from "@/utils/getMetadata";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
 
 export const metadata: Metadata = getMetadata();
 
@@ -36,6 +37,17 @@ export default function RootLayout({
           <FooterContainer />
         </Providers>
         <Analytics />
+        {/* Naver Analytics */}
+        <Script src="//wcs.pstatic.net/wcslog.js" strategy="afterInteractive" />
+        <Script id="naver-wcs" strategy="afterInteractive">
+          {`
+            if(!window.wcs_add) window.wcs_add = {};
+            window.wcs_add["wa"] = "${process.env.NEXT_PUBLIC_NAVER_WA || "322d41c19ffe14"}";
+            if(window.wcs) {
+              window.wcs_do();
+            }
+          `}
+        </Script>
       </body>
     </html>
   );
