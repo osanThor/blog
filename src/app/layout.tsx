@@ -38,8 +38,8 @@ export default function RootLayout({
         </Providers>
         <Analytics />
         {/* Naver Analytics */}
-        <Script src="//wcs.pstatic.net/wcslog.js" strategy="afterInteractive" />
-        <Script id="naver-wcs" strategy="afterInteractive">
+        <Script src="//wcs.pstatic.net/wcslog.js" strategy="beforeInteractive" />
+        <Script id="naver-wcs" strategy="lazyOnload">
           {`
             if(!window.wcs_add) window.wcs_add = {};
             window.wcs_add["wa"] = "${process.env.NEXT_PUBLIC_NAVER_WA || "322d41c19ffe14"}";
