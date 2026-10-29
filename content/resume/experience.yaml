@@ -1,0 +1,32 @@
+# 최신 경력이 위로 오도록 작성 (start 기준 내림차순 정렬됨)
+#
+# - company: 회사명
+#   role: Frontend Developer
+#   start: "2024.03"
+#   end: "2025.08"        # 재직 중이면 생략
+#   summary: 한 줄 소개
+#   highlights:
+#     - 수치가 들어간 성과 (ex. LCP 3.2s → 1.4s 개선)
+#   stack: [React, TypeScript]
+- company: 딜러타이어
+  role: Frontend Developer
+  start: "2025.09"
+  summary: 타이어 커머스 플랫폼의 주문·결제 영역 프론트엔드 개발을 담당하고 있습니다.
+  highlights:
+    - Amplitude로 구매 퍼널 이탈 구간을 분석하고 5단계 결제 플로우를 2~3단계로 재설계해 결제 완료율 2.2배 향상
+    - 라우트 단위 코드 스플리팅과 Dynamic Import로 초기 번들을 줄여 FCP 1.03s 단축
+    - SSR 환경에 React Query Hydration을 도입해 초기 진입 시 중복 API 요청 제거
+    - 할인율 계산 로직을 UI에서 분리해 가격 정책 변경 시 코드 수정 없이 대응
+  stack: [React, Next.js, TypeScript, React Query, Amplitude]
+
+- company: 소프트랩스
+  role: Frontend Developer
+  start: "2021.11"
+  end: "2024.06"
+  summary: B2B/B2C 커뮤니티, 쇼핑몰, CMS 등 다양한 서비스의 프론트엔드 개발 및 운영을 맡았습니다.
+  highlights:
+    - 신규 프로젝트에 React·Next.js·TypeScript를 도입해 jQuery/JSP 기반 구조를 컴포넌트 기반으로 전환, 개발 생산성 약 40% 향상
+    - Code Splitting과 Lazy Loading으로 메인 페이지 로딩 시간 1.57초 → 0.54초 단축
+    - 스키마 기반 동적 Form 구조를 설계해 신규 폼 추가 시 컴포넌트 수정 없이 확장
+    - Video.js와 videojs-contrib-ads로 영상 재생 중 광고 삽입 및 광고 이벤트 처리 구현
+  stack: [React, Next.js, TypeScript, TanStack Query, SWR, i18next, Video.js]
