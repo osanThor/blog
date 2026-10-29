@@ -16,6 +16,16 @@ if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
 /** @type {import('next').NextConfig} */
 const config = {
   // next config here...
+  // 기존 /post/{category}/{slug} 주소를 /post/{slug} 로 이동
+  async redirects() {
+    return [
+      {
+        source: "/post/:category(dev|life)/:slug",
+        destination: "/post/:slug",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     formats: ["image/avif", "image/webp"],
   },

@@ -23,7 +23,7 @@ export async function GET() {
       feed.item({
         title: post.title,
         description: post.description,
-        url: `${BASE_URI}/${post.category}/${post.href}`,
+        url: `${BASE_URI}/post/${post.href}`,
         date: post.date,
       });
     });

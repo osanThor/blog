@@ -10,7 +10,7 @@ export default function GridItem({ item }: Props) {
   return (
     <li className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px]">
       <Link
-        href={`/post/${item.category}/${item.href}`}
+        href={`/post/${item.href}`}
         className="flex flex-col transition-all flex-grow"
       >
         {!!item.cover && (

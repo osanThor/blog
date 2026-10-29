@@ -1,16 +1,15 @@
 import remarkGfm from "remark-gfm";
 import { defineConfig, defineCollection, s } from "velite";
 
-// content/posts/{category}/{href}/index.mdx 경로에서 category, href 를 추출
+// content/posts/{href}/index.mdx 경로에서 href 를 추출
 const computedFields = <T extends { slug: string; cover: Image }>({
   cover,
   ...data
 }: T) => {
-  const [category, href] = data.slug.replace(/^posts\//, "").split("/");
+  const href = data.slug.replace(/^posts\//, "");
   const { src, width, height, blurDataURL } = cover;
   return {
     ...data,
-    category,
     href,
     cover: src,
     blurDataURL,
@@ -22,12 +21,13 @@ type Image = { src: string; width: number; height: number; blurDataURL: string }
 
 const posts = defineCollection({
   name: "Post",
-  pattern: "posts/*/*/index.mdx",
+  pattern: "posts/*/index.mdx",
   schema: s
     .object({
       slug: s.path({ removeIndex: true }),
       title: s.string().max(99),
       description: s.string().max(999),
+      category: s.enum(["dev", "life"]),
       tags: s.string().array(),
       date: s.string(),
       // 포스트 폴더 기준 상대경로 (ex. "./cover.png")

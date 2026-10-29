@@ -71,16 +71,17 @@ npm trends에 따르면 Velite와 Contentlayer는 다운로드 수에 차이가 
 
 ## ✍️ 포스팅 방법
 
-포스트 하나는 `content/posts/{category}/{폴더명}/` 폴더 하나로 관리합니다. 글과 이미지를 같은 폴더에 두고 상대경로로 불러옵니다.
+포스트 하나는 `content/posts/{폴더명}/` 폴더 하나로 관리합니다. 글과 이미지를 같은 폴더에 두고 상대경로로 불러옵니다.
 
 ```
-content/posts/dev/20261023-weekly/
+content/posts/20261023-weekly/
 ├── index.mdx
 ├── cover.png
 └── 1.png
 ```
 
-- URL은 폴더 경로에서 자동으로 만들어집니다: `/post/{category}/{폴더명}` (frontmatter에 `href`, `category`를 쓰지 않습니다)
+- URL은 폴더명에서 자동으로 만들어집니다: `/post/{폴더명}` (frontmatter에 `href`를 쓰지 않습니다)
+- `category`는 frontmatter에 `dev` 또는 `life`로 적습니다
 - `cover`와 본문 이미지는 `index.mdx` 기준 상대경로로 작성합니다
 
 ```mdx
@@ -91,6 +92,7 @@ tags:
   - React
 date: 2026.10.23
 cover: "./cover.png"
+category: dev
 ---
 
 ![설명](./1.png)

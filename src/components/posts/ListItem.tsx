@@ -13,7 +13,7 @@ export default function ListItem({ item }: Props) {
       className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px]"
     >
       <Link
-        href={`/post/${item.category}/${item.href}`}
+        href={`/post/${item.href}`}
         className="flex transition-all gap-7 items-start"
       >
         <div className="w-full flex flex-col">
