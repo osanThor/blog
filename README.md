@@ -81,7 +81,6 @@ content/posts/20261023-weekly/
 ```
 
 - URL은 폴더명에서 자동으로 만들어집니다: `/post/{폴더명}` (frontmatter에 `href`를 쓰지 않습니다)
-- `category`는 frontmatter에 `dev` 또는 `life`로 적습니다
 - `cover`와 본문 이미지는 `index.mdx` 기준 상대경로로 작성합니다
 
 ```mdx
@@ -92,7 +91,6 @@ tags:
   - React
 date: 2026.10.23
 cover: "./cover.png"
-category: dev
 ---
 
 ![설명](./1.png)

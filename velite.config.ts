@@ -27,7 +27,6 @@ const posts = defineCollection({
       slug: s.path({ removeIndex: true }),
       title: s.string().max(99),
       description: s.string().max(999),
-      category: s.enum(["dev", "life"]),
       tags: s.string().array(),
       date: s.string(),
       // 포스트 폴더 기준 상대경로 (ex. "./cover.png")

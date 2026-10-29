@@ -37,24 +37,7 @@ export const getPostsPaginated = (
 export const getPost = (href: string): Post | undefined =>
   posts.find((post) => post.href === href);
 
-export const getPostsByCategory = (category: string): Post[] =>
-  getAllPosts().filter((post) => post.category === category);
-
-export const getPostsByCategoryPaginated = (
-  category: string,
-  page: number = 1,
-  pageSize: number = 12
-): PaginatedResult<Post> =>
-  paginate(
-    getAllPosts().filter((post) => post.category === category),
-    page,
-    pageSize
-  );
-
-export const getAllSeries = (category?: string) => {
-  const list = category ? getPostsByCategory(category) : getAllPosts();
-  return makeCountObj(list, "series");
-};
+export const getAllSeries = () => makeCountObj(getAllPosts(), "series");
 
 export const getSeries = (name?: string): Post[] => {
   if (!name) return [];
