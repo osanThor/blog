@@ -1,29 +1,36 @@
-import getBase64 from "@/utils/getBase64";
 import remarkGfm from "remark-gfm";
 import { defineConfig, defineCollection, s } from "velite";
 
-const computedFields = async <T extends { cover: string }>(data: T) => {
-  const { base64, img } = await getBase64(data.cover);
+// content/posts/{href}/index.mdx 경로에서 href 를 추출
+const computedFields = <T extends { slug: string; cover: Image }>({
+  cover,
+  ...data
+}: T) => {
+  const href = data.slug.replace(/^posts\//, "");
+  const { src, width, height, blurDataURL } = cover;
   return {
     ...data,
-    blurDataURL: base64,
-    img,
+    href,
+    cover: src,
+    blurDataURL,
+    img: { src, width, height },
   };
 };
 
+type Image = { src: string; width: number; height: number; blurDataURL: string };
+
 const posts = defineCollection({
   name: "Post",
-  pattern: "posts/**/*.mdx",
+  pattern: "posts/*/index.mdx",
   schema: s
     .object({
-      slug: s.path(),
+      slug: s.path({ removeIndex: true }),
       title: s.string().max(99),
       description: s.string().max(999),
-      href: s.string(),
-      category: s.string(),
       tags: s.string().array(),
       date: s.string(),
-      cover: s.string(),
+      // 포스트 폴더 기준 상대경로 (ex. "./cover.png")
+      cover: s.image(),
       draft: s.boolean().optional(),
       series: s.string().optional(),
       featured: s.boolean().optional(),

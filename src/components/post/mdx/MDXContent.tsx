@@ -1,12 +1,16 @@
 import * as runtime from "react/jsx-runtime";
-import { PropsWithChildren } from "react";
+import { ComponentProps, PropsWithChildren } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { gruvboxDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import Heading from "./Heading";
 import Blockquote from "./Blockquote";
 
 const sharedComponents = {
-  img: (props: PropsWithChildren) => <img className="my-4" {...props} />,
+  // 본문 이미지는 width/height 정보가 없어 next/image 대신 img 사용
+  img: ({ alt = "", ...props }: ComponentProps<"img">) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img className="my-4" alt={alt} loading="lazy" decoding="async" {...props} />
+  ),
   p: (props: PropsWithChildren) => <p className="mt-4 leading-8" {...props} />,
   ul: (props: PropsWithChildren) => (
     <ul className="mt-4 leading-6 list-disc pl-6" {...props} />

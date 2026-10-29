@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 type Props = {
   total: number;
@@ -15,7 +15,6 @@ export default function Pagination({ total, pageSize = 10, limit = 5 }: Props) {
   const currentPage = Number(searchParams.get("page")) || 1;
 
   const numPages = Math.ceil(total / pageSize);
-  const [currentPageArray, setCurrentPageArray] = useState<number[]>([]);
 
   const handleChangePage = (page: number) => {
     const params = new URLSearchParams(searchParams);
@@ -32,11 +31,8 @@ export default function Pagination({ total, pageSize = 10, limit = 5 }: Props) {
     return result;
   };
 
-  useEffect(() => {
-    const slicedPageArray = sliceArrayByLimit(numPages, limit);
-    const pageIndex = Math.floor((currentPage - 1) / limit);
-    setCurrentPageArray(slicedPageArray[pageIndex] || []);
-  }, [numPages, currentPage]);
+  const pageIndex = Math.floor((currentPage - 1) / limit);
+  const currentPageArray = sliceArrayByLimit(numPages, limit)[pageIndex] || [];
 
   const renderButton = (
     pageNumber: number,

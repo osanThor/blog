@@ -68,3 +68,32 @@ npm trends에 따르면 Velite와 Contentlayer는 다운로드 수에 차이가 
 ### 2. 최적화
 
 성능 최적화에 대한 고민을 담은 포스팅은 [여기](https://blog.given-log.com/post/dev/20241128-make-blog3)를 보시면 됩니다.
+
+## ✍️ 포스팅 방법
+
+포스트 하나는 `content/posts/{폴더명}/` 폴더 하나로 관리합니다. 글과 이미지를 같은 폴더에 두고 상대경로로 불러옵니다.
+
+```
+content/posts/20261023-weekly/
+├── index.mdx
+├── cover.png
+└── 1.png
+```
+
+- URL은 폴더명에서 자동으로 만들어집니다: `/post/{폴더명}` (frontmatter에 `href`를 쓰지 않습니다)
+- `cover`와 본문 이미지는 `index.mdx` 기준 상대경로로 작성합니다
+
+```mdx
+---
+title: 제목
+description: 설명
+tags:
+  - React
+date: 2026.10.23
+cover: "./cover.png"
+---
+
+![설명](./1.png)
+```
+
+빌드 시 Velite가 이미지를 `public/static`으로 복사하고 경로·크기·blur placeholder를 자동으로 채워줍니다.

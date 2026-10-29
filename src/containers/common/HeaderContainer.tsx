@@ -25,15 +25,10 @@ export default function HeaderContainer() {
       { threshold: 1 }
     );
 
-    if (observerTargetRef.current) {
-      observer.observe(observerTargetRef.current);
-    }
+    const target = observerTargetRef.current;
+    if (target) observer.observe(target);
 
-    return () => {
-      if (observerTargetRef.current) {
-        observer.unobserve(observerTargetRef.current);
-      }
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (

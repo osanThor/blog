@@ -4,7 +4,7 @@ import { getAllPosts } from "@/services/posts.service.velite";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const staticUrls = ["/", "/posts/dev", "/posts/life", "/resume"];
+    const staticUrls = ["/", "/posts", "/resume"];
     const staticSitemap = staticUrls.map((url) => ({
       url: `${BASE_URL}${url}`,
       lastModified: new Date(),
@@ -14,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const products =  getAllPosts().slice(0, 50000);
 
   return [...staticSitemap, ...products.map((post) => ({
-    url:`${BASE_URL}/${post.category}/${post.href}`,
+    url:`${BASE_URL}/post/${post.href}`,
     lastModified: new Date(post.date) 
   }))]
 }

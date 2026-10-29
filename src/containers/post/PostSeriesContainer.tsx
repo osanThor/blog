@@ -31,7 +31,7 @@ export default function PostSeriesContainer({ series, title, list }: Props) {
               className="group flex flex-col content-visibility-auto contain-intrinsic-size-[auto_1000px]"
             >
               <Link
-                href={`/post/${item.category}/${item.href}`}
+                href={`/post/${item.href}`}
                 className="flex transition-all gap-7"
               >
                 <div className="overflow-hidden w-full max-w-[10vw] min-w-[20%] max-h-[140px] rounded-lg mb-2 relative flex items-center justify-center">
