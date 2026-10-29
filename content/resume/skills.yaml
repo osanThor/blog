@@ -1,0 +1,10 @@
+- category: Language
+  items: [TypeScript, JavaScript, HTML, CSS]
+- category: Framework
+  items: [React, Next.js]
+- category: State
+  items: [Zustand]
+- category: Styling · Motion
+  items: [Tailwind CSS, GSAP]
+- category: Infra · Tooling
+  items: [AWS CodeDeploy, PM2, Velite]
