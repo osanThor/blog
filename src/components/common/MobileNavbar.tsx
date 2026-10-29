@@ -18,7 +18,7 @@ export default function MobileNavbar({ open, setOpen }: Props) {
     } hover:bg-neutral-100 dark:hover:bg-neutral-700 
      inline-block px-2 py-1 rounded-sm transition-all duration-200 `;
 
-  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => setOpen(false), [pathname, setOpen]);
 
   return (
     <div

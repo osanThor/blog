@@ -3,13 +3,14 @@
 import ThemeToggle from "@/components/common/ThemeToggle";
 import useDebounce from "@/hooks/debounde";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function HeaderSearchContainer() {
   const pathname = usePathname();
   const router = useRouter();
   const [value, setValue] = useState("");
   const debouncedValue = useDebounce<string>(value);
+  const prevDebouncedRef = useRef(debouncedValue);
 
   const handleFocus = () => {
     if (!pathname.startsWith("/search")) router.push("/search");
@@ -24,10 +25,13 @@ export default function HeaderSearchContainer() {
     if (value.trim()) router.replace(`/search?query=${value.trim()}`);
   };
 
+  // pathname 변경이 아닌 검색어 변경일 때만 URL 갱신
   useEffect(() => {
+    if (prevDebouncedRef.current === debouncedValue) return;
+    prevDebouncedRef.current = debouncedValue;
     if (pathname.startsWith("/search"))
       router.replace(`/search?query=${debouncedValue}`);
-  }, [debouncedValue]);
+  }, [debouncedValue, pathname, router]);
 
   useEffect(() => {
     if (!pathname.startsWith("/search")) setValue("");
